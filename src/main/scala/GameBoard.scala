@@ -1,1 +1,2 @@
-case class GameBoard(name:String, fields:Int)
+case class GameBoard(name:String, fields:Int) {
+}
