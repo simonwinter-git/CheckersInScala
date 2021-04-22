@@ -1,9 +1,12 @@
 import java.util
-case class Field(name:String, state:Boolean, fieldType:Boolean, id:(Int, Int)) {
+case class Field(id:(Int,Int)) {
+  def state:Int = 0
+  def fieldType:Boolean
+
   if ((id._1 - id._2) % 2 == 0) {
     fieldType = false
-
+  } else {
+    fieldType = true
   }
+
 }
-
-
