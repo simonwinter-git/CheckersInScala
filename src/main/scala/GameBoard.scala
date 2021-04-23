@@ -1,8 +1,6 @@
 case class GameBoard(name:String, fields:Int) {
   val x: Int = math.sqrt(fields).toInt
-
-
-  val zero = new Field(0,0)
+  val zero: Field = Field(0,0)
   val one: Field = Field(0,1)
   val two: Field = Field(0,2)
   val three: Field = Field(1,0)
@@ -11,12 +9,6 @@ case class GameBoard(name:String, fields:Int) {
   val six: Field = Field(2,0)
   val seven: Field = Field(2,1)
   val eight: Field = Field(2,2)
-
-
-
-
-
-
   //val fieldVec = Vector(Vector(zzz))
   /*
   val preID = (val,val)
@@ -32,9 +24,6 @@ case class GameBoard(name:String, fields:Int) {
   if ((preID[0] - preID[1]) % 2 == 0) {
     fieldType = false
   }
-
-
-
   var s = new StringBuilder()
   s = s.append()
   */
