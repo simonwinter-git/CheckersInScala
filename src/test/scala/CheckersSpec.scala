@@ -11,5 +11,9 @@ class CheckersSpec extends AnyWordSpec {
       val field = Checkers.movement((-1,-1))
       field should be (Field(0,0))
     }
+    "should not move to" in {
+      val field = Checkers.movement(-1,-1)
+      field should be (Field(0,0))
+    }
   }
 }
