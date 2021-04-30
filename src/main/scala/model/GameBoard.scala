@@ -2,7 +2,7 @@ package model
 case class GameBoard(fields: Matrix[Field]) {
   def this(size: Int) = this(new Matrix[Field](size, Field(0)))
   val size: Int = fields.size
-
+  def set(row: Int, col: Int, state: Int): GameBoard = copy(fields.replaceField(row, col, Field(state)))
 
 
 

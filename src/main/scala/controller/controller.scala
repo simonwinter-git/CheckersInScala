@@ -1,5 +1,7 @@
 package controller
+import model.{GameBoard}
+import util.Observable
 
-class Controller() {
-
+class Controller() extends Observable{
+  def createEmptyGameBoard()
 }
