@@ -1,4 +1,3 @@
-case class Field(id:(Int,Int)) {
-  def state:Int = 0
-  def isWhite:Boolean = ((id._1 - id._2) % 2 == 0)
+case class Field(state:Int) {
+  //def isWhite:Boolean = ((id._1 - id._2) % 2 == 0)
 }

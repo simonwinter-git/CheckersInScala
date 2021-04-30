@@ -1,14 +1,16 @@
-case class GameBoard(name:String, fields:Int) {
-  val x: Int = math.sqrt(fields).toInt
-  val zero: Field = Field(0,0)
-  val one: Field = Field(0,1)
-  val two: Field = Field(0,2)
-  val three: Field = Field(1,0)
-  val four: Field = Field(1,1)
-  val five: Field = Field(1,2)
-  val six: Field = Field(2,0)
-  val seven: Field = Field(2,1)
-  val eight: Field = Field(2,2)
+case class GameBoard(name:String, size:Int) {
+  def this(size: Int) = this(new Matrix[Field](size, Field(0)))
+
+
+  val zero: Field = Field((0,0),0)
+  val one: Field = Field((0,1),0)
+  val two: Field = Field((0,2),0)
+  val three: Field = Field((1,0),0)
+  val four: Field = Field((1,1),0)
+  val five: Field = Field((1,2),0)
+  val six: Field = Field((2,0),0)
+  val seven: Field = Field((2,1),0)
+  val eight: Field = Field((2,2),0)
   //val fieldVec = Vector(Vector(zzz))
   /*
   val preID = (val,val)
