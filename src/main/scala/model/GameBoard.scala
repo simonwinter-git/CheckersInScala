@@ -4,7 +4,18 @@ case class GameBoard(fields: Matrix[Field]) {
   val size: Int = fields.size
   def set(row: Int, col: Int, state: Int): GameBoard = copy(fields.replaceField(row, col, Field(state)))
 
+  def field(row: Int, col: Int): Field = fields.field(row, col)
 
+  override def toString: String = {
+    val lineseparator = ("+-" + ("--" * size)) + "+\n"
+    val line = ("| " + ("o " * size)) + "|\n"
+    var box = "\n" + (lineseparator + (line * size)) + lineseparator
+    for {
+      row <- 0 until size
+      col <- 0 until size
+    } box = box.replaceFirst("o", field(row, col).toString)
+      box
+  }
 
 
   /*

@@ -1,13 +1,17 @@
 package view
-import model.{Field, Checkers}
+import controller.Controller
+import util.Observer
 
-class Tui {
-  def tuiEntry(input: String): Field = {
+class Tui(controller: Controller) extends Observer {
+
+  controller.add(this)
+
+  def tuiEntry(input: String): Unit = {
     input match {
-      case "upleft" => Checkers.movement(-1,-1)
-      case "upright" => Checkers.movement(-1,1)
-      case "downleft" => Checkers.movement(1,-1)
-      case "downright" => Checkers.movement(1,1)
+      case "new8" => controller.createEmptyGameBoard(8)
+      case "new10" => controller.createEmptyGameBoard(10)
     }
   }
+
+  override def update: Unit = println(controller.gameBoardToString)
 }
