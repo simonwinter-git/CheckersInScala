@@ -1,6 +1,6 @@
 import model.{GameBoard, Field, GameBoardCreator, Player}
 import controller.Controller
-import view.Tui
+import aview.Tui
 
 import scala.io.StdIn.readLine
 

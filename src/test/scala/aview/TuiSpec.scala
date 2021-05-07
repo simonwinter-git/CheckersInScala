@@ -1,4 +1,4 @@
-package view
+package aview
 import controller.Controller
 import model.GameBoard
 import org.scalatest._
