@@ -1,4 +1,4 @@
-import org.scalatest._
+/* import org.scalatest._
 import wordspec._
 import matchers.should.Matchers._
 class CheckersSpec extends AnyWordSpec {
@@ -9,7 +9,7 @@ class CheckersSpec extends AnyWordSpec {
     }
   }
 }
-
+*/
 /* CheckersOldSpec
 import org.scalatest._
 import wordspec._

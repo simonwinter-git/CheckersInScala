@@ -2,7 +2,7 @@ package model
 
 class GameBoardCreator(size:Int) {
   def createBoard(): GameBoard = {
-    var gameboard = new GameBoard(size)
+    val gameboard = new GameBoard(size)
 
     for {index <- 0 to 2} {
       for {index2 <- 0 to (size - 1)} {
@@ -11,7 +11,6 @@ class GameBoardCreator(size:Int) {
         }
       }
     }
-
     for {index <- 0 to 2} {
       for {index2 <- 1 to size} {
         if ((index2 + index) % 2 == 0) {
@@ -19,7 +18,6 @@ class GameBoardCreator(size:Int) {
         }
       }
     }
-
+    return gameboard
   }
-
 }

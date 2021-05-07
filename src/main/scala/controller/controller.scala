@@ -14,5 +14,4 @@ class Controller(var gameBoard:GameBoard) extends Observable{
     gameBoard = gameBoard.set(row, col, state)
     notifyObservers
   }
-
 }
