@@ -10,7 +10,7 @@ class FieldSpec extends AnyWordSpec {
       field.state should be (2)
     }
     "show 0 as empty" in {
-      field2.toString should be (" ")
+      field2.toString should be ("X")
     }
   }
 }
