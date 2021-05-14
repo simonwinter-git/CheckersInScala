@@ -1,8 +1,8 @@
 package model
 case class GameBoard(fields: Matrix[Field]) {
-  def this(size: Int) = this(new Matrix[Field](size, Field(0)))
+  def this(size: Int) = this(new Matrix[Field](size, Field(0, 0)))
   val size: Int = fields.size
-  def set(row: Int, col: Int, state: Int): GameBoard = copy(fields.replaceField(row, col, Field(state)))
+  def set(row: Int, col: Int, color: Int, state: Int): GameBoard = copy(fields.replaceField(row, col, Field(color, state)))
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
   override def toString: String = {
@@ -15,6 +15,12 @@ case class GameBoard(fields: Matrix[Field]) {
     } box = box.replaceFirst("o", field(row, col).toString)
       box
   }
+
+
+
+
+
+
 
 
   /*
