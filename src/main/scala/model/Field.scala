@@ -1,8 +1,8 @@
 package model
 
-case class Field(color: Int, state: Int) {
+case class Field(pos: String, piece: Option[Piece]) {
 
-  override def toString: String = color.toString.replace('0', 'X')
+  override def toString: String = pos.replace('0', 'X')
 
   //def isWhite:Boolean = ((id._1 - id._2) % 2 == 0)
 }

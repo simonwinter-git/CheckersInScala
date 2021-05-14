@@ -1,8 +1,10 @@
 package model
 case class GameBoard(fields: Matrix[Field]) {
-  def this(size: Int) = this(new Matrix[Field](size, Field(0, 0)))
+  def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
   val size: Int = fields.size
-  def set(row: Int, col: Int, color: Int, state: Int): GameBoard = copy(fields.replaceField(row, col, Field(color, state)))
+  def getField(pos: String): Field = field(pos.charAt(1).toInt, pos.charAt(0).asDigit - 65)
+  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, None)))
+  def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, Some(piece))))
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
   override def toString: String = {
@@ -16,7 +18,14 @@ case class GameBoard(fields: Matrix[Field]) {
       box
   }
 
+  def move(start: String, dest: String): GameBoard = {
 
+    start.charAt(1).asDigit - 49
+    getField(start).piece match {
+      case Some(piece) => remove(start.charAt(0).asDigit - 65, start.charAt(1).asDigit - 49).set(start.charAt(1).asDigit - 49, start.charAt(0).asDigit - 65, Piece(piece.state, dest.charAt(0).asDigit - 65, dest.charAt(1).asDigit - 49, piece.color))
+      case _ => this
+    }
+  }
 
 
 
