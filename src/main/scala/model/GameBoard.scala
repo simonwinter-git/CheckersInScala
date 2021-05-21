@@ -1,16 +1,18 @@
 package model
 case class GameBoard(fields: Matrix[Field]) {
+
   def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
   val size: Int = fields.size
+
   def getField(pos: String): Field = field(pos.charAt(1).toInt, pos.charAt(0).asDigit - 65)
   def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, None)))
   def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, Some(piece))))
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
   override def toString: String = {
-    val lineseparator = ("+-" + ("--" * size)) + "+\n"
+    val lineSeparator = ("+-" + ("--" * size)) + "+\n"
     val line = ("| " + ("o " * size)) + "|\n"
-    var box = "\n" + (lineseparator + (line * size)) + lineseparator
+    var box = "\n" + (lineSeparator + (line * size)) + lineSeparator
     for {
       row <- 0 until size
       col <- 0 until size
