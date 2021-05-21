@@ -1,13 +1,20 @@
 package model
+import util.Mode
 case class GameBoard(fields: Matrix[Field]) {
 
   def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
   val size: Int = fields.size
+  var mode: Mode = Classic()
 
   def getField(pos: String): Field = field(pos.charAt(1).toInt, pos.charAt(0).asDigit - 65)
   def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, None)))
   def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, Some(piece))))
   def field(row: Int, col: Int): Field = fields.field(row, col)
+
+  def setMode(mode: Mode): Unit = {
+    println("Mode set")
+    this.mode = mode
+  }
 
   override def toString: String = {
     val lineSeparator = ("+-" + ("--" * size)) + "+\n"
@@ -21,7 +28,6 @@ case class GameBoard(fields: Matrix[Field]) {
   }
 
   def move(start: String, dest: String): GameBoard = {
-
     start.charAt(1).asDigit - 49
     getField(start).piece match {
       case Some(piece) => remove(start.charAt(0).asDigit - 65, start.charAt(1).asDigit - 49).set(start.charAt(1).asDigit - 49, start.charAt(0).asDigit - 65, Piece(piece.state, dest.charAt(0).asDigit - 65, dest.charAt(1).asDigit - 49, piece.color))
@@ -29,8 +35,19 @@ case class GameBoard(fields: Matrix[Field]) {
     }
   }
 
+  def whiteMovePossible(start: String, dest: String): Boolean = {
+    getField(start).piece match {
+      case Some(piece) => piece.whiteMovePossible(dest, this)
+      case _ => false
+    }
+  }
 
-
+  def blackMovePossible(start: String, dest: String): Boolean = {
+    getField(start).piece match {
+      case Some(piece) => piece.blackMovePossible(dest, this)
+      case _ => false
+    }
+  }
 
 
 

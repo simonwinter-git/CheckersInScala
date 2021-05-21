@@ -11,6 +11,8 @@ class Controller(var gameBoard:GameBoard) extends Observable {
     notifyObservers
   }
 
+  def setGameState(gameState: GameState):GameState {gameState}
+
   private val undoManager = new UndoManager
 
   def gameBoardToString: String = gameBoard.toString
@@ -20,8 +22,14 @@ class Controller(var gameBoard:GameBoard) extends Observable {
     notifyObservers
   }
 
-  def move() = {
-
+  def move(start: String, dest: String): Unit = {
+    gameState match {
+      case WhiteTurn =>
+        if (gameBoard.whiteMovePossible((start, dest))) {
+          gameBoard = gameBoard.move(start, dest)
+          gameState = BlackTurn
+        }
+    }
   }
 
   def undo: Unit = {

@@ -6,6 +6,9 @@ trait Piece {
   def color: String
   def state: String
 
+  def whiteMovePossible(to: String, gameBoard: GameBoard): Boolean
+  def blackMovePossible(to: String, gameBoard: GameBoard): Boolean
+
   def movIntToStr(s: String): (Int, Int, Int, Int) = {
     val startCol = col
     val startRow = row

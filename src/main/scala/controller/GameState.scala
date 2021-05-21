@@ -1,6 +1,30 @@
 package controller
+import model.GameBoard
 
-object GameState extends Enumeration {
+
+trait GameState {
+  def move(start: String, dest: String): GameBoard
+}
+
+class WhiteTurn(controller: Controller) extends GameState {
+  override def move(start: String, dest: String): GameBoard = {
+    if (controller.gameBoard.whiteMovePossible(start, dest)) {
+      controller.gameBoard = controller.gameBoard.move(start, dest)
+      controller.setGameState(new BlackTurn(controller))
+    }
+  }
+}
+
+class BlackTurn(controller: Controller) extends GameState {
+  override def move(start: String, dest: String): GameBoard = {
+    if (controller.gameBoard.blackMovePossible(start, dest)) {
+      controller.gameBoard = controller.gameBoard.move(start, dest)
+      controller.setGameState(new WhiteTurn(controller))
+    }
+  }
+}
+
+  /*
   type GameState = Value
   val IDLE, WHITE, BLACK = Value
 
@@ -13,4 +37,4 @@ object GameState extends Enumeration {
   def message(gameState: GameState) = {
     map(gameState)
   }
-}
+  */
