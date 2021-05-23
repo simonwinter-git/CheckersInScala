@@ -1,25 +1,25 @@
 package controller
-import model.GameBoard
 
 
 trait GameState {
-  def move(start: String, dest: String): GameBoard
+  def controller: Controller
+  def move(start: String, dest: String): Unit
 }
 
-class WhiteTurn(controller: Controller) extends GameState {
-  override def move(start: String, dest: String): GameBoard = {
+case class WhiteTurn(controller: Controller) extends GameState {
+  override def move(start: String, dest: String): Unit = {
     if (controller.gameBoard.whiteMovePossible(start, dest)) {
       controller.gameBoard = controller.gameBoard.move(start, dest)
-      controller.setGameState(new BlackTurn(controller))
+      controller.setGameState(BlackTurn(controller))
     }
   }
 }
 
-class BlackTurn(controller: Controller) extends GameState {
-  override def move(start: String, dest: String): GameBoard = {
+case class BlackTurn(controller: Controller) extends GameState {
+  override def move(start: String, dest: String): Unit = {
     if (controller.gameBoard.blackMovePossible(start, dest)) {
       controller.gameBoard = controller.gameBoard.move(start, dest)
-      controller.setGameState(new WhiteTurn(controller))
+      controller.setGameState(WhiteTurn(controller))
     }
   }
 }

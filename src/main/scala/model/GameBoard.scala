@@ -11,6 +11,7 @@ case class GameBoard(fields: Matrix[Field]) {
   def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, Some(piece))))
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
+
   def setMode(mode: Mode): Unit = {
     println("Mode set")
     this.mode = mode
@@ -28,7 +29,6 @@ case class GameBoard(fields: Matrix[Field]) {
   }
 
   def move(start: String, dest: String): GameBoard = {
-    start.charAt(1).asDigit - 49
     getField(start).piece match {
       case Some(piece) => remove(start.charAt(0).asDigit - 65, start.charAt(1).asDigit - 49).set(start.charAt(1).asDigit - 49, start.charAt(0).asDigit - 65, Piece(piece.state, dest.charAt(0).asDigit - 65, dest.charAt(1).asDigit - 49, piece.color))
       case _ => this
@@ -49,7 +49,7 @@ case class GameBoard(fields: Matrix[Field]) {
     }
   }
 
-
+}
 
   /*
 
@@ -69,4 +69,3 @@ case class GameBoard(fields: Matrix[Field]) {
     var s = new StringBuilder()
     s = s.append()
     */
-}

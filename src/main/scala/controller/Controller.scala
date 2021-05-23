@@ -1,19 +1,21 @@
 package controller
-import controller.GameState._
+import controller.{GameState}
 import model.{GameBoard, Piece}
 import util.{Observable, UndoManager}
 
 class Controller(var gameBoard:GameBoard) extends Observable {
 
-  var gameState: GameState = IDLE
+  private val undoManager = new UndoManager
+  var gameState: GameState = WhiteTurn(this)
+
   def createEmptyGameBoard(size: Int):Unit = {
     gameBoard = new GameBoard(size)
     notifyObservers
   }
 
-  def setGameState(gameState: GameState):GameState {gameState}
-
-  private val undoManager = new UndoManager
+  def setGameState(newGameState: GameState): Unit = {
+    gameState = newGameState
+  }
 
   def gameBoardToString: String = gameBoard.toString
 
@@ -23,13 +25,7 @@ class Controller(var gameBoard:GameBoard) extends Observable {
   }
 
   def move(start: String, dest: String): Unit = {
-    gameState match {
-      case WhiteTurn =>
-        if (gameBoard.whiteMovePossible((start, dest))) {
-          gameBoard = gameBoard.move(start, dest)
-          gameState = BlackTurn
-        }
-    }
+    undoManager.doStep(new SetCommand(start, dest, this))
   }
 
   def undo: Unit = {
