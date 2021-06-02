@@ -11,7 +11,7 @@ object Checkers {
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
-    do{
+    do {
       input = readLine()
       tui.tuiEntry(input)
     } while (input != "quit")

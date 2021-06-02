@@ -1,6 +1,6 @@
 package controller
 import controller.{GameState}
-import model.{GameBoard, Piece}
+import model.{GameBoard, GameBoardCreator, Piece}
 import util.{Observable, UndoManager}
 
 class Controller(var gameBoard:GameBoard) extends Observable {
@@ -10,6 +10,11 @@ class Controller(var gameBoard:GameBoard) extends Observable {
 
   def createEmptyGameBoard(size: Int):Unit = {
     gameBoard = new GameBoard(size)
+    notifyObservers
+  }
+
+  def createGameBoard(size: Int):Unit = {
+    gameBoard = new GameBoardCreator(size).createBoard()
     notifyObservers
   }
 

@@ -14,7 +14,7 @@ class Tui(controller: Controller) extends Observer {
       case "new" =>
         Try {args(1).toInt} match {
           case Failure(e) => println(e.getMessage + "\nTry an Integer")
-          case Success(e) => controller.createEmptyGameBoard(args(1).toInt)
+          case Success(e) => controller.createGameBoard(args(1).toInt)
         }
     }
   }
