@@ -9,11 +9,12 @@ class Tui(controller: Controller) extends Observer {
   controller.add(this)
 
   def tuiEntry(input: String): Unit = {
-    input match {
-      case "new" => tuiEntry(input: String)
-        Try {input.toInt} match {
-          case Failure(e) => println(e.getMessage) + "\nTry an Integer"
-          case Success(e) => controller.createEmptyGameBoard(input.toInt)
+    def args:Array[String] = input.split(" ")
+    args(0) match {
+      case "new" =>
+        Try {args(1).toInt} match {
+          case Failure(e) => println(e.getMessage + "\nTry an Integer")
+          case Success(e) => controller.createEmptyGameBoard(args(1).toInt)
         }
     }
   }
