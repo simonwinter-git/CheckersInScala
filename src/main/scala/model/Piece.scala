@@ -21,7 +21,9 @@ trait Piece {
 object Piece {
 
   def apply(state: String, row: Int, col: Int, color: String): Piece = state match {
-    case "normal" => Normal(row, col, color)
+    case "normal" => {
+      Normal(row, col, color)
+    }
     case "queen" => Queen(row, col, color)
   }
 
