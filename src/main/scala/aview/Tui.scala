@@ -1,12 +1,16 @@
 package aview
-import controller.Controller
-import util.Observer
+import controller.GameState
+import controller.{Controller, FieldChanged, GBSizeChanged}
 
-import scala.util.{Try, Success, Failure}
 
-class Tui(controller: Controller) extends Observer {
+import scala.swing.Reactor
+import scala.util.{Failure, Success, Try}
 
-  controller.add(this)
+class Tui(controller: Controller) extends Reactor {
+
+  listenTo(controller)
+
+  def size = controller.gameBoardSize
 
   def tuiEntry(input: String): Unit = {
     def args:Array[String] = input.split(" ")
@@ -19,8 +23,17 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
+  reactions += {
+    case event: GBSizeChanged => printTui
+    case event: FieldChanged => printTui
+  }
 
-  override def update: Unit = println(controller.gameBoardToString)
+  def printTui: Unit = {
+    println(controller.gameBoardToString)
+    println(GameState.message(controller.gameState))
+  }
+
+  //override def update: Unit = println(controller.gameBoardToString)
 }
 
 

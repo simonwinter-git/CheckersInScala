@@ -53,4 +53,7 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
     notifyObservers
   }
 
+  def gameBoardSize: Int = gameBoard.size
+
+
 }

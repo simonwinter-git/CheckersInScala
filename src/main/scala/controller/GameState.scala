@@ -1,6 +1,23 @@
 package controller
 
 
+object GameState extends Enumeration {
+  type GameState = Value
+  val WHITE_TURN, BLACK_TURN = Value
+
+  val map = Map[GameState, String] (
+    WHITE_TURN -> "It's White's turn",
+    BLACK_TURN -> "It's Black's turn"
+  )
+
+  def message(gameState: GameState) = {
+    map(gameState)
+  }
+
+}
+
+
+/*
 trait GameState {
   def controller: Controller
   def move(start: String, dest: String): Unit
@@ -23,6 +40,8 @@ case class BlackTurn(controller: Controller) extends GameState {
     }
   }
 }
+*/
+
 
   /*
   type GameState = Value

@@ -1,13 +1,15 @@
-import model.{GameBoard, Field, GameBoardCreator, Player}
-import controller.Controller
+import model.{Field, GameBoard, GameBoardCreator, Player}
+import controller.{Controller, FieldChanged}
 import aview.Tui
+import aview.gui.Gui
 
 import scala.io.StdIn.readLine
 
 object Checkers {
   val controller = new Controller(new GameBoard(8))
   val tui = new Tui(controller)
-  controller.notifyObservers
+  val gui = new Gui(controller)
+  controller.publish(new FieldChanged)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
