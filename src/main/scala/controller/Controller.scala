@@ -1,5 +1,5 @@
 package controller
-import controller.GameState
+import controller.GameState._
 import model.{GameBoard, GameBoardCreator, Piece}
 import util.UndoManager
 
@@ -8,7 +8,7 @@ import scala.swing.Publisher
 class Controller(var gameBoard:GameBoard) extends Publisher {
 
   private val undoManager = new UndoManager
-  var gameState: GameState = WhiteTurn(this)
+  var gameState: GameState = WHITE_TURN
 
   def createEmptyGameBoard(size: Int):Unit = {
     gameBoard = new GameBoard(size)
@@ -17,13 +17,13 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
 
   def resize(newSize: Int): Unit = {
     gameBoard = new GameBoard(newSize)
-    gameState = RESIZE
+    //gameState = RESIZE
     publish(new GBSizeChanged(newSize))
   }
 
   def createGameBoard(size: Int):Unit = {
     gameBoard = new GameBoardCreator(size).createBoard()
-    gameState = NEW
+    //gameState = NEW
     publish(new FieldChanged)
   }
 
@@ -52,6 +52,10 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
     undoManager.redoStep
     notifyObservers
   }
+
+  def isSet(row: Int, col: Int): Boolean = gameBoard.field(row, col).isSet
+
+  def field(row: Int, col: Int) = gameBoard.field(row,col)
 
   def gameBoardSize: Int = gameBoard.size
 

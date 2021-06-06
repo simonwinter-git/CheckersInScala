@@ -10,5 +10,7 @@ class Gui(controller: Controller) extends Frame {
   listenTo(controller)
 
   title = "Checkers"
-  var fields = Array.ofDim[]
+  var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
+
+  def
 }
