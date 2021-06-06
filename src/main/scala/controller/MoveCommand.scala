@@ -1,8 +1,9 @@
 package controller
-import util.Command
-import model.{GameBoard, Piece}
 
-class SetCommand(start: Int, dest: Int, piece: Piece, controller: Controller) extends Command {
+import model.{GameBoard, Piece}
+import util.Command
+
+class MoveCommand(start: String, dest: String, controller: Controller) extends Command {
 
   var memento: (GameBoard, GameState) = (
     controller.gameBoard,
@@ -11,7 +12,7 @@ class SetCommand(start: Int, dest: Int, piece: Piece, controller: Controller) ex
 
   override def doStep: Unit = {
     memento = (controller.gameBoard, controller.gameState)
-    controller.gameBoard = controller.gameBoard.set(start, dest, piece)
+    controller.gameBoard = controller.gameBoard.move(start, dest)
   }
 
   override def undoStep: Unit = {

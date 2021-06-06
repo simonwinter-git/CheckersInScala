@@ -1,21 +1,30 @@
 package controller
-import controller.{GameState}
+import controller.GameState
 import model.{GameBoard, GameBoardCreator, Piece}
-import util.{Observable, UndoManager}
+import util.UndoManager
 
-class Controller(var gameBoard:GameBoard) extends Observable {
+import scala.swing.Publisher
+
+class Controller(var gameBoard:GameBoard) extends Publisher {
 
   private val undoManager = new UndoManager
   var gameState: GameState = WhiteTurn(this)
 
   def createEmptyGameBoard(size: Int):Unit = {
     gameBoard = new GameBoard(size)
-    notifyObservers
+    publish(new FieldChanged)
+  }
+
+  def resize(newSize: Int): Unit = {
+    gameBoard = new GameBoard(newSize)
+    gameState = RESIZE
+    publish(new GBSizeChanged(newSize))
   }
 
   def createGameBoard(size: Int):Unit = {
     gameBoard = new GameBoardCreator(size).createBoard()
-    notifyObservers
+    gameState = NEW
+    publish(new FieldChanged)
   }
 
   def setGameState(newGameState: GameState): Unit = {
@@ -25,12 +34,13 @@ class Controller(var gameBoard:GameBoard) extends Observable {
   def gameBoardToString: String = gameBoard.toString
 
   def set(row: Int, col: Int, piece: Piece):Unit = {
+    undoManager.doStep(new SetCommand(row, col, piece, this))
     gameBoard = gameBoard.set(row, col, piece)
     notifyObservers
   }
 
   def move(start: String, dest: String): Unit = {
-    undoManager.doStep(new SetCommand(start, dest, this))
+    undoManager.doStep(new MoveCommand(start, dest, this))
   }
 
   def undo: Unit = {
