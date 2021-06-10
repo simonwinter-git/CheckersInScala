@@ -36,7 +36,7 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
   def set(row: Int, col: Int, piece: Piece):Unit = {
     undoManager.doStep(new SetCommand(row, col, piece, this))
     gameBoard = gameBoard.set(row, col, piece)
-    notifyObservers
+    publish(new FieldChanged)
   }
 
   def move(start: String, dest: String): Unit = {
@@ -45,12 +45,12 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
 
   def undo: Unit = {
     undoManager.undoStep
-    notifyObservers
+    publish(new FieldChanged)
   }
 
   def redo: Unit = {
     undoManager.redoStep
-    notifyObservers
+    publish(new FieldChanged)
   }
 
   def isSet(row: Int, col: Int): Boolean = gameBoard.field(row, col).isSet
@@ -59,5 +59,11 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
 
   def gameBoardSize: Int = gameBoard.size
 
+  /*
+  def highlight(index: Int): Unit = {
+    gameBoard = gameBoard.highlight(index)
+    publish(new FieldChanged)
+  }
+  */
 
 }

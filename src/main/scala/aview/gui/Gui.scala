@@ -12,5 +12,15 @@ class Gui(controller: Controller) extends Frame {
   title = "Checkers"
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
 
-  def
+  /*
+  def highlightpanel = new FlowPanel {
+    contents += new Label("Highlight:")
+    for {index <- 0 to controller.gameBoardSize} {
+      val button = Button(if (index == 0) "" else index.toString) {
+        controller.highlight(index)
+      }
+    }
+  }
+ */
+
 }

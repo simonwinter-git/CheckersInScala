@@ -54,6 +54,18 @@ case class GameBoard(fields: Matrix[Field]) {
     }
   }
 
+  /*
+  def highlight(index: Int): GameBoard = {
+    var gameBoard = this
+    for {
+      row <- 0 until size
+      col <- 0 until size
+    } if (available(row, col).contains(index)) gameBoard = gameBoard.setHighlighted(row, col) else gameBoard = gameBoard.unsetHighlighted(row, col)
+    gameBoard
+  }
+  */
+
+
 }
 
   /*

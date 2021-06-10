@@ -1,5 +1,6 @@
 package controller
 
+import controller.GameState.GameState
 import model.{GameBoard, Piece}
 import util.Command
 

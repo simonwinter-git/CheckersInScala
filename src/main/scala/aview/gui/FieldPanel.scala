@@ -18,7 +18,7 @@ class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
   val label =
     new Label {
       text = fieldText(row, col)
-      font = new Font("Verdana, 1, 36")
+      font = new Font("Verdana", 1, 36)
     }
 
   val cell = new BoxPanel(Orientation.Vertical) {
