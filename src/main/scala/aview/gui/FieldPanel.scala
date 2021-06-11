@@ -28,5 +28,13 @@ class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
     border = Swing.BeveledBorder(Swing.Raised)
   }
 
+  def redraw = {
+    contents.clear()
+    label.text = fieldText(row, col)
+    setBackground(cell)
+    contents += cell
+    repaint
+  }
+
   def setBackground(p: Panel) = p.background = fieldColor
 }

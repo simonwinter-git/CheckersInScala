@@ -59,6 +59,7 @@ class Controller(var gameBoard:GameBoard) extends Publisher {
 
   def gameBoardSize: Int = gameBoard.size
 
+  def statusText: String = GameState.message(gameState)
   /*
   def highlight(index: Int): Unit = {
     gameBoard = gameBoard.highlight(index)
