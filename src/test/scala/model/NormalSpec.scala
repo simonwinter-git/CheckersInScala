@@ -15,5 +15,11 @@ class NormalSpec extends AnyWordSpec {
     "have a color" in {
       mode.color should be ("black")
     }
+    "have a state" in {
+      mode.state should be ("normal")
+    }
+    "should build a String" in {
+      mode.toString should be ("O")
+    }
   }
 }

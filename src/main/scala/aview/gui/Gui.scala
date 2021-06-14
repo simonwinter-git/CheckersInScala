@@ -39,10 +39,10 @@ class Gui(controller: Controller) extends Frame {
 
       val panel = new GridPanel(1, 1) {
         if (field % 2 == 1)
-          if (row % 2 == 1) background = Color.BLACK
-          else background = Color.WHITE
-        else if (row % 2 == 0) background = Color.BLACK
-        else background = Color.WHITE
+          if (row % 2 == 1) background = Color.WHITE
+          else background = Color.BLACK
+        else if (row % 2 == 0) background = Color.WHITE
+        else background = Color.BLACK
         //minimumSize = new Dimension(50, 50)
       }
       contents += panel
@@ -50,7 +50,7 @@ class Gui(controller: Controller) extends Frame {
   }
 
   def labelRank = new GridPanel(controller.gameBoardSize, 1) {
-    for (i <- Range(controller.gameBoardSize, 0, -1)) {
+    for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
         text = i.toString
         preferredSize = new Dimension(20, 40)
