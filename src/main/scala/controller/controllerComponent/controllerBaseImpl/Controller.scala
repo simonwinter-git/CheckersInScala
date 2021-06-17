@@ -1,7 +1,8 @@
 package controller
-import controller.GameState._
+import controller.controllerComponent.GameState._
 import controller.controllerComponent.ControllerInterface
-import model.{GameBoard, GameBoardCreator, Piece, Field}
+import model.gameBoardComponent.gameBoardBaseImpl.{GameBoardCreator, Piece, Field, GameBoard}
+import controller.controllerComponent.GameState
 import util.UndoManager
 
 import scala.swing.Publisher

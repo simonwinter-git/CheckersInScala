@@ -1,5 +1,4 @@
 package model.gameBoardComponent.gameBoardBaseImpl
-
 import model.gameBoardComponent.FieldInterface
 
 case class Field(pos: String, piece: Option[Piece]) extends FieldInterface {

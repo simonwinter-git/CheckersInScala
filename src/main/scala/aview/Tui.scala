@@ -1,5 +1,5 @@
 package aview
-import controller.GameState
+import controller.controllerComponent.GameState
 import controller.{Controller, FieldChanged, GBSizeChanged}
 
 

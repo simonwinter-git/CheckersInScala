@@ -1,10 +1,10 @@
 package controller.controllerComponent.controllerMockImpl
-
-import controller.GameState
-import controller.GameState.{GameState, WHITE_TURN}
+import controller.controllerComponent.GameState
+import controller.controllerComponent.GameState.{GameState, WHITE_TURN}
 import controller.controllerComponent.ControllerInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface}
-import model.{GameBoard, Piece}
+import model.gameBoardComponent.gameBoardMockImpl.GameBoard
+import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
 class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface {
 

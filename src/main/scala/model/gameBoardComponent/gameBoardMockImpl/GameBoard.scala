@@ -1,7 +1,6 @@
 package model.gameBoardComponent.gameBoardMockImpl
-
-import controller.GameState.WHITE_TURN
-import model.{Classic, Piece}
+import controller.controllerComponent.GameState.WHITE_TURN
+import model.gameBoardComponent.gameBoardBaseImpl.{Classic, Piece}
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface}
 import util.Mode
 

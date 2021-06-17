@@ -1,8 +1,8 @@
 package controller.controllerComponent
 
-import controller.GameState.GameState
+import controller.controllerComponent.GameState.GameState
 import model.gameBoardComponent.FieldInterface
-import model.Piece
+import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
 import scala.swing.Publisher
 

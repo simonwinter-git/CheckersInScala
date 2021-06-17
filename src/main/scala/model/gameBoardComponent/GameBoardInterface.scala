@@ -1,6 +1,5 @@
 package model.gameBoardComponent
-
-import model.Piece
+import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import util.Mode
 
 trait GameBoardInterface {
