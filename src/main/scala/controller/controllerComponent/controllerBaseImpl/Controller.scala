@@ -12,7 +12,7 @@ class Controller(var gameBoard:GameBoard) extends ControllerInterface with Publi
   private val undoManager = new UndoManager
   var gameState: GameState = WHITE_TURN
 
-  def createEmptyGameBoard(size: Int):Unit = {
+  def createEmptyGameBoard(size: Int): Unit = {
     gameBoard = new GameBoard(size)
     publish(new FieldChanged)
   }
@@ -23,7 +23,7 @@ class Controller(var gameBoard:GameBoard) extends ControllerInterface with Publi
     publish(new GBSizeChanged(newSize))
   }
 
-  def createGameBoard(size: Int):Unit = {
+  def createGameBoard(size: Int): Unit = {
     gameBoard = new GameBoardCreator(size).createBoard()
     //gameState = NEW
     publish(new FieldChanged)
@@ -43,6 +43,8 @@ class Controller(var gameBoard:GameBoard) extends ControllerInterface with Publi
 
   def move(start: String, dest: String): Unit = {
     undoManager.doStep(new MoveCommand(start, dest, this))
+    gameBoard = gameBoard.move(start, dest)
+    publish(new FieldChanged)
   }
 
   def undo: Unit = {

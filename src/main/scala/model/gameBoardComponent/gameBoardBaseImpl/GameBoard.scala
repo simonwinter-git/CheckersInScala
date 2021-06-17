@@ -40,8 +40,8 @@ case class GameBoard(fields: Matrix[Field]) extends GameBoardInterface {
 
   def move(start: String, dest: String): GameBoard = {
     getField(start).piece match {
-      case Some(piece) => remove(start.charAt(0).toInt - 65, start.charAt(1).toInt - 49).set(start.charAt(1).toInt - 49, start.charAt(0).toInt - 65, Piece(piece.state, dest.charAt(0).toInt - 65, dest.charAt(1).toInt - 49, piece.color))
-      case _ => this
+      case Some(piece) => remove(start.charAt(1).toInt - 49, start.charAt(0).toInt - 65).set(dest.charAt(1).toInt - 49, dest.charAt(0).toInt - 65, Piece(piece.state, dest.charAt(1).toInt - 49, dest.charAt(0).toInt - 65, piece.color))
+      case None => this
     }
   }
 
