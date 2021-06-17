@@ -3,19 +3,24 @@ import util.Mode
 case class GameBoard(fields: Matrix[Field]) {
 
   def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
+
   val size: Int = fields.size
   var mode: Mode = Classic()
 
-  def getField(pos: String): Field = field(pos.charAt(1).asDigit, pos.charAt(0).toInt - 65)
-  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col+49).toChar.toString + (row+65).toChar.toString, None)))
+  def getField(pos: String): Field = field(pos.charAt(1).asDigit - 1, pos.charAt(0).toInt - 65)
+
+  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col + 49).toChar.toString + (row + 65).toChar.toString, None)))
+
   def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), Some(piece))))
+
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
 
   def colToInt(pos: String): Int = pos.charAt(1).asDigit - 1
+
   def rowToInt(pos: String): Int = pos.charAt(0).toInt - 65
 
-  def posToStr(row: Int, col: Int): String = (row+65).toChar.toString + (col+49).toChar.toString
+  def posToStr(row: Int, col: Int): String = (row + 65).toChar.toString + (col + 49).toChar.toString
 
   def setMode(mode: Mode): Unit = {
     println("Mode set")
@@ -30,7 +35,7 @@ case class GameBoard(fields: Matrix[Field]) {
       row <- 0 until size
       col <- 0 until size
     } box = box.replaceFirst("o", field(row, col).toString)
-      box
+    box
   }
 
   def move(start: String, dest: String): GameBoard = {
@@ -53,36 +58,4 @@ case class GameBoard(fields: Matrix[Field]) {
       case _ => false
     }
   }
-
-  /*
-  def highlight(index: Int): GameBoard = {
-    var gameBoard = this
-    for {
-      row <- 0 until size
-      col <- 0 until size
-    } if (available(row, col).contains(index)) gameBoard = gameBoard.setHighlighted(row, col) else gameBoard = gameBoard.unsetHighlighted(row, col)
-    gameBoard
-  }
-  */
-
-
 }
-
-  /*
-
-    val preID = (val,val)
-    for (e <- fieldVec) {
-      preID._1 = e/x
-      preID._2 = e%x
-
-    }
-    val preID = fieldVec[(fieldVec(0)/x),(fieldVec[0]%x)]
-
-      //name state field_type id
-
-    if ((preID[0] - preID[1]) % 2 == 0) {
-      fieldType = false
-    }
-    var s = new StringBuilder()
-    s = s.append()
-    */

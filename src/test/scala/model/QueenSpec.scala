@@ -23,5 +23,11 @@ class QueenSpec extends AnyWordSpec {
     "produce a String" in {
       dame.toString should be ("Q")
     }
+    "should be allowed to Move" in {
+      dame.whiteMovePossible("A2", gb) should be (true)
+    }
+    "should be allowed to Move as a Black Piece" in {
+      dameSchwarz.blackMovePossible("A1", gb) should be (true)
+    }
   }
 }

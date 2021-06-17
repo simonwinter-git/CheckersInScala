@@ -5,6 +5,7 @@ import org.scalatest.wordspec._
 class GameBoardSpec extends AnyWordSpec {
   "A GameBoard" should {
     val board = new GameBoard(3)
+    val boardGross = new GameBoard(8)
     val player = new Player("Simon", 0, "white")
     val modus = Classic()
     "have fields" in {

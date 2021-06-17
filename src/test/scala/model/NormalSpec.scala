@@ -6,6 +6,8 @@ import org.scalatest.wordspec._
 class NormalSpec extends AnyWordSpec {
   "The piece normal" should {
     val mode = Normal(8,8,"black")
+    val modeSchwarz = Normal(7,8, "black")
+    val gb = new GameBoard(8)
     "have a row" in {
       mode.row should be (8)
     }
@@ -20,6 +22,12 @@ class NormalSpec extends AnyWordSpec {
     }
     "should build a String" in {
       mode.toString should be ("O")
+    }
+    "should be allowed to Move" in {
+      mode.whiteMovePossible("A2", gb) should be (true)
+    }
+    "should be allowed to Move as a Black Piece" in {
+      modeSchwarz.blackMovePossible("A1", gb) should be (true)
     }
   }
 }
