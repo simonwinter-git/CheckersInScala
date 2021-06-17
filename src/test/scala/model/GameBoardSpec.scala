@@ -3,6 +3,7 @@ import model.playerComponent.Player
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
+import model.gameBoardComponent.gameBoardBaseImpl.{Classic, GameBoard}
 class GameBoardSpec extends AnyWordSpec {
   "A GameBoard" should {
     val board = new GameBoard(3)

@@ -1,4 +1,5 @@
 package model
+import model.gameBoardComponent.gameBoardBaseImpl.Blitz
 import model.playerComponent.Player
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._

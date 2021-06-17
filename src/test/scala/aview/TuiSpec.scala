@@ -1,6 +1,6 @@
 package aview
 import controller.Controller
-import model.GameBoard
+import model.gameBoardComponent.gameBoardBaseImpl.GameBoard
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._

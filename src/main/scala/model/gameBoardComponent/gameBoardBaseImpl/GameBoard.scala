@@ -8,19 +8,19 @@ case class GameBoard(fields: Matrix[Field]) extends GameBoardInterface {
   val size: Int = fields.size
   var mode: Mode = Classic()
 
-  def getField(pos: String): Field = field(pos.charAt(1).asDigit - 1, pos.charAt(0).toInt - 65)
+  def getField(pos: String): Field = field(pos.charAt(1).toInt - 49, pos.charAt(0).toInt - 65)
 
-  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col + 49).toChar.toString + (row + 65).toChar.toString, None)))
+  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), None)))
 
   def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), Some(piece))))
 
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
-  def colToInt(pos: String): Int = pos.charAt(1).asDigit - 1
+  def colToInt(pos: String): Int = pos.charAt(1).toInt - 49
 
   def rowToInt(pos: String): Int = pos.charAt(0).toInt - 65
 
-  def posToStr(row: Int, col: Int): String = (row + 65).toChar.toString + (col + 49).toChar.toString
+  def posToStr(row: Int, col: Int): String = (col + 65).toChar.toString + (row + 49).toChar.toString
 
   def setMode(mode: Mode): Unit = {
     println("Mode set")
@@ -40,7 +40,7 @@ case class GameBoard(fields: Matrix[Field]) extends GameBoardInterface {
 
   def move(start: String, dest: String): GameBoard = {
     getField(start).piece match {
-      case Some(piece) => remove(start.charAt(0).asDigit - 65, start.charAt(1).asDigit - 49).set(start.charAt(1).asDigit - 49, start.charAt(0).asDigit - 65, Piece(piece.state, dest.charAt(0).asDigit - 65, dest.charAt(1).asDigit - 49, piece.color))
+      case Some(piece) => remove(start.charAt(0).toInt - 65, start.charAt(1).toInt - 49).set(start.charAt(1).toInt - 49, start.charAt(0).toInt - 65, Piece(piece.state, dest.charAt(0).toInt - 65, dest.charAt(1).toInt - 49, piece.color))
       case _ => this
     }
   }

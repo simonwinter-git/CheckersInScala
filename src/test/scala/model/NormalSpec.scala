@@ -1,7 +1,9 @@
 package model
+import model.gameBoardComponent.gameBoardBaseImpl.Normal
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
+import model.gameBoardComponent.gameBoardBaseImpl.GameBoard
 
 class NormalSpec extends AnyWordSpec {
   "The piece normal" should {

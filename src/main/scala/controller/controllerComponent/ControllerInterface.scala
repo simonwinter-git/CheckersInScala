@@ -1,5 +1,4 @@
 package controller.controllerComponent
-
 import controller.controllerComponent.GameState.GameState
 import model.gameBoardComponent.FieldInterface
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
@@ -8,7 +7,7 @@ import scala.swing.Publisher
 
 trait ControllerInterface extends Publisher {
 
-  var gameState: GameState
+  def gameState: GameState
   def createEmptyGameBoard(size: Int): Unit
   def resize(newSize: Int): Unit
   def createGameBoard(size: Int): Unit

@@ -1,4 +1,5 @@
 package model
+import model.gameBoardComponent.gameBoardBaseImpl.GameBoardCreator
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
