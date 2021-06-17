@@ -1,0 +1,62 @@
+package model.gameBoardComponent.gameBoardBaseImpl
+import model.gameBoardComponent.GameBoardInterface
+import util.Mode
+case class GameBoard(fields: Matrix[Field]) extends GameBoardInterface {
+
+  def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
+
+  val size: Int = fields.size
+  var mode: Mode = Classic()
+
+  def getField(pos: String): Field = field(pos.charAt(1).asDigit - 1, pos.charAt(0).toInt - 65)
+
+  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field((col + 49).toChar.toString + (row + 65).toChar.toString, None)))
+
+  def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), Some(piece))))
+
+  def field(row: Int, col: Int): Field = fields.field(row, col)
+
+  def colToInt(pos: String): Int = pos.charAt(1).asDigit - 1
+
+  def rowToInt(pos: String): Int = pos.charAt(0).toInt - 65
+
+  def posToStr(row: Int, col: Int): String = (row + 65).toChar.toString + (col + 49).toChar.toString
+
+  def setMode(mode: Mode): Unit = {
+    println("Mode set")
+    this.mode = mode
+  }
+
+  override def toString: String = {
+    val lineSeparator = ("+-" + ("--" * size)) + "+\n"
+    val line = ("| " + ("o " * size)) + "|\n"
+    var box = "\n" + (lineSeparator + (line * size)) + lineSeparator
+    for {
+      row <- 0 until size
+      col <- 0 until size
+    } box = box.replaceFirst("o", field(row, col).toString)
+    box
+  }
+
+  def move(start: String, dest: String): GameBoard = {
+    getField(start).piece match {
+      case Some(piece) => remove(start.charAt(0).asDigit - 65, start.charAt(1).asDigit - 49).set(start.charAt(1).asDigit - 49, start.charAt(0).asDigit - 65, Piece(piece.state, dest.charAt(0).asDigit - 65, dest.charAt(1).asDigit - 49, piece.color))
+      case _ => this
+    }
+  }
+
+  def whiteMovePossible(start: String, dest: String): Boolean = {
+    getField(start).piece match {
+      case Some(piece) => piece.whiteMovePossible(dest, this)
+      case _ => false
+    }
+  }
+
+  def blackMovePossible(start: String, dest: String): Boolean = {
+    getField(start).piece match {
+      case Some(piece) => piece.blackMovePossible(dest, this)
+      case _ => false
+    }
+  }
+
+}
