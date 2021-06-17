@@ -1,4 +1,4 @@
-import model.{Field, GameBoard, GameBoardCreator, Player}
+import model.{Field, GameBoard, GameBoardCreator}
 import controller.{Controller, FieldChanged}
 import aview.Tui
 import aview.gui.Gui

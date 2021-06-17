@@ -1,6 +1,6 @@
 package util
 
-import model.Player
+import model.playerComponent.Player
 
 trait Mode {
   def timeOver(player: Player): Boolean

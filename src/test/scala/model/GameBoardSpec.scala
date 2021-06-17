@@ -1,4 +1,5 @@
 package model
+import model.playerComponent.Player
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
@@ -6,7 +7,7 @@ class GameBoardSpec extends AnyWordSpec {
   "A GameBoard" should {
     val board = new GameBoard(3)
     val boardGross = new GameBoard(8)
-    val player = new Player("Simon", 0, "white")
+    val player = Player("Simon", 0, "white")
     val modus = Classic()
     "have fields" in {
       board.size should be (3)
