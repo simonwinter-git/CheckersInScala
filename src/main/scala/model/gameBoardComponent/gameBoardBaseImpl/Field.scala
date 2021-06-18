@@ -1,8 +1,7 @@
 package model.gameBoardComponent.gameBoardBaseImpl
-import com.google.inject.Inject
 import model.gameBoardComponent.FieldInterface
 
-case class Field @Inject() (pos: String, piece: Option[Piece]) extends FieldInterface {
+case class Field (pos: String, piece: Option[Piece]) extends FieldInterface {
 
   def isSet: Boolean = piece != None
 

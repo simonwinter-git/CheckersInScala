@@ -1,8 +1,8 @@
 package model.gameBoardComponent.gameBoardBaseImpl
-import com.google.inject.Inject
+//import com.google.inject.Inject
 import model.gameBoardComponent.GameBoardInterface
 import util.Mode
-case class GameBoard @Inject()(fields: Matrix[Field]) extends GameBoardInterface {
+case class GameBoard (fields: Matrix[Field]) extends GameBoardInterface {
 
   def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
 

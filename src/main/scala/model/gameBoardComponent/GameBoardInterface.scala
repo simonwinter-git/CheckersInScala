@@ -22,4 +22,5 @@ trait GameBoardInterface {
 trait FieldInterface {
   def isSet: Boolean
   def toString: String
+  def piece: Option[Piece]
 }

@@ -4,26 +4,35 @@ import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions._
 import controller.controllerComponent.GameState._
 import controller.controllerComponent.{ControllerInterface, FieldChanged, GBSizeChanged, GameState}
+import model.gameBoardComponent.{FieldInterface, GameBoardInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.UndoManager
 
 import scala.swing.Publisher
 
-class Controller @Inject() (var gameBoard: GameBoard) extends ControllerInterface with Publisher {
+class Controller @Inject() (var gameBoard: GameBoardInterface) extends ControllerInterface with Publisher {
 
   private val undoManager = new UndoManager
   var gameState: GameState = WHITE_TURN
   val injector = Guice.createInjector(new CheckersModule)
 
   def createEmptyGameBoard(size: Int): Unit = {
-    gameBoard = new GameBoard(size)
+    size match {
+      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
+      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
+      case _ =>
+    }
     publish(new FieldChanged)
   }
 
-  def resize(newSize: Int): Unit = {
-    gameBoard = new GameBoard(newSize)
-    //gameState = RESIZE
+  def resize(newSize: Int): Int = {
+    newSize match {
+      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
+      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
+      case _ =>
+    }
     publish(new GBSizeChanged(newSize))
+    newSize
   }
 
   def createGameBoard(size: Int): Unit = {
@@ -62,7 +71,7 @@ class Controller @Inject() (var gameBoard: GameBoard) extends ControllerInterfac
 
   def isSet(row: Int, col: Int): Boolean = gameBoard.field(row, col).isSet
 
-  def field(row: Int, col: Int): Field = gameBoard.field(row,col)
+  def field(row: Int, col: Int):FieldInterface = gameBoard.field(row,col)
 
   def gameBoardSize: Int = gameBoard.size
 

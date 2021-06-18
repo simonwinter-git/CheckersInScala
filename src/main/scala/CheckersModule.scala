@@ -4,18 +4,19 @@ import com.google.inject.name.Names
 import net.codingwell.scalaguice.ScalaModule
 import controller.controllerComponent._
 import model.gameBoardComponent.GameBoardInterface
-import model.gameBoardComponent.gameBoardBaseImpl.GameBoard
+import model.gameBoardComponent.gameBoardAdvancedImpl.GameBoard
 //import model.gameBoardComponent.
 
 class CheckersModule extends AbstractModule with ScalaModule {
 
-  val defaultSize:Int = 8
+  val defaultSize:Int = 10
 
   override def configure(): Unit = {
     bindConstant().annotatedWith(Names.named("DefaultSize")).to(defaultSize)
-    //bind[GameBoardInterface].to[GameBoard]
+    bind[GameBoardInterface].to[GameBoard]
     bind[ControllerInterface].to[controllerBaseImpl.Controller]
-    bind[GameBoardInterface].toInstance(new GameBoard(8))
+    bind[GameBoardInterface].annotatedWithName("8")toInstance(new GameBoard(8))
+    bind[GameBoardInterface].annotatedWithName("10")toInstance(new GameBoard(10))
   }
 
 }

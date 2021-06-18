@@ -6,5 +6,4 @@ import model.gameBoardComponent.gameBoardBaseImpl.{GameBoard => BaseGameBoard}
 
 
 class GameBoard @Inject() (@Named("DefaultSize") size: Int) extends BaseGameBoard(size) {
-
 }

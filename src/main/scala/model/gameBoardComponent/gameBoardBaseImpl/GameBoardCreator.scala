@@ -1,8 +1,10 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 
+import model.gameBoardComponent.GameBoardInterface
+
 class GameBoardCreator(size:Int) {
-  def createBoard(): GameBoard = {
-    var gameBoard = new GameBoard(size)
+  def createBoard(): GameBoardInterface = {
+    var gameBoard:GameBoardInterface = new GameBoard(size)
 
     for {index <- 1 to 3} {
       for {index2 <- 0 to (size - 1)} {
