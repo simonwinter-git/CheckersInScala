@@ -3,8 +3,7 @@ package aview.gui
 import scala.swing._
 import javax.swing.table._
 import scala.swing.event._
-import controller.Controller
-import controller.FieldChanged
+import controller.controllerComponent.controllerBaseImpl.{Controller}
 
 class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
   val givenFieldColor = new Color(200, 200, 255)

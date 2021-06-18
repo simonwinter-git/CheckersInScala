@@ -1,12 +1,11 @@
 package aview
-import controller.controllerComponent.GameState
-import controller.{Controller, FieldChanged, GBSizeChanged}
-
+import controller.controllerComponent.{ControllerInterface, GameState}
+import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
 
 import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
 
-class Tui(controller: Controller) extends Reactor {
+class Tui(controller: ControllerInterface) extends Reactor {
 
   listenTo(controller)
 

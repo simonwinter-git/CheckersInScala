@@ -1,15 +1,18 @@
-import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoardCreator, GameBoard}
-import controller.{Controller, FieldChanged}
+package scala
+import com.google.inject.Guice
+import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator}
+import controller.controllerComponent.controllerBaseImpl.{Controller, FieldChanged}
 import aview.Tui
 import aview.gui.Gui
+import controller.controllerComponent.ControllerInterface
 
 import scala.io.StdIn.readLine
 
 object Checkers {
-  val controller = new Controller(new GameBoard(8))
+  val injector = Guice.createInjector(new CheckersModule)
+  val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new Tui(controller)
   val gui = new Gui(controller)
-  controller.publish(new FieldChanged)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""

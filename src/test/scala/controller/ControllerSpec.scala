@@ -4,6 +4,7 @@ import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, Piece}
 import org.scalatest._
 import controller.controllerComponent.GameState
 import controller.controllerComponent.GameState.{BLACK_TURN, WHITE_TURN}
+import controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
 import util.Observer

@@ -1,4 +1,4 @@
-package controller
+package controller.controllerComponent.controllerBaseImpl
 import controller.controllerComponent.GameState.GameState
 import util.Command
 import model.gameBoardComponent.gameBoardBaseImpl.{Piece, GameBoard}

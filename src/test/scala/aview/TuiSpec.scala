@@ -1,5 +1,5 @@
 package aview
-import controller.Controller
+import controller.controllerComponent.controllerBaseImpl.Controller
 import model.gameBoardComponent.gameBoardBaseImpl.{GameBoard, GameBoardCreator}
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._

@@ -1,16 +1,19 @@
-package controller
+package controller.controllerComponent.controllerBaseImpl
+import com.google.inject.name.Names
+import com.google.inject.{Guice, Inject}
+import net.codingwell.scalaguice.InjectorExtensions._
 import controller.controllerComponent.GameState._
-import controller.controllerComponent.ControllerInterface
-import model.gameBoardComponent.gameBoardBaseImpl.{GameBoardCreator, Piece, Field, GameBoard}
-import controller.controllerComponent.GameState
+import controller.controllerComponent.{ControllerInterface, FieldChanged, GBSizeChanged, GameState}
+import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.UndoManager
 
 import scala.swing.Publisher
 
-class Controller(var gameBoard:GameBoard) extends ControllerInterface with Publisher {
+class Controller @Inject() (var gameBoard: GameBoard) extends ControllerInterface with Publisher {
 
   private val undoManager = new UndoManager
   var gameState: GameState = WHITE_TURN
+  val injector = Guice.createInjector(new CheckersModule)
 
   def createEmptyGameBoard(size: Int): Unit = {
     gameBoard = new GameBoard(size)

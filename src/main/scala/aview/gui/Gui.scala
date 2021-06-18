@@ -6,11 +6,13 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
+import controller.controllerComponent.ControllerInterface
+import controller.controllerComponent.controllerBaseImpl.{GBSizeChanged}
 import javax.swing.BorderFactory
 
 import scala.io.Source._
 
-class Gui(controller: Controller) extends Frame {
+class Gui(controller: ControllerInterface) extends Frame {
   listenTo(controller)
 
   title = "Checkers"
