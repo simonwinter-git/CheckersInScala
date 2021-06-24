@@ -14,6 +14,8 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
 
   override def createEmptyGameBoard(size: Int): Unit = {}
 
+  override def createNewGameBoard: Unit = {}
+
   override def createGameBoard(size: Int): Unit = {}
 
   override def undo: Unit = {}
