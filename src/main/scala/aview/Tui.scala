@@ -1,6 +1,7 @@
 package aview
-import controller.controllerComponent.{ControllerInterface, GameState}
-import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
+//import controller.controllerComponent.{ControllerInterface, GameState}
+//import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
+import controller.controllerComponent._
 
 import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
@@ -28,6 +29,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
   }
 
   def printTui: Unit = {
+    println("test")
     println(controller.gameBoardToString)
     println(GameState.message(controller.gameState))
   }

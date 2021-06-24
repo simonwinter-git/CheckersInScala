@@ -2,10 +2,24 @@ package aview.gui
 
 import scala.swing._
 import javax.swing.table._
+
 import scala.swing.event._
-import controller.controllerComponent.controllerBaseImpl.{Controller}
+import controller.controllerComponent.controllerBaseImpl.Controller
+import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
 class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
+
+  def myField = controller.field(row, col)
+  def cellText(): String = if (myField.isSet) controller.getPiece(row, col).get.toString
+
+
+
+
+
+
+
+
+  /*
   val givenFieldColor = new Color(200, 200, 255)
   val fieldColor = new Color(224, 224, 255)
   val highlightedFieldColor = new Color(192, 255, 192)
@@ -36,4 +50,6 @@ class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
   }
 
   def setBackground(p: Panel) = p.background = fieldColor
+
+   */
 }

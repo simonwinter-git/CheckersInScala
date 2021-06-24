@@ -1,8 +1,8 @@
 package model.gameBoardComponent.gameBoardBaseImpl
-//import com.google.inject.Inject
-import model.gameBoardComponent.GameBoardInterface
+import com.google.inject.Inject
+import model.gameBoardComponent.{GameBoardInterface, PieceInterface}
 import util.Mode
-case class GameBoard (fields: Matrix[Field]) extends GameBoardInterface {
+case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterface {
 
   def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
 
@@ -37,6 +37,11 @@ case class GameBoard (fields: Matrix[Field]) extends GameBoardInterface {
       col <- 0 until size
     } box = box.replaceFirst("o", field(row, col).toString)
     box
+  }
+
+  def getPiece(row: Int, col: Int): Option[Piece] = {
+    def pos = posToStr(row, col)
+    getField(pos).piece
   }
 
   def move(start: String, dest: String): GameBoard = {

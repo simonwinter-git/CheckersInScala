@@ -6,8 +6,10 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
-import controller.controllerComponent.ControllerInterface
-import controller.controllerComponent.controllerBaseImpl.{GBSizeChanged}
+//import controller.controllerComponent.ControllerInterface
+//import controller.controllerComponent.controllerBaseImpl.{GBSizeChanged}
+import controller.controllerComponent.controllerBaseImpl.Controller
+import controller.controllerComponent._
 import javax.swing.BorderFactory
 
 import scala.io.Source._
@@ -127,11 +129,11 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
   visible = true
-  //redraw
+  redraw
 
   reactions += {
     case event: GBSizeChanged => resize(event.newSize)
-    //case event: FieldChanged => redraw
+    case event: FieldChanged => redraw
   }
 
 
@@ -146,15 +148,17 @@ class Gui(controller: ControllerInterface) extends Frame {
     }
   }
 
-  /*
+  ///*
   def redraw = {
-    for {
-      row <- 0 until controller.gameBoardSize
-      col <- 0 until controller.gameBoardSize
-    } fields(row)(col).redraw
-    //statusLine.text = controller.statusText
-    repaint
+    fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
+    contents = new BorderPanel {
+      add(gameBoardPanel, BorderPanel.Position.Center)
+      add(labelFile, BorderPanel.Position.North)
+      add(labelFile, BorderPanel.Position.South)
+      add(labelRank, BorderPanel.Position.East)
+      add(labelRank, BorderPanel.Position.West)
+    }
   }
 
-   */
+   //*/
 }

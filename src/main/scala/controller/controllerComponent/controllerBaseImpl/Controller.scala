@@ -4,7 +4,7 @@ import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions._
 import controller.controllerComponent.GameState._
 import controller.controllerComponent.{ControllerInterface, FieldChanged, GBSizeChanged, GameState}
-import model.gameBoardComponent.{FieldInterface, GameBoardInterface}
+import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.UndoManager
 
@@ -55,6 +55,10 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   }
 
   def gameBoardToString: String = gameBoard.toString
+
+  def getPiece(row: Int, col: Int): Option[PieceInterface] = {
+    gameBoard.getPiece(row, col)
+  }
 
   def set(row: Int, col: Int, piece: Piece): Unit = {
     undoManager.doStep(new SetCommand(row, col, piece, this))

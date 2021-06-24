@@ -1,13 +1,15 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 
-trait Piece {
-  def row: Int
-  def col: Int
-  def color: String
-  def state: String
+import com.google.inject.Inject
+
+abstract class Piece @Inject() (state: String, row: Int, col: Int, color: String) {
+
+  def getColor: String
 
   def whiteMovePossible(to: String, gameBoard: GameBoard): Boolean
   def blackMovePossible(to: String, gameBoard: GameBoard): Boolean
+
+
 
   def movStrToInt(s: String): (Int, Int, Int, Int) = {
     val startCol = col
@@ -21,8 +23,8 @@ trait Piece {
 object Piece {
 
   def apply(state: String, row: Int, col: Int, color: String): Piece = state match {
-    case "normal" => Normal(row, col, color)
-    case "queen" => Queen(row, col, color)
+    case "normal" => Normal("normal", row, col, color)
+    case "queen" => Queen("normal", row, col, color)
   }
 
 

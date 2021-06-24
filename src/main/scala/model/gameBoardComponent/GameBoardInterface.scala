@@ -14,6 +14,7 @@ trait GameBoardInterface {
   def posToStr(row: Int, col: Int): String
   def setMode(mode: Mode): Unit
   def toString: String
+  def getPiece(row: Int, col: Int): Option[PieceInterface]
   def move(start: String, dest: String): GameBoardInterface
   def whiteMovePossible(start: String, dest: String): Boolean
   def blackMovePossible(start: String, dest: String): Boolean
