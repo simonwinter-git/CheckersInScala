@@ -7,8 +7,8 @@ import model.gameBoardComponent.gameBoardBaseImpl.GameBoard
 
 class NormalSpec extends AnyWordSpec {
   "The piece normal" should {
-    val mode = Normal(8,8,"black")
-    val modeSchwarz = Normal(7,8, "black")
+    val mode = Normal("normal", 8,8,"black")
+    val modeSchwarz = Normal("normal", 7, 8, "black")
     val gb = new GameBoard(8)
     "have a row" in {
       mode.row should be (8)
@@ -17,7 +17,7 @@ class NormalSpec extends AnyWordSpec {
       mode.col should be (8)
     }
     "have a color" in {
-      mode.color should be ("black")
+      mode.getColor should be ("black")
     }
     "have a state" in {
       mode.state should be ("normal")

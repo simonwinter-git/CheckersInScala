@@ -1,21 +1,55 @@
 package aview.gui
 
+import java.awt.Color
+
 import scala.swing._
 import javax.swing.table._
 
 import scala.swing.event._
+import controller.controllerComponent.ControllerInterface
 import controller.controllerComponent.controllerBaseImpl.Controller
+import javax.swing.BorderFactory
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
-class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
+class FieldPanel(row: Int, col: Int, controller: ControllerInterface, backgroundColor: Color) extends FlowPanel {
 
+  var color: String = "white"
   def myField = controller.field(row, col)
-  def cellText(): String = if (myField.isSet) controller.getPiece(row, col).get.toString
+
+  def fieldText(): String = {
+    color = "white"
+    if (myField.isSet) {
+      if (controller.getPiece(row, col).get.getColor == "white") print("")
+      controller.getPiece(row, col).get.toString
+    } else " "
+  }
+
+  val label: Label =
+    new Label {
+      text = fieldText()
+      font = new Font("Nocxyto Sans", 0, 80)
+      foreground = new Color(25, 100, 12)
+    }
+
+  val field: BoxPanel = new BoxPanel(Orientation.Horizontal) {
+    label.text = fieldText()
+    label.horizontalAlignment = Alignment.Right
+    contents += label
+    preferredSize = new Dimension(100, 100)
+    background = backgroundColor
+    if (color == "black") {
+      border = BorderFactory.createEmptyBorder(0,50,40,0)
+    } else border = BorderFactory.createEmptyBorder(0,10,40,0)
+    repaint
+  }
 
 
-
-
-
+  def redraw = {
+    contents.clear()
+    label.text = fieldText()
+    contents += field
+    repaint
+  }
 
 
 
@@ -41,13 +75,7 @@ class FieldPanel(row: Int, col: Int, controller: Controller) extends FlowPanel {
     border = Swing.BeveledBorder(Swing.Raised)
   }
 
-  def redraw = {
-    contents.clear()
-    label.text = fieldText(row, col)
-    setBackground(cell)
-    contents += cell
-    repaint
-  }
+
 
   def setBackground(p: Panel) = p.background = fieldColor
 

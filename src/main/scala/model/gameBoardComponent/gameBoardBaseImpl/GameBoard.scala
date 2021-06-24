@@ -1,6 +1,6 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 import com.google.inject.Inject
-import model.gameBoardComponent.{GameBoardInterface, PieceInterface}
+import model.gameBoardComponent.{GameBoardInterface}
 import util.Mode
 case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterface {
 
@@ -46,7 +46,7 @@ case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterfac
 
   def move(start: String, dest: String): GameBoard = {
     getField(start).piece match {
-      case Some(piece) => remove(start.charAt(1).toInt - 49, start.charAt(0).toInt - 65).set(dest.charAt(1).toInt - 49, dest.charAt(0).toInt - 65, Piece(piece.state, dest.charAt(1).toInt - 49, dest.charAt(0).toInt - 65, piece.color))
+      case Some(piece) => remove(start.charAt(1).toInt - 49, start.charAt(0).toInt - 65).set(dest.charAt(1).toInt - 49, dest.charAt(0).toInt - 65, Piece(piece.state, dest.charAt(1).toInt - 49, dest.charAt(0).toInt - 65, piece.getColor))
       case None => this
     }
   }

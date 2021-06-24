@@ -13,7 +13,8 @@ object Checkers {
   val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new Tui(controller)
   val gui = new Gui(controller)
-  controller.createNewGameBoard
+  //controller.createNewGameBoard()
+  controller.createGameBoard(10)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""

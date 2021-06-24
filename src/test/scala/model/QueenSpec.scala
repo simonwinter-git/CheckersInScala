@@ -6,8 +6,8 @@ import org.scalatest.wordspec._
 
 class QueenSpec extends AnyWordSpec {
   "A Piece called Queen" should {
-    val dame = Queen(1, 4, "white")
-    val dameSchwarz = Queen(7,8, "black")
+    val dame = Queen("queen", 1, 4, "white")
+    val dameSchwarz = Queen("queen", 7, 8, "black")
     val gb = new GameBoard(8)
     "have a row" in {
       dame.row should be (1)
@@ -16,7 +16,7 @@ class QueenSpec extends AnyWordSpec {
       dame.col should be (4)
     }
     "have a color" in {
-      dame.color should be ("white")
+      dame.getColor should be ("white")
     }
     "have the state named queen" in {
       dame.state should be ("queen")

@@ -1,6 +1,6 @@
 package controller.controllerComponent
 import controller.controllerComponent.GameState.GameState
-import model.gameBoardComponent.FieldInterface
+import model.gameBoardComponent.{FieldInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
 import scala.swing.Publisher
@@ -14,6 +14,7 @@ trait ControllerInterface extends Publisher {
   def createGameBoard(size: Int): Unit
   def setGameState(newGameState: GameState): Unit
   def gameBoardToString: String
+  def getPiece(row: Int, col: Int): Option[PieceInterface]
   def set(row: Int, col: Int, piece: Piece): Unit
   def move(start: String, dest: String): Unit
   def undo: Unit

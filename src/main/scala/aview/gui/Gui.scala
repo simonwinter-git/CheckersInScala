@@ -18,7 +18,7 @@ class Gui(controller: ControllerInterface) extends Frame {
   listenTo(controller)
 
   title = "Checkers"
-  minimumSize = new Dimension(500, 500)
+  minimumSize = new Dimension(800, 800)
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
 
 
@@ -34,7 +34,19 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
  */
 
+  def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
+    for {
+      row <- 0 until controller.gameBoardSize
+      col <- 0 until controller.gameBoardSize
+    } {
+      val fieldPanel = new FieldPanel(row, col, controller, if((row+col)%2==0) new Color(255,255,255) else new Color(0,0,0))
+      fields(row)(col) = fieldPanel
+      contents += fieldPanel
+    }
+  }
 
+
+/*
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
     def s: Int = controller.gameBoardSize
     for (i <- Range(0, scala.math.pow(s,2).toInt)) {
@@ -52,8 +64,8 @@ class Gui(controller: ControllerInterface) extends Frame {
       contents += panel
     }
   }
-
-  def labelRank = new GridPanel(controller.gameBoardSize, 1) {
+*/
+  def labelRow = new GridPanel(controller.gameBoardSize, 1) {
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
         text = i.toString
@@ -62,7 +74,7 @@ class Gui(controller: ControllerInterface) extends Frame {
     }
   }
 
-  def labelFile = new GridPanel(1, 9) {
+  def labelCol = new GridPanel(1, 9) {
     border = BorderFactory.createEmptyBorder(0, 25, 0, 25)
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
@@ -103,10 +115,10 @@ class Gui(controller: ControllerInterface) extends Frame {
 
   contents = new BorderPanel {
     add(gameBoardPanel, BorderPanel.Position.Center)
-    add(labelFile, BorderPanel.Position.North)
-    add(labelFile, BorderPanel.Position.South)
-    add(labelRank, BorderPanel.Position.East)
-    add(labelRank, BorderPanel.Position.West)
+    add(labelCol, BorderPanel.Position.North)
+    add(labelCol, BorderPanel.Position.South)
+    add(labelRow, BorderPanel.Position.East)
+    add(labelRow, BorderPanel.Position.West)
     //add(statusLine, BorderPanel.Position.South)
   }
 
@@ -141,24 +153,33 @@ class Gui(controller: ControllerInterface) extends Frame {
     fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
     contents = new BorderPanel {
       add(gameBoardPanel, BorderPanel.Position.Center)
-      add(labelFile, BorderPanel.Position.North)
-      add(labelFile, BorderPanel.Position.South)
-      add(labelRank, BorderPanel.Position.East)
-      add(labelRank, BorderPanel.Position.West)
+      add(labelCol, BorderPanel.Position.North)
+      add(labelCol, BorderPanel.Position.South)
+      add(labelRow, BorderPanel.Position.East)
+      add(labelRow, BorderPanel.Position.West)
     }
   }
 
-  ///*
+  /*
   def redraw = {
     fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
     contents = new BorderPanel {
       add(gameBoardPanel, BorderPanel.Position.Center)
-      add(labelFile, BorderPanel.Position.North)
-      add(labelFile, BorderPanel.Position.South)
-      add(labelRank, BorderPanel.Position.East)
-      add(labelRank, BorderPanel.Position.West)
+      add(labelCol, BorderPanel.Position.North)
+      add(labelCol, BorderPanel.Position.South)
+      add(labelRow, BorderPanel.Position.East)
+      add(labelRow, BorderPanel.Position.West)
     }
   }
 
-   //*/
+   */
+  def redraw = {
+    for {
+      row <- 0 until controller.gameBoardSize
+      column <- 0 until controller.gameBoardSize
+    } fields(row)(column).redraw
+    //statusline.text = controller.statusText
+    repaint
+  }
+
 }

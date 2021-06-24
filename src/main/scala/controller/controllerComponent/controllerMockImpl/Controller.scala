@@ -2,7 +2,7 @@ package controller.controllerComponent.controllerMockImpl
 import controller.controllerComponent.GameState
 import controller.controllerComponent.GameState.{GameState, WHITE_TURN}
 import controller.controllerComponent.ControllerInterface
-import model.gameBoardComponent.{FieldInterface, GameBoardInterface}
+import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardMockImpl.GameBoard
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
@@ -29,6 +29,8 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
   override def set(row: Int, col: Int, piece: Piece): Unit = {}
 
   override def isSet(row: Int, col: Int): Boolean = false
+
+  override def getPiece(row: Int, col: Int): Option[PieceInterface] = None
 
   override def gameBoardToString: String = gameBoard.toString
 

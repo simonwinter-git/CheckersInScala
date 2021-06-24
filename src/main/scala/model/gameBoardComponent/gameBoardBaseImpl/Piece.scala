@@ -1,8 +1,9 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 
 import com.google.inject.Inject
+import model.gameBoardComponent.PieceInterface
 
-abstract class Piece @Inject() (state: String, row: Int, col: Int, color: String) {
+abstract class Piece @Inject() (state: String, row: Int, col: Int, color: String) extends PieceInterface {
 
   def getColor: String
 

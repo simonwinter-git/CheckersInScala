@@ -1,7 +1,7 @@
 package model.gameBoardComponent.gameBoardMockImpl
 import controller.controllerComponent.GameState.WHITE_TURN
 import model.gameBoardComponent.gameBoardBaseImpl.{Classic, Piece}
-import model.gameBoardComponent.{FieldInterface, GameBoardInterface}
+import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import util.Mode
 
 class GameBoard(var size: Int) extends GameBoardInterface {
@@ -25,6 +25,8 @@ class GameBoard(var size: Int) extends GameBoardInterface {
   def setMode(mode: Mode): Unit = WHITE_TURN
 
   override def toString: String = "\n+-------+\n|       |\n|       |\n|       |\n+-------+\n"
+
+  def getPiece(row: Int, col: Int): Option[PieceInterface] = None
 
   def move(start: String, dest: String): GameBoardInterface = this
 
