@@ -12,7 +12,7 @@ object Checkers {
   val injector = Guice.createInjector(new CheckersModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new Tui(controller)
-  val gui = new Gui(controller)
+  //val gui = new Gui(controller)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""

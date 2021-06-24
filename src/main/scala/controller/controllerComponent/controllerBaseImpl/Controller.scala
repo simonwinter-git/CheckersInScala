@@ -25,7 +25,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new FieldChanged)
   }
 
-  def resize(newSize: Int): Int = {
+  def resize(newSize: Int): Unit = {
     newSize match {
       case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
       case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
