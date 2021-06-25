@@ -5,6 +5,8 @@ import model.gameBoardComponent.PieceInterface
 
 abstract class Piece @Inject() (state: String, row: Int, col: Int, color: String) extends PieceInterface {
 
+  def sList: List[String]
+
   def getColor: String
 
   def whiteMovePossible(to: String, gameBoard: GameBoard): Boolean

@@ -22,18 +22,6 @@ class Gui(controller: ControllerInterface) extends Frame {
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
 
 
-
-  /*
-  def highlightpanel = new FlowPanel {
-    contents += new Label("Highlight:")
-    for {index <- 0 to controller.gameBoardSize} {
-      val button = Button(if (index == 0) "" else index.toString) {
-        controller.highlight(index)
-      }
-    }
-  }
- */
-
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
     for {
       row <- 0 until controller.gameBoardSize
@@ -46,25 +34,6 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
 
-/*
-  def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
-    def s: Int = controller.gameBoardSize
-    for (i <- Range(0, scala.math.pow(s,2).toInt)) {
-      val field = i % s
-      val row = Integer2int((s-1) - i/s)
-
-      val panel = new GridPanel(1, 1) {
-        if (field % 2 == 1)
-          if (row % 2 == 1) background = Color.WHITE
-          else background = Color.BLACK
-        else if (row % 2 == 0) background = Color.WHITE
-        else background = Color.BLACK
-        //minimumSize = new Dimension(50, 50)
-      }
-      contents += panel
-    }
-  }
-*/
   def labelRow = new GridPanel(controller.gameBoardSize, 1) {
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
@@ -73,6 +42,7 @@ class Gui(controller: ControllerInterface) extends Frame {
       }
     }
   }
+
 
   def labelCol = new GridPanel(1, 9) {
     border = BorderFactory.createEmptyBorder(0, 25, 0, 25)
@@ -85,33 +55,7 @@ class Gui(controller: ControllerInterface) extends Frame {
       }
     }
   }
-  /*
-  def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
-    border = LineBorder(java.awt.Color.BLACK, 2)
-    background = java.awt.Color.BLACK
-    for {
-      outerRow <- 0 until controller.gameBoardSize
-      outerColumn <- 0 until controller.gameBoardSize
-    } {
-      contents += new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
-        border = LineBorder(java.awt.Color.BLACK, 2)
-        for {
-          innerRow <- 0 until controller.gameBoardSize
-          innerColumn <- 0 until controller.gameBoardSize
-        } {
-          val x = outerRow * controller.gameBoardSize + innerRow
-          val y = outerColumn * controller.gameBoardSize + innerColumn
-          val fieldPanel = new FieldPanel(x, y, controller)
-          fields(x)(y) = fieldPanel
-          contents += fieldPanel
-          listenTo(fieldPanel)
-        }
-      }
-    }
-  }
-  */
 
-  //val statusLine = new TextField(controller.statusText)
 
   contents = new BorderPanel {
     add(gameBoardPanel, BorderPanel.Position.Center)
@@ -160,19 +104,7 @@ class Gui(controller: ControllerInterface) extends Frame {
     }
   }
 
-  /*
-  def redraw = {
-    fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
-    contents = new BorderPanel {
-      add(gameBoardPanel, BorderPanel.Position.Center)
-      add(labelCol, BorderPanel.Position.North)
-      add(labelCol, BorderPanel.Position.South)
-      add(labelRow, BorderPanel.Position.East)
-      add(labelRow, BorderPanel.Position.West)
-    }
-  }
 
-   */
   def redraw = {
     for {
       row <- 0 until controller.gameBoardSize
@@ -180,6 +112,7 @@ class Gui(controller: ControllerInterface) extends Frame {
     } fields(row)(column).redraw
     //statusline.text = controller.statusText
     repaint
+    visible = true
   }
 
 }

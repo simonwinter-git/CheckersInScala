@@ -2,6 +2,7 @@ package aview
 //import controller.controllerComponent.{ControllerInterface, GameState}
 //import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
 import controller.controllerComponent._
+import controller.controllerComponent.controllerBaseImpl.PrintTui
 
 import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
@@ -20,16 +21,23 @@ class Tui(controller: ControllerInterface) extends Reactor {
           case Failure(e) => println(e.getMessage + "\nTry an Integer")
           case Success(e) => controller.createGameBoard(args(1).toInt)
         }
+      case "save" => controller.save
+      case "load" => controller.load
+      case "move" =>
+        Try {controller.move(args(1), args(2))} match {
+          case Failure(e) => println(e.getMessage + "\nTry it like \"move A3 B4\"")
+          case Success(e) => controller.move(args(1), args(2))
+        }
+      case "help" =>
+      case _ => print("Try something else, for possible inputs, type \"help\"\n")
     }
   }
 
   reactions += {
-    case event: GBSizeChanged => printTui
-    case event: FieldChanged => printTui
+    case event: PrintTui => printTui
   }
 
   def printTui: Unit = {
-    println("test")
     println(controller.gameBoardToString)
     println(GameState.message(controller.gameState))
   }

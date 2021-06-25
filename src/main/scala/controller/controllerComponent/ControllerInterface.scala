@@ -17,6 +17,8 @@ trait ControllerInterface extends Publisher {
   def getPiece(row: Int, col: Int): Option[PieceInterface]
   def set(row: Int, col: Int, piece: Piece): Unit
   def move(start: String, dest: String): Unit
+  def save: Unit
+  def load: Unit
   def undo: Unit
   def redo: Unit
   def isSet(row: Int, col: Int): Boolean

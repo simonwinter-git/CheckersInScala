@@ -4,6 +4,7 @@ import model.gameBoardComponent.gameBoardBaseImpl.{GameBoard, Piece}
 
 @ImplementedBy(classOf[Piece])
 trait PieceInterface {
+  def sList: List[String]
   def state: String
   def row: Int
   def col: Int

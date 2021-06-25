@@ -4,6 +4,7 @@ import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions._
 import controller.controllerComponent.GameState._
 import controller.controllerComponent.{ControllerInterface, FieldChanged, GBSizeChanged, GameState}
+import model.fileIoComponent.FileIOInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.UndoManager
@@ -15,6 +16,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   private val undoManager = new UndoManager
   var gameState: GameState = WHITE_TURN
   val injector = Guice.createInjector(new CheckersModule)
+  val fileIo = injector.instance[FileIOInterface]
 
   def createEmptyGameBoard(size: Int): Unit = {
     size match {
@@ -23,6 +25,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
       case _ =>
     }
     publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def createNewGameBoard(): Unit = {
@@ -31,7 +34,9 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
       case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
       case _ =>
     }
+    publish(GBSizeChanged(gameBoard.size))
     publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def resize(newSize: Int): Unit = {
@@ -40,14 +45,18 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
       case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
       case _ =>
     }
-    publish(new GBSizeChanged(newSize))
+    publish(GBSizeChanged(newSize))
+    publish(new FieldChanged)
+    publish(new PrintTui)
     newSize
   }
 
   def createGameBoard(size: Int): Unit = {
     gameBoard = new GameBoardCreator(size).createBoard()
     //gameState = NEW
+    publish(GBSizeChanged(gameBoard.size))
     publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def setGameState(newGameState: GameState): Unit = {
@@ -64,22 +73,44 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     undoManager.doStep(new SetCommand(row, col, piece, this))
     gameBoard = gameBoard.set(row, col, piece)
     publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def move(start: String, dest: String): Unit = {
     undoManager.doStep(new MoveCommand(start, dest, this))
     gameBoard = gameBoard.move(start, dest)
     publish(new FieldChanged)
+    publish(new PrintTui)
+  }
+
+  def movePossible(start: String, dest: String): Boolean = {
+    if (gameBoard.getField(start).piece.get.getColor == "black") gameBoard.blackMovePossible(start, dest)
+    else gameBoard.whiteMovePossible(start, dest)
+  }
+
+  def save: Unit = {
+    fileIo.save(gameBoard)
+    publish(new FieldChanged)
+  }
+
+  def load: Unit = {
+    val oldSize = gameBoard.size
+    gameBoard = fileIo.load
+    if (gameBoard.size != oldSize) publish(new GBSizeChanged(gameBoard.size))
+    publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def undo: Unit = {
     undoManager.undoStep
     publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def redo: Unit = {
     undoManager.redoStep
     publish(new FieldChanged)
+    publish(new PrintTui)
   }
 
   def isSet(row: Int, col: Int): Boolean = gameBoard.field(row, col).isSet
