@@ -27,8 +27,8 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
   val label: Label =
     new Label {
       text = fieldText()
-      font = new Font("Nocxyto Sans", 0, 80)
-      foreground = new Color(25, 100, 12)
+      font = new Font("Nocxyto Sans", 0, 72)
+      //foreground = new Color(25, 100, 12)
     }
 
   val field: BoxPanel = new BoxPanel(Orientation.Horizontal) {
@@ -39,7 +39,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
     background = backgroundColor
     if (color == "black") {
       border = BorderFactory.createEmptyBorder(0,50,40,0)
-    } else border = BorderFactory.createEmptyBorder(0,10,40,0)
+    } else border = BorderFactory.createEmptyBorder(-10,19,30,0) //this
     repaint
   }
 
