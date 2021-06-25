@@ -76,6 +76,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new PrintTui)
   }
 
+
   def move(start: String, dest: String): Unit = {
     undoManager.doStep(new MoveCommand(start, dest, this))
     //gameBoard = gameBoard.move(start, dest)

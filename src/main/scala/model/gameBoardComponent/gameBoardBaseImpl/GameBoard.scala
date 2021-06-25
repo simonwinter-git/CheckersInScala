@@ -11,7 +11,7 @@ case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterfac
 
   def getField(pos: String): Field = field(pos.charAt(1).toInt - 49, pos.charAt(0).toInt - 65)
 
-  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), None)))
+  def remove(row: Int, col: Int): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), None))); print(" test ")
 
   def set(row: Int, col: Int, piece: Piece): GameBoard = copy(fields.replaceField(row, col, Field(posToStr(row, col), Some(piece))))
 

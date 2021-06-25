@@ -75,8 +75,9 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
           true
         }
         else if (gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col + 2)) {
-          gameBoard.remove(row - 1, col + 1)
-          print("lol")
+          print("Field: "+gameBoard.field(row - 1, col + 1))
+          gameBoard.move("A1", "E6")
+          print("Field: "+gameBoard.field(row - 1, col + 1))
           true
         }
         else false
