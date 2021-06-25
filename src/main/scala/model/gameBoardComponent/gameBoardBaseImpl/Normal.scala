@@ -4,13 +4,12 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
 
 
   override def sList: List[String] = List("")
-
   override def toString: String = if (getColor == "black") "\uD83D\uDD34" //red
     else "\uD83D\uDD35" //blue
 
   override def whiteMovePossible(to: String, gameBoard: GameBoard): Boolean = {
-
-
+  val Last: Int = gameBoard.size - 1
+  /*
     for {
       r <- 0 until gameBoard.size
       c <- 0 until gameBoard.size
@@ -24,7 +23,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
           }
         }
 
-        case gameBoard.size - 1 => {
+        case Last => {
           if (gameBoard.field(row - 1, col - 1).piece.isEmpty) {
             true
           } else false
@@ -39,36 +38,54 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
       }
 
     }
-
+    */
     col match {
 
       case 0 => {
         if (gameBoard.field(row - 1, col + 1).piece.isEmpty) {
           if (to == gameBoard.posToStr(row - 1, col + 1)) true
           else false
-        } else if (gameBoard.field(row - 1, col + 1).piece.get.getColor == "black") {
-          true
+        } else if (gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black") {
+            if (to == gameBoard.posToStr(row - 2, col + 2) && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
+              gameBoard.remove(row - 1, col + 1)
+              true
+            }
+            else false
         } else false
+      }
 
-        }
-
-      case gameBoard.size - 1 => {
+      case Last => {
         if (gameBoard.field(row - 1, col - 1).piece.isEmpty) {
-          true
+          if (to == gameBoard.posToStr(row - 1, col - 1)) true
+          else false
+        } else if (gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black") {
+            if (to == gameBoard.posToStr(row - 2, col - 2) && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
+              gameBoard.remove(row - 1, col - 1)
+              true
+            }
+            else false
         } else false
       }
 
       case _ => {
-        if (gameBoard.field(row - 1, col + 1).piece.isEmpty && gameBoard.field(row - 1, col - 1).piece.isEmpty) {
+        if (gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) true
+        else if (gameBoard.field(row - 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col + 1)) true
+        else if (gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col - 2)) {
+          gameBoard.remove(row - 1, col - 1)
           true
-        } else false
+        }
+        else if (gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col + 2)) {
+          gameBoard.remove(row - 1, col + 1)
+          print("lol")
+          true
+        }
+        else false
       }
 
     }
 
 
   }
-
 
   override def blackMovePossible(to: String, gameBoard: GameBoard): Boolean = true
 

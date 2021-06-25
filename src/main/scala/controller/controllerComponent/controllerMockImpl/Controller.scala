@@ -44,5 +44,7 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
 
   override def move(start: String, dest: String): Unit = {}
 
+  override def movePossible(start: String, dest: String): Boolean = true
+
   override def setGameState(newGameState: GameState): Unit = {}
 }

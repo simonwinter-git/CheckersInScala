@@ -71,14 +71,14 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def set(row: Int, col: Int, piece: Piece): Unit = {
     undoManager.doStep(new SetCommand(row, col, piece, this))
-    gameBoard = gameBoard.set(row, col, piece)
+    //gameBoard = gameBoard.set(row, col, piece)
     publish(new FieldChanged)
     publish(new PrintTui)
   }
 
   def move(start: String, dest: String): Unit = {
     undoManager.doStep(new MoveCommand(start, dest, this))
-    gameBoard = gameBoard.move(start, dest)
+    //gameBoard = gameBoard.move(start, dest)
     publish(new FieldChanged)
     publish(new PrintTui)
   }

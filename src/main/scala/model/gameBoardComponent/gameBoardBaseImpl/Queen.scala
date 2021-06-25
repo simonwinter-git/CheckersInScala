@@ -2,6 +2,7 @@ package model.gameBoardComponent.gameBoardBaseImpl
 
 case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) extends Piece(state, row, col, getColor) {
 
+  override def sList: List[String] = List("")
   override def toString: String = if (getColor == "black") "\uD83D\uDFE0" //orange
   else "\uD83D\uDFE3" //purple
 
