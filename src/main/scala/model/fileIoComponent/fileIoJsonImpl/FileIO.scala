@@ -6,7 +6,9 @@ import model.fileIoComponent.FileIOInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, Piece}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
-import play.api.libs.functional.syntax.toFunctionalBuilderOps
+import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 import scala.io.Source
 import play.api.libs.json._
@@ -26,9 +28,11 @@ class FileIO extends FileIOInterface{
     for (index <- 0 until size * size) {
       val row = (json \\ "row")(index).as[Int]
       val col = (json \\ "col")(index).as[Int]
-      //val field = (json \\ "field")(index)
-      val piece = (json \ "piece")(index).as[Option[Piece]]
-      gameBoard = gameBoard.set(row, col, piece)
+      print(row + " row\n" + col + " col\n")
+      val field = (json \\ "field")(index).as[Field]
+      //val piece = (json \ "piece")(index)
+      gameBoard = gameBoard.set(row, col, field.piece)
+
     }
     gameBoard
   }
@@ -49,22 +53,18 @@ class FileIO extends FileIOInterface{
     }
   }
 
-  val pieceReadsBuilder =
+
+  implicit val pieceReads: Reads[Piece] = (
     (JsPath \ "state").read[String] and
-      (JsPath \ "row").read[Int] and
-      (JsPath \ "col").read[Int] and
-      (JsPath \ "color").read[String]
-
-  //implicit val pieceReads = pieceReadsBuilder.apply(Some(Piece.apply _))
-
-
-  implicit val pieceReads: Reads[Option[Piece]] = (
-    (JsPath \ "state").read[String] and
-      (JsPath \ "row").read[Int] and
-      (JsPath \ "col").read[Int] and
+      (JsPath \ "prow").read[Int] and
+      (JsPath \ "pcol").read[Int] and
       (JsPath \ "color").read[String]
     ) (Piece.apply _)
 
+  implicit val fieldReads: Reads[Field] = (
+    (JsPath \ "pos").read[String] and
+      (JsPath \ "piece").readNullable[Piece]
+    ) (Field.apply _)
 
 
 
@@ -76,23 +76,15 @@ class FileIO extends FileIOInterface{
   }
 
   implicit val pieceWrites = new Writes[Option[Piece]] {
-    def writes(piece: Option[Piece]) = Json.obj(
-      "state" -> piece.get.state,
-      "row" -> piece.get.row,
-      "col" -> piece.get.col,
-      "color" -> piece.get.getColor
-    )
-
+    def writes(piece: Option[Piece]): JsValue = piece match {
+      case Some(t) => Json.obj(
+      "state" -> t.state,
+      "prow" -> t.row,
+      "pcol" -> t.col,
+      "color" -> t.getColor
+      ) case None => JsNull
+    }
   }
-
-
-  /*
-  implicit val fieldWrites = new Writes[FieldInterface] {
-    def writes(field: FieldInterface) = Json.obj(
-      "piece" -> field.piece.get
-    )
-  }
-  */
 
 
   def gameBoardToJson(gameBoard: GameBoardInterface) = {
@@ -101,7 +93,7 @@ class FileIO extends FileIOInterface{
         "size" -> JsNumber(gameBoard.size),
         "fields" -> Json.toJson(
           for {
-            row <- 0 until gameBoard.size;
+            row <- 0 until gameBoard.size
             col <- 0 until gameBoard.size
           } yield {
             Json.obj(

@@ -12,5 +12,4 @@ case class Field (pos: String, piece: Option[Piece]) extends FieldInterface {
     case None => " "
   }
 
-  //def isWhite:Boolean = ((id._1 - id._2) % 2 == 0)
 }
