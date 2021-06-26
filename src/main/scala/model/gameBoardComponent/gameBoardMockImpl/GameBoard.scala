@@ -36,6 +36,8 @@ class GameBoard(var size: Int) extends GameBoardInterface {
 }
 
 object EmptyField extends FieldInterface {
+  def getPiece: Option[Piece] = None
+  def getPos: String = ""
   def isSet: Boolean = false
   def piece: Option[Piece] = None
 

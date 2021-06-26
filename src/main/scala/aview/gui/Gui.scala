@@ -11,6 +11,8 @@ import controller._
 import controller.controllerComponent.controllerBaseImpl.Controller
 import controller.controllerComponent._
 import javax.swing.BorderFactory
+//import scalafx.scene._
+//import scalafx.Includes._
 
 import scala.io.Source._
 
@@ -115,5 +117,4 @@ class Gui(controller: ControllerInterface) extends Frame {
     repaint
     visible = true
   }
-
 }

@@ -26,9 +26,9 @@ class FileIO extends FileIOInterface{
     for (index <- 0 until size * size) {
       val row = (json \\ "row")(index).as[Int]
       val col = (json \\ "col")(index).as[Int]
-      val field = (json \\ "field")(index)
-      val piece = (json \ "piece")(index).as[Piece]
-      gameBoard = gameBoard.set(row, col, Some(piece))
+      //val field = (json \\ "field")(index)
+      val piece = (json \ "piece")(index).as[Option[Piece]]
+      gameBoard = gameBoard.set(row, col, piece)
     }
     gameBoard
   }
@@ -57,7 +57,8 @@ class FileIO extends FileIOInterface{
 
   //implicit val pieceReads = pieceReadsBuilder.apply(Some(Piece.apply _))
 
-  implicit val pieceReads: Reads[Piece] = (
+
+  implicit val pieceReads: Reads[Option[Piece]] = (
     (JsPath \ "state").read[String] and
       (JsPath \ "row").read[Int] and
       (JsPath \ "col").read[Int] and
