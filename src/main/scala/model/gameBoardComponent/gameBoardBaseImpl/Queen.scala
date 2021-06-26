@@ -1,5 +1,7 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 
+import util.Mover
+
 case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) extends Piece(state, row, col, getColor) {
 
   override def sList: List[String] = List("")
@@ -8,6 +10,6 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
 
 
 
-  override def whiteMovePossible(to: String, gameBoard: GameBoard): Boolean = true
-  override def blackMovePossible(to: String, gameBoard: GameBoard): Boolean = true
+  override def whiteMovePossible(to: String, gameBoard: GameBoard): Mover = new Mover(true, "")
+  override def blackMovePossible(to: String, gameBoard: GameBoard): Mover = new Mover(true, "")
 }

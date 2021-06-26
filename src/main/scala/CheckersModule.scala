@@ -18,7 +18,7 @@ class CheckersModule extends AbstractModule with ScalaModule {
     bind[ControllerInterface].to[controllerBaseImpl.Controller]
     bind[GameBoardInterface].annotatedWithName("8")toInstance(new GameBoard(8))
     bind[GameBoardInterface].annotatedWithName("10")toInstance(new GameBoard(10))
-    bind[FileIOInterface].to[fileIoXmlImpl.FileIO]
+    bind[FileIOInterface].to[fileIoJsonImpl.FileIO]
   }
 
 }

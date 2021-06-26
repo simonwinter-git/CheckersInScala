@@ -2,7 +2,7 @@ package model.gameBoardComponent.gameBoardMockImpl
 import controller.controllerComponent.GameState.WHITE_TURN
 import model.gameBoardComponent.gameBoardBaseImpl.{Classic, Piece}
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
-import util.Mode
+import util.{Mode, Mover}
 
 class GameBoard(var size: Int) extends GameBoardInterface {
   size = 3
@@ -12,7 +12,7 @@ class GameBoard(var size: Int) extends GameBoardInterface {
 
   def remove(row: Int, col: Int): GameBoardInterface = this
 
-  def set(row: Int, col: Int, piece: Piece): GameBoardInterface = this
+  def set(row: Int, col: Int, piece: Option[Piece]): GameBoardInterface = this
 
   def field(row: Int, col: Int): FieldInterface = EmptyField
 
@@ -30,9 +30,9 @@ class GameBoard(var size: Int) extends GameBoardInterface {
 
   def move(start: String, dest: String): GameBoardInterface = this
 
-  def whiteMovePossible(start: String, dest: String): Boolean = true
+  def whiteMovePossible(start: String, dest: String): Mover = new Mover(true, "")
 
-  def blackMovePossible(start: String, dest: String): Boolean = true
+  def blackMovePossible(start: String, dest: String): Mover = new Mover(true, "")
 }
 
 object EmptyField extends FieldInterface {

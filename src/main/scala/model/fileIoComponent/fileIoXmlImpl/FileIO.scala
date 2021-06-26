@@ -26,14 +26,14 @@ class FileIO extends FileIOInterface {
 
     for (field <- fieldNodes) {
       val pos: String = (field \ "@pos").text
-      val row: Int = pos.charAt(1).toInt - 49
+      val row: Int = Integer.parseInt(pos.tail) - 1
       val col: Int = pos.charAt(0).toInt - 65
       val piece = field.text
       piece match {
-        case " value = \uD83D\uDD34 " => gameBoard = gameBoard.set(row, col, Piece("normal", row, col, "black"))
-        case " value = \uD83D\uDD35 " => gameBoard = gameBoard.set(row, col, Piece("normal", row, col, "white"))
-        case " value = \uD83D\uDFE0 " => gameBoard = gameBoard.set(row, col, Piece("queen", row, col, "black"))
-        case " value = \uD83D\uDFE3 " => gameBoard = gameBoard.set(row, col, Piece("queen", row, col, "white"))
+        case " value = \uD83D\uDD34 " => gameBoard = gameBoard.set(row, col, Some(Piece("normal", row, col, "black")))
+        case " value = \uD83D\uDD35 " => gameBoard = gameBoard.set(row, col, Some(Piece("normal", row, col, "white")))
+        case " value = \uD83D\uDFE0 " => gameBoard = gameBoard.set(row, col, Some(Piece("queen", row, col, "black")))
+        case " value = \uD83D\uDFE3 " => gameBoard = gameBoard.set(row, col, Some(Piece("queen", row, col, "white")))
         case " value = " => gameBoard = gameBoard.remove(row, col)
       }
     }

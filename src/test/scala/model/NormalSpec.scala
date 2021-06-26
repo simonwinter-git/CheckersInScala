@@ -26,10 +26,10 @@ class NormalSpec extends AnyWordSpec {
       mode.toString should be ("O")
     }
     "should be allowed to Move" in {
-      mode.whiteMovePossible("A2", gb) should be (true)
+      mode.whiteMovePossible("A2", gb).getBool should be (true)
     }
     "should be allowed to Move as a Black Piece" in {
-      modeSchwarz.blackMovePossible("A1", gb) should be (true)
+      modeSchwarz.blackMovePossible("A1", gb).getBool should be (true)
     }
   }
 }

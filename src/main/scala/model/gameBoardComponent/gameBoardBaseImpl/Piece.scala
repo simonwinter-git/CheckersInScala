@@ -2,15 +2,16 @@ package model.gameBoardComponent.gameBoardBaseImpl
 
 import com.google.inject.Inject
 import model.gameBoardComponent.PieceInterface
+import util.Mover
 
 abstract class Piece @Inject() (state: String, row: Int, col: Int, color: String) extends PieceInterface {
 
   def sList: List[String]
-
   def getColor: String
+  def posToStr(row: Int, col: Int): String = {(col + 65).toChar.toString + (row + 49).toChar.toString}
 
-  def whiteMovePossible(to: String, gameBoard: GameBoard): Boolean
-  def blackMovePossible(to: String, gameBoard: GameBoard): Boolean
+  def whiteMovePossible(to: String, gameBoard: GameBoard): Mover
+  def blackMovePossible(to: String, gameBoard: GameBoard): Mover
 
 
 

@@ -4,7 +4,7 @@ import model.gameBoardComponent.GameBoardInterface
 import util.Command
 import model.gameBoardComponent.gameBoardBaseImpl.{GameBoard, Piece}
 
-class SetCommand(start: Int, dest: Int, piece: Piece, controller: Controller) extends Command {
+class SetCommand(start: Int, dest: Int, piece: Option[Piece], controller: Controller) extends Command {
 
   var memento: (GameBoardInterface, GameState) = (
     controller.gameBoard,

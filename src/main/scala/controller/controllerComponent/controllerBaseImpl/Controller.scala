@@ -7,7 +7,7 @@ import controller.controllerComponent.{ControllerInterface, FieldChanged, GBSize
 import model.fileIoComponent.FileIOInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
-import util.UndoManager
+import util.{Mover, UndoManager}
 
 import scala.swing.Publisher
 
@@ -70,12 +70,17 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   }
 
   def set(row: Int, col: Int, piece: Piece): Unit = {
-    undoManager.doStep(new SetCommand(row, col, piece, this))
+    undoManager.doStep(new SetCommand(row, col, Some(piece), this))
     //gameBoard = gameBoard.set(row, col, piece)
     publish(new FieldChanged)
     publish(new PrintTui)
   }
 
+  def remove(row: Int, col: Int): Unit = {
+    undoManager.doStep(new SetCommand(row, col, None, this))
+    publish(new FieldChanged)
+    publish(new PrintTui)
+  }
 
   def move(start: String, dest: String): Unit = {
     undoManager.doStep(new MoveCommand(start, dest, this))
@@ -84,9 +89,11 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new PrintTui)
   }
 
-  def movePossible(start: String, dest: String): Boolean = {
-    if (gameBoard.getField(start).piece.get.getColor == "black") gameBoard.blackMovePossible(start, dest)
-    else gameBoard.whiteMovePossible(start, dest)
+  def movePossible(start: String, dest: String): Mover = {
+    if (gameBoard.getField(start).piece.isDefined) {
+      if (gameBoard.getField(start).piece.get.getColor == "black") gameBoard.blackMovePossible(start, dest)
+      else gameBoard.whiteMovePossible(start, dest)
+    } else new Mover(false, "")
   }
 
   def save: Unit = {

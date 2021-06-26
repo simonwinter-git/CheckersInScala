@@ -26,10 +26,10 @@ class GameBoardSpec extends AnyWordSpec {
       board.toString should be ("\n+-------+\n|       |\n|       |\n|       |\n+-------+\n")
     }
     "have no possible black move" in {
-      boardGross.blackMovePossible("A8", "B7") should be (false)
+      boardGross.blackMovePossible("A8", "B7").getBool should be (false)
     }
     "have no possible white move" in {
-      boardGross.whiteMovePossible("H1", "G2") should be (false)
+      boardGross.whiteMovePossible("H1", "G2").getBool should be (false)
     }
   }
 }

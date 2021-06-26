@@ -5,6 +5,7 @@ import controller.controllerComponent.ControllerInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardMockImpl.GameBoard
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
+import util.Mover
 
 class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface {
 
@@ -32,6 +33,8 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
 
   override def set(row: Int, col: Int, piece: Piece): Unit = {}
 
+  override def remove(row: Int, col: Int) = {}
+
   override def isSet(row: Int, col: Int): Boolean = false
 
   override def getPiece(row: Int, col: Int): Option[PieceInterface] = None
@@ -44,7 +47,7 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
 
   override def move(start: String, dest: String): Unit = {}
 
-  override def movePossible(start: String, dest: String): Boolean = true
+  override def movePossible(start: String, dest: String): Mover = new Mover(true, "")
 
   override def setGameState(newGameState: GameState): Unit = {}
 }

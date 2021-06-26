@@ -18,6 +18,7 @@ class Gui(controller: ControllerInterface) extends Frame {
   listenTo(controller)
 
   title = "Checkers"
+  resizable = false
   minimumSize = new Dimension(800, 800)
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
 
