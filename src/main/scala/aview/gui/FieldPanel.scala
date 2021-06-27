@@ -11,10 +11,14 @@ import controller.controllerComponent.controllerBaseImpl.Controller
 import javax.swing.BorderFactory
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
-class FieldPanel(row: Int, col: Int, controller: ControllerInterface, backgroundColor: Color) extends FlowPanel {
+import scala.Checkers.gui
 
+class FieldPanel(row: Int, col: Int, controller: ControllerInterface, backgroundColor: Color) extends FlowPanel {
+  vGap = 0
+  hGap = 0
   var color: String = "white"
   def myField = controller.field(row, col)
+
 
   def fieldText(): String = {
     color = "white"
@@ -31,7 +35,26 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
       //foreground = new Color(25, 100, 12)
     }
 
-  val field: BoxPanel = new BoxPanel(Orientation.Horizontal) {
+  val field: BoxPanel = new BoxPanel(Orientation.NoOrientation) {
+    listenTo(mouse.clicks)
+
+    reactions += {
+      case e: MouseClicked =>
+        if (gui.flagTest == 0) {
+          gui.flagTest = 1
+          gui.fieldStart = myField.getPos
+          print(gui.fieldStart + " Start\n")
+        } else {
+          gui.flagTest = 0
+          gui.fieldDest = myField.getPos
+          print(gui.fieldDest + " Dest\n")
+        }
+        if (controller.movePossible(gui.fieldStart, gui.fieldDest).getBool) {
+          print("move possible\n")
+          if (!controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.isBlank) controller.remove(controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.charAt(1).toInt - 49, controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.charAt(0).toInt - 65)
+          controller.move(gui.fieldStart, gui.fieldDest)
+        }
+    }
     label.text = fieldText()
     label.horizontalAlignment = Alignment.Right
     contents += label
@@ -39,7 +62,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
     background = backgroundColor
     if (color == "black") {
       border = BorderFactory.createEmptyBorder(0,50,40,0)
-    } else border = BorderFactory.createEmptyBorder(-10,19,30,0) //this
+    } else border = BorderFactory.createEmptyBorder(-5,19,30,0) //this
     repaint
   }
 

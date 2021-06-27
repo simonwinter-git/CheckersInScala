@@ -6,14 +6,17 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
+import scalafx.application.JFXApp3
+import scalafx.scene.shape.Rectangle
 //import controller.controllerComponent.ControllerInterface
 //import controller.controllerComponent.controllerBaseImpl.{GBSizeChanged}
 import controller.controllerComponent.controllerBaseImpl.Controller
 import controller.controllerComponent._
 import javax.swing.BorderFactory
-//import scalafx.scene._
-//import scalafx.Includes._
-
+/*import scalafx.scene._
+import scalafx.Includes._
+import scalafx.application.JFXApp3
+import scalafx.scene.input.MouseEvent */
 import scala.io.Source._
 
 class Gui(controller: ControllerInterface) extends Frame {
@@ -23,9 +26,39 @@ class Gui(controller: ControllerInterface) extends Frame {
   resizable = false
   minimumSize = new Dimension(800, 800)
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
+  var flagTest = 0
+  var fieldStart = ""
+  var fieldDest = ""
 
 
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
+
+
+
+    /*listenTo(mouse.clicks)
+    var flagTest = 0
+    var fieldStart = ""
+    var fieldDest = ""
+    reactions += {
+      case e: MouseClicked =>
+        if (flagTest == 0) {
+          val pX = (e.point.x / 75).toInt
+          val pY = (e.point.y / 75).toInt
+          fieldStart = (pX + 65).toChar.toString + (pY + 1).toString
+          flagTest = 1
+          print("t")
+        } else {
+          val pX2 = (e.point.x / 75).toInt
+          val pY2 = (e.point.y / 75).toInt
+          print("p")
+          fieldDest = (pX2 + 65).toChar.toString + (pY2 + 1).toString
+          flagTest = 0
+        }
+        if (controller.movePossible(fieldStart, fieldDest).getBool) {
+          if (!controller.movePossible(fieldStart, fieldDest).getRem.isBlank) controller.remove(controller.movePossible(fieldStart, fieldDest).getRem.charAt(1).toInt - 49, controller.movePossible(fieldStart, fieldDest).getRem.charAt(0).toInt - 65)
+          controller.move(fieldStart, fieldDest)
+        }
+    } */
     for {
       row <- 0 until controller.gameBoardSize
       col <- 0 until controller.gameBoardSize
@@ -34,6 +67,7 @@ class Gui(controller: ControllerInterface) extends Frame {
       fields(row)(col) = fieldPanel
       contents += fieldPanel
     }
+
   }
 
 
@@ -41,7 +75,7 @@ class Gui(controller: ControllerInterface) extends Frame {
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
         text = i.toString
-        preferredSize = new Dimension(20, 40)
+        preferredSize = new Dimension(20, 0)
       }
     }
   }
@@ -54,7 +88,7 @@ class Gui(controller: ControllerInterface) extends Frame {
         horizontalAlignment = Alignment.Center
 
         text = i.toChar.toString
-        preferredSize = new Dimension(40, 20)
+        preferredSize = new Dimension(0, 20)
       }
     }
   }
@@ -118,3 +152,4 @@ class Gui(controller: ControllerInterface) extends Frame {
     visible = true
   }
 }
+
