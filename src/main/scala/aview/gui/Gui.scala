@@ -36,6 +36,7 @@ class Gui(controller: ControllerInterface) extends Frame {
   iconImage = new ImageIcon(dir+"\\src\\main\\resources\\icon.png").getImage
 
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
+    border = BorderFactory.createEmptyBorder(1, 1, 1, 1)
     for {
       row <- 0 until controller.gameBoardSize
       col <- 0 until controller.gameBoardSize
@@ -44,31 +45,60 @@ class Gui(controller: ControllerInterface) extends Frame {
       fields(row)(col) = fieldPanel
       contents += fieldPanel
     }
+    background = new Color(40, 40, 40)
 
   }
 
-  def labelRow = new GridPanel(controller.gameBoardSize, 1) {
-    background = new Color(118, 0, 0)
+  def labelRowL = new GridPanel(controller.gameBoardSize, 1) {
+    border = BorderFactory.createEmptyBorder(0, 0, 0, 0)
+    background = new Color(40, 40, 40)
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
         text = i.toString
         foreground = new Color(230, 230, 230)
         font = new Font("Arial", 1, 15)
-        preferredSize = new Dimension(20, 0)
+        preferredSize = new Dimension(17, 0)
       }
     }
   }
 
-  def labelCol = new GridPanel(1, controller.gameBoardSize - 1) {
+  def labelRowR = new GridPanel(controller.gameBoardSize, 1) {
+    border = BorderFactory.createEmptyBorder(0, 0, 0, 0)
+    background = new Color(40, 40, 40)
+    for (i <- Range(1, controller.gameBoardSize + 1)) {
+      contents += new Label {
+        text = i.toString
+        foreground = new Color(230, 230, 230)
+        font = new Font("Arial", 1, 15)
+        preferredSize = new Dimension(17, 0)
+      }
+    }
+  }
+
+  def labelColT = new GridPanel(1, controller.gameBoardSize - 1) {
     border = BorderFactory.createEmptyBorder(0, 20, 0, 20)
-    background = new Color(118, 0, 0)
+    background = new Color(40, 40, 40)
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
         //horizontalAlignment = Alignment.Center
         text = i.toChar.toString
         foreground = new Color(230, 230, 230)
         font = new Font("Arial", 1, 15)
-        preferredSize = new Dimension(0, 20)
+        preferredSize = new Dimension(0, 17)
+      }
+    }
+  }
+
+  def labelColB = new GridPanel(1, controller.gameBoardSize - 1) {
+    border = BorderFactory.createEmptyBorder(0, 20, 0, 20)
+    background = new Color(40, 40, 40)
+    for (i <- Range(65, controller.gameBoardSize + 65)) {
+      contents += new Label {
+        //horizontalAlignment = Alignment.Center
+        text = i.toChar.toString
+        foreground = new Color(230, 230, 230)
+        font = new Font("Arial", 1, 15)
+        preferredSize = new Dimension(0, 17)
       }
     }
   }
@@ -76,10 +106,10 @@ class Gui(controller: ControllerInterface) extends Frame {
   contents = new BorderPanel {
     //add(gameBoardPanel, BorderPanel.Position.Center)
     add(gameBoardPanel, BorderPanel.Position.Center)
-    add(labelCol, BorderPanel.Position.North)
-    add(labelCol, BorderPanel.Position.South)
-    add(labelRow, BorderPanel.Position.East)
-    add(labelRow, BorderPanel.Position.West)
+    add(labelColT, BorderPanel.Position.North)
+    add(labelColB, BorderPanel.Position.South)
+    add(labelRowR, BorderPanel.Position.East)
+    add(labelRowL, BorderPanel.Position.West)
     //add(statusLine, BorderPanel.Position.South)
   }
 
@@ -113,10 +143,10 @@ class Gui(controller: ControllerInterface) extends Frame {
     fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
     contents = new BorderPanel {
       add(gameBoardPanel, BorderPanel.Position.Center)
-      add(labelCol, BorderPanel.Position.North)
-      add(labelCol, BorderPanel.Position.South)
-      add(labelRow, BorderPanel.Position.East)
-      add(labelRow, BorderPanel.Position.West)
+      add(labelColT, BorderPanel.Position.North)
+      add(labelColB, BorderPanel.Position.South)
+      add(labelRowR, BorderPanel.Position.East)
+      add(labelRowL, BorderPanel.Position.West)
     }
   }
 

@@ -121,9 +121,11 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
 
     preferredSize = new Dimension(100, 100)
     background = backgroundColor
+
     if (controller.gameBoardSize == 8) {
       border = BorderFactory.createEmptyBorder(-10,0,0,0)
     } else border = BorderFactory.createEmptyBorder(-5,19,30,0)
+
     repaint
   }
 
