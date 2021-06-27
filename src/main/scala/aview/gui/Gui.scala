@@ -2,12 +2,13 @@ package aview.gui
 
 import java.awt
 import java.awt.{Color, Dimension, GridLayout, Toolkit}
+import java.io.File
 
 import scala.swing.{Button, _}
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
-import javax.swing.{JButton, JPanel}
+import javax.swing.{Icon, ImageIcon, JButton, JPanel}
 import scalafx.application.JFXApp3
 import scalafx.scene.shape.Rectangle
 //import controller.controllerComponent.ControllerInterface
@@ -31,6 +32,8 @@ class Gui(controller: ControllerInterface) extends Frame {
   var fieldDest = ""
   var colorFlag = new BoxPanel(Orientation.NoOrientation)
 
+  val dir: String = new File("").getAbsolutePath
+  iconImage = new ImageIcon(dir+"\\src\\main\\resources\\icon.png").getImage
 
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
     for {
@@ -56,13 +59,12 @@ class Gui(controller: ControllerInterface) extends Frame {
     }
   }
 
-  def labelCol = new GridPanel(1, 9) {
-    border = BorderFactory.createEmptyBorder(0, 25, 0, 25)
+  def labelCol = new GridPanel(1, controller.gameBoardSize - 1) {
+    border = BorderFactory.createEmptyBorder(0, 20, 0, 20)
     background = new Color(118, 0, 0)
-
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
-        horizontalAlignment = Alignment.Center
+        //horizontalAlignment = Alignment.Center
         text = i.toChar.toString
         foreground = new Color(230, 230, 230)
         font = new Font("Arial", 1, 15)
