@@ -11,14 +11,13 @@ import controller.controllerComponent.controllerBaseImpl.Controller
 import javax.swing.BorderFactory
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
-import scala.Checkers.gui
+import scala.Checkers.{gui, injector}
 
 class FieldPanel(row: Int, col: Int, controller: ControllerInterface, backgroundColor: Color) extends FlowPanel {
   vGap = 0
   hGap = 0
   var color: String = "white"
   def myField = controller.field(row, col)
-
 
   def fieldText(): String = {
     color = "white"
@@ -37,13 +36,15 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
 
   val field: BoxPanel = new BoxPanel(Orientation.NoOrientation) {
     listenTo(mouse.clicks)
-
     reactions += {
       case e: MouseClicked =>
         if (gui.flagTest == 0) {
-          gui.flagTest = 1
-          gui.fieldStart = myField.getPos
-          print(gui.fieldStart + " Start\n")
+          if (myField.getPiece != None) {
+            gui.fieldStart = myField.getPos
+            gui.flagTest = 1
+            print(gui.fieldStart + " Start\n")
+            field.background = new Color(150, 150, 150)
+          }
         } else {
           gui.flagTest = 0
           gui.fieldDest = myField.getPos
@@ -73,8 +74,6 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
     contents += field
     repaint
   }
-
-
 
   /*
   val givenFieldColor = new Color(200, 200, 255)

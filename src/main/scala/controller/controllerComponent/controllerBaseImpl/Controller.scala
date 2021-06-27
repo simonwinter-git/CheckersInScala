@@ -134,5 +134,4 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new FieldChanged)
   }
   */
-
 }
