@@ -7,7 +7,7 @@ import scala.swing.{Button, _}
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
-import javax.swing.{ImageIcon, JButton, JPanel}
+import javax.swing.{JButton, JPanel}
 import scalafx.application.JFXApp3
 import scalafx.scene.shape.Rectangle
 //import controller.controllerComponent.ControllerInterface
@@ -30,7 +30,7 @@ class Gui(controller: ControllerInterface) extends Frame {
   var fieldStart = ""
   var fieldDest = ""
   var colorFlag = new BoxPanel(Orientation.NoOrientation)
-  val icon2 = new ImageIcon(this.getClass.getResource("/Blank.png"))
+  
   
   
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {

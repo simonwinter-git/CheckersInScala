@@ -11,6 +11,7 @@ import controller.controllerComponent.controllerBaseImpl.Controller
 import javax.swing.{BorderFactory, Icon, ImageIcon}
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import java.awt.GraphicsEnvironment
+import java.io.File
 
 import scala.Checkers.{gui, injector}
 
@@ -28,10 +29,14 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
     } else " "
   }
 
+  import java.nio.file.Path
+  import java.nio.file.Paths
 
+  val dir: String = new File("").getAbsolutePath
+  val icon2 = new ImageIcon(dir+"\\src\\main\\resources\\Blank.png")
   val label: Label =
     new Label {
-      icon = gui.icon2
+      icon = icon2
 
       //text = fieldText()
       if (controller.gameBoardSize == 8) {
