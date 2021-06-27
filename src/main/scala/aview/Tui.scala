@@ -1,6 +1,8 @@
 package aview
 //import controller.controllerComponent.{ControllerInterface, GameState}
 //import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
+import java.awt.GraphicsEnvironment
+
 import controller.controllerComponent._
 import controller.controllerComponent.controllerBaseImpl.PrintTui
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
@@ -28,16 +30,18 @@ class Tui(controller: ControllerInterface) extends Reactor {
       case "REMOVE" => controller.remove(Integer.parseInt(args(1).tail)-1, args(1).charAt(0).toInt - 65)
       case "UNDO" => controller.undo
       case "REDO" => controller.redo
-
+      case "FONTS" => val fonts: Array[String] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames(); for (i <- fonts) {print(i + "\n") }
       case "MOVE" => if (controller.movePossible(args(1), args(2)).getBool) {
         val row = Integer.parseInt(args(2).tail)-1
         val col = args(2).charAt(0).toInt - 65
-        if (!controller.movePossible(args(1), args(2)).getRem.isBlank) controller.remove(Integer.parseInt(controller.movePossible(args(1), args(2)).getRem.tail)-1, controller.movePossible(args(1), args(2)).getRem.charAt(0).toInt - 65)
+        var rem = false
+        var which = ""
+        if (!controller.movePossible(args(1), args(2)).getRem.isBlank) rem = true; which = controller.movePossible(args(1), args(2)).getRem
         if (controller.movePossible(args(1), args(2)).getQ) {
           controller.move(args(1), args(2))
-          print("done")
           controller.set(row, col, Piece("queen", row, col, controller.getPiece(row, col).get.getColor))
-        } else controller.move(args(1), args(2))
+          if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
+        } else controller.move(args(1), args(2)); if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
       } else print("Move not possible\n")
 
       case "HELP" =>

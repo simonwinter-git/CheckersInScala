@@ -1,12 +1,13 @@
 package aview.gui
 
-import java.awt.{Color, GridLayout}
+import java.awt
+import java.awt.{Color, Dimension, GridLayout, Toolkit}
 
 import scala.swing.{Button, _}
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
-import javax.swing.{JButton, JPanel}
+import javax.swing.{ImageIcon, JButton, JPanel}
 import scalafx.application.JFXApp3
 import scalafx.scene.shape.Rectangle
 //import controller.controllerComponent.ControllerInterface
@@ -18,17 +19,20 @@ import scala.io.Source._
 import scala.util.control.Breaks._
 
 class Gui(controller: ControllerInterface) extends Frame {
-  listenTo(controller)
 
+  listenTo(controller)
   title = "Checkers"
   resizable = false
   minimumSize = new Dimension(800, 800)
+  this.centerOnScreen
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
   var flagTest = 0
   var fieldStart = ""
   var fieldDest = ""
-
-
+  var colorFlag = new BoxPanel(Orientation.NoOrientation)
+  val icon2 = new ImageIcon(this.getClass.getResource("/Blank.png"))
+  
+  
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
     for {
       row <- 0 until controller.gameBoardSize
@@ -41,9 +45,6 @@ class Gui(controller: ControllerInterface) extends Frame {
 
   }
 
-
-
-
   def labelRow = new GridPanel(controller.gameBoardSize, 1) {
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
@@ -53,24 +54,16 @@ class Gui(controller: ControllerInterface) extends Frame {
     }
   }
 
-
   def labelCol = new GridPanel(1, 9) {
     border = BorderFactory.createEmptyBorder(0, 25, 0, 25)
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
         horizontalAlignment = Alignment.Center
-
         text = i.toChar.toString
         preferredSize = new Dimension(0, 20)
       }
     }
   }
-
-
-
-
-
-
 
   contents = new BorderPanel {
     //add(gameBoardPanel, BorderPanel.Position.Center)
@@ -85,7 +78,7 @@ class Gui(controller: ControllerInterface) extends Frame {
   menuBar = new MenuBar {
     contents += new Menu("File") {
       mnemonic = Key.F
-      contents += new MenuItem(Action("New") { controller.createEmptyGameBoard(controller.gameBoardSize) })
+      contents += new MenuItem(Action("New") { controller.createGameBoard(controller.gameBoardSize) })
       contents += new MenuItem(Action("Quit") { System.exit(0) })
     }
     contents += new Menu("Edit") {
@@ -99,7 +92,6 @@ class Gui(controller: ControllerInterface) extends Frame {
       contents += new MenuItem(Action("Size 10*10") { controller.resize(10) })
     }
   }
-
   visible = true
   redraw
 
@@ -130,5 +122,6 @@ class Gui(controller: ControllerInterface) extends Frame {
     repaint
     visible = true
   }
-}
 
+
+}

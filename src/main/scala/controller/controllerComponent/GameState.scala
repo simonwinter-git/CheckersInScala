@@ -9,7 +9,6 @@ object GameState extends Enumeration {
     WHITE_TURN -> "It's White's turn",
     BLACK_TURN -> "It's Black's turn"
   )
-
   def message(gameState: GameState) = {
     map(gameState)
   }

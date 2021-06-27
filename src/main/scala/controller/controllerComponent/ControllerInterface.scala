@@ -9,7 +9,7 @@ import scala.swing.Publisher
 trait ControllerInterface extends Publisher {
 
   def gameState: GameState
-  def createEmptyGameBoard(size: Int): Unit
+  //def createEmptyGameBoard(size: Int): Unit
   def createNewGameBoard: Unit
   def resize(newSize: Int): Unit
   def createGameBoard(size: Int): Unit

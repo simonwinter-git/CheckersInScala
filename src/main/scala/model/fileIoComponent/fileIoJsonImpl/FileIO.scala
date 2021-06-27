@@ -28,7 +28,6 @@ class FileIO extends FileIOInterface{
     for (index <- 0 until size * size) {
       val row = (json \\ "row")(index).as[Int]
       val col = (json \\ "col")(index).as[Int]
-      print(row + " row\n" + col + " col\n")
       val field = (json \\ "field")(index).as[Field]
       //val piece = (json \ "piece")(index)
       gameBoard = gameBoard.set(row, col, field.piece)

@@ -18,6 +18,8 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   val injector = Guice.createInjector(new CheckersModule)
   val fileIo = injector.instance[FileIOInterface]
 
+
+  /*
   def createEmptyGameBoard(size: Int): Unit = {
     size match {
       case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
@@ -27,7 +29,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new FieldChanged)
     publish(new PrintTui)
   }
-
+*/
   def createNewGameBoard(): Unit = {
     gameBoard.size match {
       case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
@@ -41,8 +43,8 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def resize(newSize: Int): Unit = {
     newSize match {
-      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
-      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
+      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8")); gameBoard = new GameBoardCreator(newSize).createBoard()
+      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10")); gameBoard = new GameBoardCreator(newSize).createBoard()
       case _ =>
     }
     publish(GBSizeChanged(newSize))
@@ -111,6 +113,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def undo: Unit = {
     undoManager.undoStep
+    //print(undoManager.undoStack)
     publish(new FieldChanged)
     publish(new PrintTui)
   }
