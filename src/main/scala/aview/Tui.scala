@@ -3,6 +3,7 @@ package aview
 //import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
 import controller.controllerComponent._
 import controller.controllerComponent.controllerBaseImpl.PrintTui
+import model.gameBoardComponent.gameBoardBaseImpl.Piece
 
 import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
@@ -29,8 +30,14 @@ class Tui(controller: ControllerInterface) extends Reactor {
       case "REDO" => controller.redo
 
       case "MOVE" => if (controller.movePossible(args(1), args(2)).getBool) {
-        if (!controller.movePossible(args(1), args(2)).getRem.isBlank) controller.remove(controller.movePossible(args(1), args(2)).getRem.charAt(1).toInt - 49, controller.movePossible(args(1), args(2)).getRem.charAt(0).toInt - 65)
-        controller.move(args(1), args(2))
+        val row = Integer.parseInt(args(2).tail)-1
+        val col = args(2).charAt(0).toInt - 65
+        if (!controller.movePossible(args(1), args(2)).getRem.isBlank) controller.remove(Integer.parseInt(controller.movePossible(args(1), args(2)).getRem.tail)-1, controller.movePossible(args(1), args(2)).getRem.charAt(0).toInt - 65)
+        if (controller.movePossible(args(1), args(2)).getQ) {
+          controller.move(args(1), args(2))
+          print("done")
+          controller.set(row, col, Piece("queen", row, col, controller.getPiece(row, col).get.getColor))
+        } else controller.move(args(1), args(2))
       } else print("Move not possible\n")
 
       case "HELP" =>
@@ -47,7 +54,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
         print("\u001B[32mhelp\u001B[0m: At this point you probably already know about it, but it prints information about possible TUI inputs.\n\n")
 
       case "TRY" => print(controller.movePossible(args(1), args(2)) + "\n")
-      case "GETCOLOR" => print(controller.getPiece(args(1).charAt(1).toInt - 49, args(1).charAt(0).toInt - 65).get.getColor)
+      case "GETCOLOR" => print(controller.getPiece(args(1).charAt(1).toInt - 49, args(1).charAt(0).toInt - 65).get.getColor + "\n")
       case _ => print("Try something else, for possible inputs, type \"help\"\n")
     }
   }

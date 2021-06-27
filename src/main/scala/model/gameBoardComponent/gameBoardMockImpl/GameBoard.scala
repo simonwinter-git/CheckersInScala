@@ -30,9 +30,9 @@ class GameBoard(var size: Int) extends GameBoardInterface {
 
   def move(start: String, dest: String): GameBoardInterface = this
 
-  def whiteMovePossible(start: String, dest: String): Mover = new Mover(true, "")
+  def whiteMovePossible(start: String, dest: String): Mover = new Mover(true, "", false)
 
-  def blackMovePossible(start: String, dest: String): Mover = new Mover(true, "")
+  def blackMovePossible(start: String, dest: String): Mover = new Mover(true, "", false)
 }
 
 object EmptyField extends FieldInterface {

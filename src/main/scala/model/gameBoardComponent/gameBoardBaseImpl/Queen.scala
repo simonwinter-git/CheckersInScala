@@ -10,6 +10,6 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
 
 
 
-  override def whiteMovePossible(to: String, gameBoard: GameBoard): Mover = new Mover(true, "")
-  override def blackMovePossible(to: String, gameBoard: GameBoard): Mover = new Mover(true, "")
+  override def whiteMovePossible(to: String, gameBoard: GameBoard): Mover = new Mover(true, "", false)
+  override def blackMovePossible(to: String, gameBoard: GameBoard): Mover = new Mover(true, "", false)
 }

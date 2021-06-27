@@ -1,11 +1,12 @@
 package aview.gui
 
-import java.awt.Color
+import java.awt.{Color, GridLayout}
 
-import scala.swing._
+import scala.swing.{Button, _}
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import controller._
+import javax.swing.{JButton, JPanel}
 import scalafx.application.JFXApp3
 import scalafx.scene.shape.Rectangle
 //import controller.controllerComponent.ControllerInterface
@@ -14,6 +15,7 @@ import controller.controllerComponent.controllerBaseImpl.Controller
 import controller.controllerComponent._
 import javax.swing.BorderFactory
 import scala.io.Source._
+import scala.util.control.Breaks._
 
 class Gui(controller: ControllerInterface) extends Frame {
   listenTo(controller)
@@ -40,6 +42,8 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
 
+
+
   def labelRow = new GridPanel(controller.gameBoardSize, 1) {
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
@@ -63,7 +67,13 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
 
+
+
+
+
+
   contents = new BorderPanel {
+    //add(gameBoardPanel, BorderPanel.Position.Center)
     add(gameBoardPanel, BorderPanel.Position.Center)
     add(labelCol, BorderPanel.Position.North)
     add(labelCol, BorderPanel.Position.South)

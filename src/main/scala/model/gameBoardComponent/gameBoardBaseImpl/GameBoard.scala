@@ -56,14 +56,14 @@ case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterfac
   def whiteMovePossible(start: String, dest: String): Mover = {
     getField(start).piece match {
       case Some(piece) => piece.whiteMovePossible(dest, this)
-      case _ => new Mover(false, "")
+      case _ => new Mover(false, "", false)
     }
   }
 
   def blackMovePossible(start: String, dest: String): Mover = {
     getField(start).piece match {
       case Some(piece) => piece.blackMovePossible(dest, this)
-      case _ => new Mover(false, "")
+      case _ => new Mover(false, "", false)
     }
   }
 
