@@ -18,18 +18,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   val injector = Guice.createInjector(new CheckersModule)
   val fileIo = injector.instance[FileIOInterface]
 
-
-  /*
-  def createEmptyGameBoard(size: Int): Unit = {
-    size match {
-      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
-      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
-      case _ =>
-    }
-    publish(new FieldChanged)
-    publish(new PrintTui)
-  }
-*/
+  
   def createNewGameBoard(): Unit = {
     gameBoard.size match {
       case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))

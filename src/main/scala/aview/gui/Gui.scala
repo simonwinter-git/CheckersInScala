@@ -24,15 +24,14 @@ class Gui(controller: ControllerInterface) extends Frame {
   title = "Checkers"
   resizable = false
   minimumSize = new Dimension(800, 800)
-  this.centerOnScreen
+  centerOnScreen
   var fields = Array.ofDim[FieldPanel](controller.gameBoardSize, controller.gameBoardSize)
   var flagTest = 0
   var fieldStart = ""
   var fieldDest = ""
   var colorFlag = new BoxPanel(Orientation.NoOrientation)
-  
-  
-  
+
+
   def gameBoardPanel = new GridPanel(controller.gameBoardSize, controller.gameBoardSize) {
     for {
       row <- 0 until controller.gameBoardSize
@@ -46,9 +45,12 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
   def labelRow = new GridPanel(controller.gameBoardSize, 1) {
+    background = new Color(118, 0, 0)
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
         text = i.toString
+        foreground = new Color(230, 230, 230)
+        font = new Font("Arial", 1, 15)
         preferredSize = new Dimension(20, 0)
       }
     }
@@ -56,10 +58,14 @@ class Gui(controller: ControllerInterface) extends Frame {
 
   def labelCol = new GridPanel(1, 9) {
     border = BorderFactory.createEmptyBorder(0, 25, 0, 25)
+    background = new Color(118, 0, 0)
+
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
         horizontalAlignment = Alignment.Center
         text = i.toChar.toString
+        foreground = new Color(230, 230, 230)
+        font = new Font("Arial", 1, 15)
         preferredSize = new Dimension(0, 20)
       }
     }
