@@ -96,7 +96,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
           gui.flagTest = 0
           gui.fieldDest = myField.getPos
           //print(gui.fieldDest + " Dest\n")
-          gui.colorFlag.background = new Color(255,255,255)
+          gui.colorFlag.background = new Color(118,0,0)
         }
         /*if (controller.movePossible(gui.fieldStart, gui.fieldDest).getBool) {
           print("move possible\n")

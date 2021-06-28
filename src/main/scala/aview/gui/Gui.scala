@@ -41,7 +41,7 @@ class Gui(controller: ControllerInterface) extends Frame {
       row <- 0 until controller.gameBoardSize
       col <- 0 until controller.gameBoardSize
     } {
-      val fieldPanel = new FieldPanel(row, col, controller, if((row+col)%2==0) new Color(255,255,255) else new Color(0,0,0))
+      val fieldPanel = new FieldPanel(row, col, controller, if((row+col)%2==0) new Color(118,0,0) else new Color(0,0,0))
       fields(row)(col) = fieldPanel
       contents += fieldPanel
     }
