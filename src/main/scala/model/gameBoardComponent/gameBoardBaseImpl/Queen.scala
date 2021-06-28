@@ -2,27 +2,30 @@ package model.gameBoardComponent.gameBoardBaseImpl
 
 import util.Mover
 
+import scala.collection.mutable.ListBuffer
+
 case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) extends Piece(state, row, col, getColor) {
 
-  override def sList: List[String] = List("")
-  override def toString: String = if (getColor == "black") "\uD83D\uDFE0"//"\uD83D\uDFE0" //orange/black
-  else "\uD83D\uDFE3"//"\uD83D\uDFE3" //purple/white
+  var sList: ListBuffer[String] = ListBuffer()
+  override def toString: String = if (getColor == "black") "\u001B[30mQ\u001B[0m"//"\uD83D\uDFE0" //orange/black
+  else "\u001B[37mQ\u001B[0m"//"\uD83D\uDFE3" //purple/white
 
 
 
   override def whiteMovePossible(to: String, gameBoard: GameBoard): Mover = {
     //var blockPieceR: Piece = gameBoard.getPiece()
     var x = 1
-    var toRow: Int = to.tail.toInt - 49
+    var toRow: Int = Integer.parseInt(to.tail) - 1
     var toCol: Int = to.charAt(0).toInt - 65
     val Last: Int = gameBoard.size - 1
+    print("toCol: "+toCol+" toRow: "+toRow+"\n")
 
     col match {
       case 0 => {
         while (gameBoard.field(row - x, col + x).piece.isEmpty) {
           x += 1
         }
-        if (((x-1) - toCol >= 0) && ((x-1) - toRow >= 0) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row < 0)) new Mover(true, "", false) // Linker Rand nach rechts oben
+        if (((x-1) - toCol >= 0) && ((x-1) - toRow <= 0) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row < 0)) new Mover(true, "", false) // Linker Rand nach rechts oben
         else new Mover(false, "", false)
       }
 

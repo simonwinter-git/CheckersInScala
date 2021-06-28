@@ -3,9 +3,11 @@ import com.google.inject.ImplementedBy
 import model.gameBoardComponent.gameBoardBaseImpl.{GameBoard, Piece}
 import util.Mover
 
+import scala.collection.mutable.ListBuffer
+
 @ImplementedBy(classOf[Piece])
 trait PieceInterface {
-  def sList: List[String]
+  def sList: ListBuffer[String]
   def state: String
   def row: Int
   def col: Int

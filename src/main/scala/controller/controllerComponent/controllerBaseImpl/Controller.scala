@@ -74,14 +74,38 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   }
 
   def move(start: String, dest: String): Unit = {
-    undoManager.doStep(new MoveCommand(start, dest, this))
-    //gameBoard = gameBoard.move(start, dest)
-    publish(new FieldChanged)
-    publish(new PrintTui)
-  }
+    if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {
+      if (this.movePossible(start, dest).getRem.isBlank) {
+        gameState = BLACK_TURN
+      }
+      undoManager.doStep(new MoveCommand(start, dest, this))
+      //gameBoard = gameBoard.move(start, dest)
+      publish(new FieldChanged)
+      publish(new PrintTui)
+    } else if (gameState == BLACK_TURN && gameBoard.getField(start).getPiece.get.getColor == "black") {
+      if (this.movePossible(start, dest).getRem.isBlank) {
+        gameState = WHITE_TURN
+      }
+      undoManager.doStep(new MoveCommand(start, dest, this))
+      //gameBoard = gameBoard.move(start, dest)
+      publish(new FieldChanged)
+      publish(new PrintTui)
+    }
+    /*else if (gameState == WHITE_CAP && gameBoard.getField(start).getPiece.get.getColor == "white" && ) {
+      if (this.movePossible(start, dest).getRem.isBlank) {
+        gameState = BLACK_TURN
+      }
+      undoManager.doStep(new MoveCommand(start, dest, this))
+      //gameBoard = gameBoard.move(start, dest)
+      publish(new FieldChanged)
+      publish(new PrintTui)
+    */}
+
+
 
   def movePossible(start: String, dest: String): Mover = {
     if (gameBoard.getField(start).piece.isDefined) {
+      print("is it defined?")
       if (gameBoard.getField(start).piece.get.getColor == "black") gameBoard.blackMovePossible(start, dest)
       else gameBoard.whiteMovePossible(start, dest)
     } else new Mover(false, "", false)

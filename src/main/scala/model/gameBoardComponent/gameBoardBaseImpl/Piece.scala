@@ -4,9 +4,11 @@ import com.google.inject.Inject
 import model.gameBoardComponent.PieceInterface
 import util.Mover
 
+import scala.collection.mutable.ListBuffer
+
 abstract class Piece @Inject() (state: String, row: Int, col: Int, color: String) extends PieceInterface {
 
-  def sList: List[String]
+  def sList: ListBuffer[String]
   def getColor: String
   def posToStr(row: Int, col: Int): String = {(col + 65).toChar.toString + (row + 49).toChar.toString}
 
