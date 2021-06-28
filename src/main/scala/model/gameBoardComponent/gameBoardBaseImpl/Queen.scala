@@ -7,8 +7,8 @@ import scala.collection.mutable.ListBuffer
 case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) extends Piece(state, row, col, getColor) {
 
   var sList: ListBuffer[String] = ListBuffer()
-  override def toString: String = if (getColor == "black") "\u001B[30mQ\u001B[0m"//"\uD83D\uDFE0" //orange/black
-  else "\u001B[37mQ\u001B[0m"//"\uD83D\uDFE3" //purple/white
+  override def toString: String = if (getColor == "black") "\u001B[37mQ\u001B[0m"//"\uD83D\uDFE0" //orange/black
+  else "\u001B[30mQ\u001B[0m"//"\uD83D\uDFE3" //purple/white
 
 
 
