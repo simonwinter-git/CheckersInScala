@@ -28,7 +28,7 @@ object Piece {
 
   def apply(state: String, row: Int, col: Int, color: String): Piece = state match {
     case "normal" => Normal("normal", row, col, color)
-    case "queen" => Queen("normal", row, col, color)
+    case "queen" => Queen("queen", row, col, color)
   }
 
 

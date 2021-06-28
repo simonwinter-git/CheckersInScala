@@ -30,6 +30,8 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
   val pieceWhite = new ImageIcon(dir+"\\src\\main\\resources\\pieceWhite.png")
   val queenBlack = new ImageIcon(dir+"\\src\\main\\resources\\queenBlack.png")
   val queenWhite = new ImageIcon(dir+"\\src\\main\\resources\\queenWhite.png")
+  val blankS = new ImageIcon(dir+"\\src\\main\\resources\\blankS.png")
+  val blank = new ImageIcon(dir+"\\src\\main\\resources\\blank.png")
 
 
   def fieldText(): String = {
@@ -43,37 +45,40 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
 
   val label: Label =
     new Label {
-
-      var fcolor = ""
-      var fstate = ""
-      if (myField.getPiece.isDefined) fcolor = myField.getPiece.get.getColor
-      if (myField.getPiece.isDefined) fstate = myField.getPiece.get.state
-
-      fcolor match {
-
-        case "black" => if (fstate == "normal") icon = {
-          if (controller.gameBoardSize == 10) pieceBlackS
-          else pieceBlack
-        } else icon = {
-          if (controller.gameBoardSize == 10) queenBlackS
-          else queenBlack
-        }
-
-        case "white" => if (fstate == "normal") icon = {
-          if (controller.gameBoardSize == 10) pieceWhiteS
-          else pieceWhite
-        } else icon = {
-          if (controller.gameBoardSize == 10) queenWhiteS
-          else queenWhite
-        }
-
-        case _ =>
-
-      }
-
+      pieceMatcher(this)
     }
 
 
+  def pieceMatcher(labelX: Label): Unit = {
+    var fcolor = ""
+    var fstate = ""
+    if (myField.getPiece.isDefined) fcolor = myField.getPiece.get.getColor
+    if (myField.getPiece.isDefined) fstate = myField.getPiece.get.state
+
+    fcolor match {
+
+      case "black" => if (fstate == "normal") labelX.icon = {
+        if (controller.gameBoardSize == 10) pieceBlackS
+        else pieceBlack
+      } else labelX.icon = {
+        if (controller.gameBoardSize == 10) queenBlackS
+        else queenBlack
+      }
+
+      case "white" => print(fstate)
+        if (fstate == "normal") labelX.icon = {
+        if (controller.gameBoardSize == 10) pieceWhiteS
+        else pieceWhite
+      } else labelX.icon = {
+        if (controller.gameBoardSize == 10) queenWhiteS
+        else queenWhite
+      }
+
+      case _ => if (controller.gameBoardSize == 10) {
+        labelX.icon = blankS} else labelX.icon = blank
+
+    }
+  }
 
   val field: BoxPanel = new BoxPanel(Orientation.NoOrientation) {
     listenTo(mouse.clicks)
@@ -115,6 +120,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
 
     }
 
+    pieceMatcher(label)
     contents += label
     //label.text = fieldText()
     //label.horizontalAlignment = Alignment.Right
@@ -123,8 +129,8 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
     background = backgroundColor
 
     if (controller.gameBoardSize == 8) {
-      border = BorderFactory.createEmptyBorder(-10,0,0,0)
-    } else border = BorderFactory.createEmptyBorder(-5,19,30,0)
+      border = BorderFactory.createEmptyBorder(0,9,13,0)
+    } else border = BorderFactory.createEmptyBorder(-10,19,20,0)
 
     repaint
   }
@@ -132,6 +138,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
 
   def redraw = {
     contents.clear
+    pieceMatcher(label)
     //label.text = fieldText()
     contents += field
     repaint

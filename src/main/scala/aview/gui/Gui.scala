@@ -50,7 +50,8 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
   def labelRowL = new GridPanel(controller.gameBoardSize, 1) {
-    border = BorderFactory.createEmptyBorder(0, 0, 0, 0)
+    if (controller.gameBoardSize == 10) border = BorderFactory.createEmptyBorder(0, 3, 0, 0)
+    if (controller.gameBoardSize == 8) border = BorderFactory.createEmptyBorder(0, 2, 0, -1)
     background = new Color(40, 40, 40)
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
@@ -63,7 +64,8 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
   def labelRowR = new GridPanel(controller.gameBoardSize, 1) {
-    border = BorderFactory.createEmptyBorder(0, 0, 0, 0)
+    if (controller.gameBoardSize == 10) border = BorderFactory.createEmptyBorder(0, -1, 0, 2)
+    if (controller.gameBoardSize == 8) border = BorderFactory.createEmptyBorder(0, -1, 0, 2)
     background = new Color(40, 40, 40)
     for (i <- Range(1, controller.gameBoardSize + 1)) {
       contents += new Label {
@@ -76,7 +78,8 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
   def labelColT = new GridPanel(1, controller.gameBoardSize - 1) {
-    border = BorderFactory.createEmptyBorder(0, 20, 0, 20)
+    if (controller.gameBoardSize == 10) border = BorderFactory.createEmptyBorder(2, 20, 0, 20)
+    if (controller.gameBoardSize == 8) border = BorderFactory.createEmptyBorder(2, 20, -2, 20)
     background = new Color(40, 40, 40)
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
@@ -90,7 +93,8 @@ class Gui(controller: ControllerInterface) extends Frame {
   }
 
   def labelColB = new GridPanel(1, controller.gameBoardSize - 1) {
-    border = BorderFactory.createEmptyBorder(0, 20, 0, 20)
+    if (controller.gameBoardSize == 10) border = BorderFactory.createEmptyBorder(0, 20, 0, 20)
+    if (controller.gameBoardSize == 8) border = BorderFactory.createEmptyBorder(-1, 20, 0, 20)
     background = new Color(40, 40, 40)
     for (i <- Range(65, controller.gameBoardSize + 65)) {
       contents += new Label {
