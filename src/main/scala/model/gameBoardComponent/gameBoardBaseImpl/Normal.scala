@@ -14,6 +14,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
     (col + 65).toChar.toString + (row + 49).toChar.toString
   }
 
+
   override def whiteMovePossible(to: String, gameBoard: GameBoard): Mover = {
     val Last: Int = gameBoard.size - 1
 
@@ -38,7 +39,6 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
             gameBoard.remove(row - 1, col + 1); sList.clear; return new Mover(true, posToStr(row - 1, col + 1), false)
           } else sList.clear; return new Mover(false, "", false)
         } else sList.clear; new Mover(false, "", false)
-
       }
 
 
@@ -52,18 +52,18 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
           if (gameBoard.field(row - 1, col - 1).piece.isEmpty) {
             if (to == gameBoard.posToStr(row - 1, col - 1)) {
               if (Integer.parseInt(to.tail) - 1 == 0) {
-                sList.clear; return new Mover(true, "", true)
-              } else sList.clear; return new Mover(true, "", false)
-            } else sList.clear; return new Mover(false, "", false)
-          } else sList.clear; return new Mover(false, "", false)
+                return new Mover(true, "", true)
+              } else return new Mover(true, "", false)
+            } else return new Mover(false, "", false)
+          } else return new Mover(false, "", false)
         }
 
 
         else if (gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black") {
           if ((row != 0 && row != 1) && to == gameBoard.posToStr(row - 2, col - 2) && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
             gameBoard.remove(row - 1, col - 1); sList.clear; return new Mover(true, posToStr(row - 1, col - 1), false)
-          } else sList.clear; return new Mover(false, "", false)
-        } else sList.clear; new Mover(false, "", false)
+          } else return new Mover(false, "", false)
+        } else new Mover(false, "", false)
 
       }
 
@@ -81,31 +81,31 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
         if (sList.isEmpty) {
           if (gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) {
             if (Integer.parseInt(to.tail) - 1 == 0) {
-              sList.clear; return new Mover(true, "", true)
-            } else sList.clear; return new Mover(true, "", false)
+              return new Mover(true, "", true)
+            } else return new Mover(true, "", false)
           }
 
           else if (gameBoard.field(row - 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col + 1)) {
             if (Integer.parseInt(to.tail) - 1 == 0) {
-              sList.clear; return new Mover(true, "", true)
-            } else sList.clear; return new Mover(true, "", false)
+              return new Mover(true, "", true)
+            } else return new Mover(true, "", false)
           }
-          sList.clear; new Mover(false, "", false)
+          new Mover(false, "", false)
         }
 
         else if ((row != 0 && row != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col - 2)) {
           if (Integer.parseInt(to.tail) - 1 == 0) {
-            sList.clear; new Mover(true, posToStr(row - 1, col - 1), true)
-          } else sList.clear; new Mover(true, posToStr(row - 1, col - 1), false)
+            new Mover(true, posToStr(row - 1, col - 1), true)
+          } else new Mover(true, posToStr(row - 1, col - 1), false)
         }
 
         else if ((row != 0 && row != 1) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col + 2)) {
           if (Integer.parseInt(to.tail) - 1 == 0) {
-            sList.clear; new Mover(true, posToStr(row - 1, col + 1), true)
-          } else sList.clear; new Mover(true, posToStr(row - 1, col + 1), false)
+            new Mover(true, posToStr(row - 1, col + 1), true)
+          } else new Mover(true, posToStr(row - 1, col + 1), false)
         }
 
-        else sList.clear; new Mover(false, "", false)
+        else new Mover(false, "", false)
       }
     }
   }

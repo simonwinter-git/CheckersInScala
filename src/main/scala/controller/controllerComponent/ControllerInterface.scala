@@ -4,11 +4,14 @@ import model.gameBoardComponent.{FieldInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import util.Mover
 
+import scala.collection.mutable.ListBuffer
 import scala.swing.Publisher
 
 trait ControllerInterface extends Publisher {
 
   def gameState: GameState
+  var cap: ListBuffer[String]
+  var destTemp: String
   //def createEmptyGameBoard(size: Int): Unit
   def createNewGameBoard: Unit
   def resize(newSize: Int): Unit

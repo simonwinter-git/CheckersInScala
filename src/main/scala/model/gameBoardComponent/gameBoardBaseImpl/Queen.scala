@@ -29,7 +29,6 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
         else new Mover(false, "", false)
       }
 
-
       case 0 => {
         if (gameBoard.field(row - 1, col + 1).piece.isEmpty) {
           if (to == gameBoard.posToStr(row - 1, col + 1)) new Mover(false, "", false)

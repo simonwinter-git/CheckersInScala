@@ -31,6 +31,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
       case "UNDO" => controller.undo
       case "REDO" => controller.redo
       case "FONTS" => val fonts: Array[String] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames(); for (i <- fonts) {print(i + "\n") }
+      case "QUIT" => System.exit(0)
       case "MOVE" => if (controller.movePossible(args(1), args(2)).getBool) {
         val row = Integer.parseInt(args(2).tail)-1
         val col = args(2).charAt(0).toInt - 65

@@ -7,9 +7,15 @@ import model.gameBoardComponent.gameBoardMockImpl.GameBoard
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import util.Mover
 
+import scala.collection.mutable.ListBuffer
+
 class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface {
 
   gameBoard = new GameBoard(1)
+
+  override var destTemp: String = ""
+
+  override var cap: ListBuffer[String] = ListBuffer()
 
   override def gameBoardSize: Int = 1
 

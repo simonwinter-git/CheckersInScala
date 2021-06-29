@@ -65,8 +65,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
         else queenBlack
       }
 
-      case "white" => print(fstate)
-        if (fstate == "normal") labelX.icon = {
+      case "white" => if (fstate == "normal") labelX.icon = {
         if (controller.gameBoardSize == 10) pieceWhiteS
         else pieceWhite
       } else labelX.icon = {
@@ -110,7 +109,8 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
             var rem = false
             var which = ""
             if (!controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.isBlank) rem = true; which = controller.movePossible(gui.fieldStart, gui.fieldDest).getRem
-            if (controller.movePossible(gui.fieldStart, gui.fieldDest).getQ) {
+            if (controller.movePossible(gui.fieldStart, gui.fieldDest).getQ && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(gui.fieldStart.tail) - 1, gui.fieldStart.charAt(0).toInt - 65).get.getColor.charAt(0).toString) {
+              print(controller.getPiece(Integer.parseInt(gui.fieldStart.tail) - 1, gui.fieldStart.charAt(0).toInt - 65).get.getColor.charAt(0).toString)
               controller.move(gui.fieldStart, gui.fieldDest)
               controller.set(row, col, Piece("queen", row, col, controller.getPiece(row, col).get.getColor))
               if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
