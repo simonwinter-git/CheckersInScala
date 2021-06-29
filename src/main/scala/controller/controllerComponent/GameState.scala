@@ -4,13 +4,14 @@ package controller.controllerComponent
 object GameState extends Enumeration {
   type GameState = Value
   var s: String = ""
-  val WHITE_TURN, BLACK_TURN, WHITE_CAP, BLACK_CAP, GAME_FINISHED = Value
+  val WHITE_TURN, BLACK_TURN, WHITE_CAP, BLACK_CAP, GAME_FINISHED,START = Value
 
   val map = Map[GameState, String] (
     WHITE_TURN -> "It's White's turn",
     BLACK_TURN -> "It's Black's turn",
     WHITE_CAP -> "It's White's turn",
     BLACK_CAP -> "It's Black's turn",
+    START -> "Start",
     GAME_FINISHED -> "The game is over"
   )
   def message(gameState: GameState) = {

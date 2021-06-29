@@ -18,6 +18,7 @@ import controller.controllerComponent._
 import javax.swing.BorderFactory
 import scala.io.Source._
 import scala.util.control.Breaks._
+import controller.controllerComponent.controllerBaseImpl
 
 class Gui(controller: ControllerInterface) extends Frame {
 

@@ -79,8 +79,7 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
         } else new Mover(false, "", false)
       }
 
-      case _ => {
-        if (gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) {
+      case _ => {if (gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) {
           if (Integer.parseInt(to.tail) - 1 == 0) {
             new Mover(false, "", false)
           } else new Mover(false, "", false)

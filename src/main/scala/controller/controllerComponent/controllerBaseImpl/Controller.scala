@@ -90,7 +90,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     } else if (gameState == BLACK_TURN && gameBoard.getField(start).getPiece.get.getColor == "black") {
       gameBoard.getField(start).getPiece.get.sList.clear
       if (this.movePossible(start, dest).getRem.isBlank) gameState = WHITE_TURN
-      if (!this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_CAP
+      if (!this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_CAP; destTemp = dest
       undoManager.doStep(new MoveCommand(start, dest, this))
       //gameBoard = gameBoard.move(start, dest)
       publish(new FieldChanged)
@@ -107,6 +107,18 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
         publish(new FieldChanged)
         publish(new PrintTui)
       } else gameState = BLACK_TURN
+    }
+
+    else if (gameState == BLACK_CAP && start == destTemp) {
+      gameBoard.getField(start).getPiece.get.sList.clear
+      if (!this.movePossible(start, dest).getRem.isBlank && gameBoard.getField(start).getPiece.get.sList.nonEmpty) {
+        undoManager.doStep(new MoveCommand(start, dest, this))
+        if (gameBoard.getField(dest).getPiece.get.sList.isEmpty) gameState = WHITE_TURN
+        destTemp = dest
+        //gameBoard = gameBoard.move(start, dest)
+        publish(new FieldChanged)
+        publish(new PrintTui)
+      } else gameState = WHITE_TURN
     }
 
   }
