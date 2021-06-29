@@ -21,8 +21,8 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   
   def createNewGameBoard(): Unit = {
     gameBoard.size match {
-      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8"))
-      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10"))
+      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8")); gameState = WHITE_TURN
+      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10")); gameState = WHITE_TURN
       case _ =>
     }
     publish(GBSizeChanged(gameBoard.size))
@@ -32,8 +32,8 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def resize(newSize: Int): Unit = {
     newSize match {
-      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8")); gameBoard = new GameBoardCreator(newSize).createBoard()
-      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10")); gameBoard = new GameBoardCreator(newSize).createBoard()
+      case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8")); gameBoard = new GameBoardCreator(newSize).createBoard(); gameState = WHITE_TURN
+      case 10 => gameBoard = injector.instance[GameBoardInterface](Names.named("10")); gameBoard = new GameBoardCreator(newSize).createBoard(); gameState = WHITE_TURN
       case _ =>
     }
     publish(GBSizeChanged(newSize))
@@ -44,7 +44,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def createGameBoard(size: Int): Unit = {
     gameBoard = new GameBoardCreator(size).createBoard()
-    //gameState = NEW
+    gameState = WHITE_TURN
     publish(GBSizeChanged(gameBoard.size))
     publish(new FieldChanged)
     publish(new PrintTui)
