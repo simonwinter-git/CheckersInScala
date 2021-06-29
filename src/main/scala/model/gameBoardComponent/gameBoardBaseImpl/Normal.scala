@@ -94,21 +94,21 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
         }
 
         else if ((row != 0 && row != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col - 2)) {
-           if (Integer.parseInt(to.tail) - 1 == 0) {
-             sList.clear; new Mover(true, posToStr(row - 1, col - 1), true)
-           } else sList.clear; new Mover(true, posToStr(row - 1, col - 1), false)
+          if (Integer.parseInt(to.tail) - 1 == 0) {
+            sList.clear; new Mover(true, posToStr(row - 1, col - 1), true)
+          } else sList.clear; new Mover(true, posToStr(row - 1, col - 1), false)
         }
 
         else if ((row != 0 && row != 1) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col + 2)) {
-           if (Integer.parseInt(to.tail) - 1 == 0) {
-             sList.clear; new Mover(true, posToStr(row - 1, col + 1), true)
-           } else sList.clear; new Mover(true, posToStr(row - 1, col + 1), false)
+          if (Integer.parseInt(to.tail) - 1 == 0) {
+            sList.clear; new Mover(true, posToStr(row - 1, col + 1), true)
+          } else sList.clear; new Mover(true, posToStr(row - 1, col + 1), false)
         }
 
         else sList.clear; new Mover(false, "", false)
-        }
       }
     }
+  }
 
 
   override def blackMovePossible(to: String, gameBoard: GameBoard): Mover = {
