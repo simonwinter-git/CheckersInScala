@@ -36,7 +36,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
 
         else if (gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black") {
           if ((row != 0 && row != 1) && to == gameBoard.posToStr(row - 2, col + 2) && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
-            gameBoard.remove(row - 1, col + 1); sList.clear; return new Mover(true, posToStr(row - 1, col + 1), false)
+            sList.clear; return new Mover(true, posToStr(row - 1, col + 1), false) //gameBoard.remove(row - 1, col + 1);
           } else sList.clear; return new Mover(false, "", false)
         } else sList.clear; new Mover(false, "", false)
       }
@@ -61,7 +61,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
 
         else if (gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black") {
           if ((row != 0 && row != 1) && to == gameBoard.posToStr(row - 2, col - 2) && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
-            gameBoard.remove(row - 1, col - 1); sList.clear; return new Mover(true, posToStr(row - 1, col - 1), false)
+            sList.clear; return new Mover(true, posToStr(row - 1, col - 1), false) // gameBoard.remove(row - 1, col - 1)
           } else return new Mover(false, "", false)
         } else new Mover(false, "", false)
 
@@ -125,7 +125,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
           } else new Mover(false, "", false)
         } else if (gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white") {
           if ((row != Last + 1) && to == gameBoard.posToStr(row + 2, col + 2) && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
-            gameBoard.remove(row + 1, col + 1)
+            //gameBoard.remove(row + 1, col + 1)
             new Mover(true, posToStr(row + 1, col + 1), false)
           } else new Mover(false, "", false)
         } else new Mover(false, "", false)
@@ -137,7 +137,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
           else new Mover(false, "", false)
         } else if (gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white") {
           if ((row != Last - 1) && to == gameBoard.posToStr(row + 2, col - 2) && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
-            gameBoard.remove(row + 1, col - 1)
+            //gameBoard.remove(row + 1, col - 1)
             new Mover(true, posToStr(row + 1, col - 1), false)
           } else new Mover(false, "", false)
         } else new Mover(false, "", false)

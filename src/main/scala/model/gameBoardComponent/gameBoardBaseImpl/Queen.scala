@@ -25,7 +25,27 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
         while (gameBoard.field(row - x, col + x).piece.isEmpty) {
           x += 1
         }
-        if (((x-1) - toCol >= 0) && ((x-1) - toRow <= 0) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row < 0)) new Mover(true, "", false) // Linker Rand nach rechts oben
+        if (((x-1) - toCol <= 0) && ((x-1) - toRow <= 0) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row < 0)) new Mover(true, "", false) // Linker Rand nach rechts oben
+        //else new Mover(false, "", false)
+
+        x = 1
+        while (gameBoard.field(row + x, col + x).piece.isEmpty) {
+          x += 1
+        }
+        if (((x-1) - toCol <= 0) && ((x-1) - toRow <= 0) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row > 0)) new Mover(true, "", false) // Linker Rand nach rechts unten
+        //else new Mover(false, "", false)
+
+        x = 1
+        while (gameBoard.field(row - x, col + x).piece.isEmpty) {
+          x += 1
+        }
+        if (toCol == x+1 && row-toRow == x+1 && gameBoard.field(row - x, col + x).piece.get.getColor == "black") new Mover(true, posToStr(row - x, col + x), false)
+// bis hier alles korrekt
+        x = 1
+        while (gameBoard.field(row + x, col + x).piece.isEmpty) {
+          x += 1
+        }
+        if (toCol == x+1 && row-toRow == x+1) new Mover(true, posToStr(toRow + 1, toCol - 1), false)
         else new Mover(false, "", false)
       }
 
@@ -38,7 +58,6 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
           else new Mover(false, "", false)
         } else if (gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black") {
           if ((row != 0 && row != 1) && to == gameBoard.posToStr(row - 2, col + 2) && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
-            gameBoard.remove(row - 1, col + 1)
             new Mover(false, posToStr(row - 1, col + 1), false)
           } else new Mover(false, "", false)
         } else new Mover(false, "", false)
@@ -54,7 +73,7 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
           } else new Mover(false, "", false)
         } else if (gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black") {
           if ((row != 0 && row != 1) && to == gameBoard.posToStr(row - 2, col - 2) && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
-            gameBoard.remove(row - 1, col - 1)
+            //gameBoard.remove(row - 1, col - 1)
             new Mover(false, posToStr(row - 1, col - 1), false)
           } else new Mover(false, "", false)
         } else new Mover(false, "", false)
