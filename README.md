@@ -35,3 +35,12 @@ The moves:
 
 <img src="Bild11.png" width = "275" height = "275"> <img src="Bild10-2.png" width = "275" height = "275"> <img src="Bild12.png" width = "275" height = "275">
 <br />
+
+CONTROLLS:
+-
+
+There are 2 ways to make your moves:
+- Typing your move into the terminal:
+  - If you need help, 'help' is your way to go
+- Using your mouse to move
+
