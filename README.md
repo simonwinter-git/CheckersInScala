@@ -19,6 +19,8 @@ The moves:
 - A normal piece can just move forward
 - Is an enemys piece on the field right on the next diagonal field, and the next field afterwards is empty, you can capture the enemys piece by jumping over and removing it from the gameboard.
 - If you want to move a piece, but the piece is able to capture the other players piece, you have to.
+
+<img src="Bild4.png" width = "300" height = "300"> <img src="Bild5.png" width = "300" height = "300"> <img src="Bild6.png" width = "300" height = "300">
 - Is there an opportunity to capture a next piece in the same play move, you have to until there is no more possible move
 - A piece which is reaching the opposite side of the gameboard is turning into a queen
 - The Queen can move in every diagonal direction and as many field as you want as long as the fields are empty
