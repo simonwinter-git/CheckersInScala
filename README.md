@@ -30,7 +30,7 @@ The moves:
 
 
 - A piece which is reaching the opposite side of the gameboard is turning into a queen
-- The Queen can move in every diagonal direction and as many field as you want as long as the fields are empty
+- The Queen can move in every diagonal direction and as many field as you want as long as the fields are empty 
 - Is an enemys piece on a field and the field afterwards is emtpy as well, the queen can capture it over the whole distance of its move:
 
 <img src="Bild11.png" width = "275" height = "275"> <img src="Bild10.png" width = "275" height = "275"> <img src="Bild12.png" width = "275" height = "275">
