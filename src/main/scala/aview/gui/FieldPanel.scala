@@ -114,7 +114,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
               controller.move(gui.fieldStart, gui.fieldDest)
               controller.set(row, col, Piece("queen", row, col, controller.getPiece(row, col).get.getColor))
               if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
-            } else controller.move(gui.fieldStart, gui.fieldDest); if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
+            } else controller.move(gui.fieldStart, gui.fieldDest)// if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
           } else print("Move not possible\n")
         }
 

@@ -120,32 +120,67 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
       case _ => {
 
         x = 1
-        while ((col + x-1 < Last) && gameBoard.field(row - x, col + x).piece.isEmpty) {
+        while ((col + x < Last) && gameBoard.field(row - x, col + x).piece.isEmpty) {
           x += 1
-          print(x+"= x\n")
         }
-        if (((toCol - col) - (x-1) <= 0) && ((x-1) >= (row - toRow)) && ((toCol-col) - (row-toRow) == 0) && (toCol - col > 0) && (toRow - row < 0)) return new Mover(true, "", false) //mitte nach rechts oben
+        if ((row != 0 && row != 1) && gameBoard.field(row - x, col + x).piece.isDefined && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x + 1), col + (x + 1)).piece.isEmpty) {
+          sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - (x + 1), col + (x + 1)).pos
+        }
+
+        x = 1
+        while ((col + x < Last) && gameBoard.field(row + x, col + x).piece.isEmpty) {
+          x += 1
+        }
+        if ((row != 0 && row != 1) && gameBoard.field(row + x, col + x).piece.isDefined && gameBoard.field(row + x, col + x).piece.get.getColor == "black" && gameBoard.field(row + (x + 1), col + (x + 1)).piece.isEmpty) {
+          sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row + (x + 1), col + (x + 1)).pos
+        }
+
+        x = 1
+        while ((col - x > 0) && gameBoard.field(row - x, col - x).piece.isEmpty) {
+          x += 1
+        }
+        if ((row != 0 && row != 1) && gameBoard.field(row - x, col - x).piece.isDefined && gameBoard.field(row - x, col - x).piece.get.getColor == "black" && gameBoard.field(row - (x + 1), col - (x - 1)).piece.isEmpty) {
+          sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - (x + 1), col - (x + 1)).pos
+        }
+
+        x = 1
+        while ((col - x > 0) && gameBoard.field(row + x, col - x).piece.isEmpty) {
+          x += 1
+        }
+        if ((row != 0 && row != 1) && gameBoard.field(row + x, col - x).piece.isDefined && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x + 1), col - (x + 1)).piece.isEmpty) {
+          sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row + (x + 1), col - (x + 1)).pos
+        }
+
+        print(sList.isEmpty)
+        if (sList.isEmpty) {
+        x = 1
+        while ((col + x <= Last) && gameBoard.field(row - x, col + x).piece.isEmpty) {
+          x += 1
+        }
+        if (((toCol - col) - (x - 1) <= 0) && ((x - 1) >= (row - toRow)) && ((toCol - col) - (row - toRow) == 0) && (toCol - col > 0) && (toRow - row < 0)) return new Mover(true, "", false) //mitte nach rechts oben
 
 
         x = 1
-        while ((col + x-1 < Last) && gameBoard.field(row + x, col + x).piece.isEmpty) {
+        while ((col + x <= Last) && gameBoard.field(row + x, col + x).piece.isEmpty) {
           x += 1
         }
-        if (((toCol - col) - (x-1) <= 0) && ((x-1) >= (toRow - row)) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row > 0)) return new Mover(true, "", false) //mitte nach rechts unten
+        if (((toCol - col) - (x - 1) <= 0) && ((x - 1) >= (toRow - row)) && ((toCol - col) - (toRow - row) == 0) && (toCol - col > 0) && (toRow - row > 0)) return new Mover(true, "", false) //mitte nach rechts unten
 
 
         x = 1
-        while ((col - (x-1) > 0) && gameBoard.field(row - x, col - x).piece.isEmpty) {
+        while ((col - x >= 0) && gameBoard.field(row - x, col - x).piece.isEmpty) {
           x += 1
         }
-        if (((col - toCol) - (x-1) <= 0) && ((x-1) >= (row - toRow)) && ((col-toCol) - (row-toRow) == 0) && (toCol - col < 0) && (toRow - row < 0)) return new Mover(true, "", false) //mitte nach links oben
+        if (((col - toCol) - (x - 1) <= 0) && ((x - 1) >= (row - toRow)) && ((col - toCol) - (row - toRow) == 0) && (toCol - col < 0) && (toRow - row < 0)) return new Mover(true, "", false) //mitte nach links oben
 
 
         x = 1
-        while ((col - (x-1) > 0) && gameBoard.field(row + x, col - x).piece.isEmpty) {
+        while ((col - x > 0) && gameBoard.field(row + x, col - x).piece.isEmpty) {
           x += 1
         }
-        if (((col - toCol) - (x-1) <= 0) && ((x-1) >= (toRow - row)) && ((col-toCol) - (toRow-row) == 0) && (toCol - col < 0) && (toRow - row > 0)) return new Mover(true, "", false) //mitte nach links unten
+        if (((col - toCol) - (x - 1) <= 0) && ((x - 1) >= (toRow - row)) && ((col - toCol) - (toRow - row) == 0) && (toCol - col < 0) && (toRow - row > 0)) return new Mover(true, "", false) //mitte nach links unten
+
+        }
 
 //schlagen:
 

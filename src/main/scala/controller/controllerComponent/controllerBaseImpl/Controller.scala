@@ -86,9 +86,13 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
       if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
       undoManager.doStep(new MoveCommand(start, dest, this))
       if (!cap.isBlank) {
-        cap = ""
+        //cap = ""
         gameBoard.getField(dest).getPiece.get.sList.clear
+        print(cap+"\n")
+        print(gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap)).getField(cap).getPiece.get.getColor+"lololol\n")
         this.movePossible(dest, dest)
+        print("list: "+ gameBoard.getField(cap).getPiece.get.getColor + "\n")
+        cap = ""
         if (gameBoard.getField(dest).getPiece.get.sList.nonEmpty) {
           gameState = WHITE_CAP
           destTemp = dest
