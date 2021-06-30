@@ -84,14 +84,14 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
       case _ => {
 
         x = 1
-        while (gameBoard.field(row - x, col + x).piece.isEmpty) {
+        while (gameBoard.field(row - x, col + x).piece.isEmpty && (col + x <= Last)) {
           x += 1
         }
         if (((toCol-col) - (x-1) <= 0) && ((x-1) >= (row - toRow)) && ((toCol-col) - (row-toRow) == 0) && (toCol - col > 0) && (toRow - row < 0)) return new Mover(true, "", false) //mitte zu rechts oben
 
 
         x = 1
-        while (gameBoard.field(row + x, col + x).piece.isEmpty) {
+        while (gameBoard.field(row + x, col + x).piece.isEmpty && (col + x <= Last)) {
           x += 1
         }
         if (((toCol-col) - (x-1) <= 0) && ((x-1) >= (toRow - row)) && ((toCol-col) - (toRow-row) == 0) && (toCol - col > 0) && (toRow - row > 0)) return new Mover(true, "", false) //mitte zu rechts unten
