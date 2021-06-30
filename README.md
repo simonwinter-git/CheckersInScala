@@ -15,7 +15,7 @@ Preparation:
 
 <img src="Bild1.png" width = "275" height = "275"> <img src="Bild2.png" width = "275" height = "275"> <img src="Bild3.png" width = "275" height = "275">
 
-:
+
 -
 
 The moves:
