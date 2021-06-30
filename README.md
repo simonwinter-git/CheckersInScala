@@ -42,5 +42,9 @@ CONTROLLS:
 There are 2 ways to make your moves:
 - Typing your move into the terminal:
   - If you need help, 'help' is your way to go
+  - 'new 8' or 'new 10' creates a new gameboard with your choosen size
+  - 'move XX YY' moves a piece from a field to a new field: Example: move B8 C7
+  - If you are not sure about a move, use 'try XX YY' to check if a move is legal
+  - There are a few more other commands you can find out with 'help'
 - Using your mouse to move
 
