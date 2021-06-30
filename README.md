@@ -16,6 +16,7 @@ Preparation:
 
 [![Alt text](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")
 ![Alt text](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")
+![Screenshot]![Alt text](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")
 
 The moves:
 - A normal piece can just move forward
