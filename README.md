@@ -14,7 +14,7 @@ Preparation:
 - Every player gets the first three rows on each side filled up with normal pieces on every red field
 
 <br />
-<img src="Bild1.png" width = "275" height = "275"> <img src="Bild2.png" width = "275" height = "275"> <img src="Bild3.png" width = "275" height = "275">
+(<img src="Bild1.png" width = "275" height = "275"> <img src="Bild2.png" width = "275" height = "275"> <img src="Bild3.png" width = "275" height = "275">)
 <br />
 
 The moves:
