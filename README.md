@@ -13,8 +13,7 @@ Preparation:
 - One does use only the red fields
 - Every player gets the first three rows on each side filled up with normal pieces on every red field
 
-<img src="Bild1.png" width = "400" height = "400">
-
+<img src="Bild1.png" width = "300" height = "300"> <img src="Bild2.png" width = "300" height = "300"> <img src="Bild3.png" width = "300" height = "300">
 The moves:
 - A normal piece can just move forward
 - Is an enemys piece on the field right on the next diagonal field, and the next field afterwards is empty, you can capture the enemys piece by jumping over and removing it from the gameboard.
