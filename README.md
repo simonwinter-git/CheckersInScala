@@ -13,10 +13,7 @@ Preparation:
 - One does use only the red fields
 - Every player gets the first three rows on each side filled up with normal pieces on every red field
 
-
-<p align="center">
-  <img src="https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png" width="350" title="hover text">
-</p>
+![plot](Bild1.png)
 
 The moves:
 - A normal piece can just move forward
