@@ -18,11 +18,11 @@ Preparation:
 The moves:
 - A normal piece can just move forward
 - Is an enemys piece on the field right on the next diagonal field, and the next field afterwards is empty, you can capture the enemys piece by jumping over and removing it from the gameboard.
-- If you want to move a piece, but the piece is able to capture the other players piece, you have to.
+- If you want to move a piece, but the piece is able to capture the other players piece, you have to:
 
 <img src="Bild4.png" width = "275" height = "275"> <img src="Bild5.png" width = "275" height = "275"> <img src="Bild6.png" width = "275" height = "275">
 
-- Is there an opportunity to capture a next piece in the same play move, you have to until there is no more possible move
+- Is there an opportunity to capture a next piece in the same play move, you have to until there is no more possible move:
 
 <img src="Bild7.png" width = "275" height = "275"> <img src="Bild8.png" width = "275" height = "275"> <img src="Bild9.png" width = "275" height = "275">
 
