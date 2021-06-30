@@ -80,6 +80,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   def move(start: String, dest: String): Unit = {
     if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {
       gameBoard.getField(start).getPiece.get.sList.clear
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
       if (this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_TURN
       if (!this.movePossible(start, dest).getRem.isBlank) gameState = WHITE_CAP; destTemp = dest
       undoManager.doStep(new MoveCommand(start, dest, this))
@@ -89,6 +90,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
     } else if (gameState == BLACK_TURN && gameBoard.getField(start).getPiece.get.getColor == "black") {
       gameBoard.getField(start).getPiece.get.sList.clear
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
       if (this.movePossible(start, dest).getRem.isBlank) gameState = WHITE_TURN
       if (!this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_CAP; destTemp = dest
       undoManager.doStep(new MoveCommand(start, dest, this))
@@ -99,6 +101,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
     else if (gameState == WHITE_CAP && start == destTemp) {
       gameBoard.getField(start).getPiece.get.sList.clear
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
       if (!this.movePossible(start, dest).getRem.isBlank && gameBoard.getField(start).getPiece.get.sList.nonEmpty) {
         undoManager.doStep(new MoveCommand(start, dest, this))
         if (gameBoard.getField(dest).getPiece.get.sList.isEmpty) gameState = BLACK_TURN
@@ -111,9 +114,10 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
     else if (gameState == BLACK_CAP && start == destTemp) {
       gameBoard.getField(start).getPiece.get.sList.clear
-      if (!this.movePossible(start, dest).getRem.isBlank && gameBoard.getField(start).getPiece.get.sList.nonEmpty) {
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
+      if (!this.movePossible(start, dest).getRem.isBlank && gameBoard.getField(start).getPiece.get.sListBlack.nonEmpty) {
         undoManager.doStep(new MoveCommand(start, dest, this))
-        if (gameBoard.getField(dest).getPiece.get.sList.isEmpty) gameState = WHITE_TURN
+        if (gameBoard.getField(dest).getPiece.get.sListBlack.isEmpty) gameState = WHITE_TURN
         destTemp = dest
         //gameBoard = gameBoard.move(start, dest)
         publish(new FieldChanged)

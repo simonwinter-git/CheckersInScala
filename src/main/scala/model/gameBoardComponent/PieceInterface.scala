@@ -8,6 +8,7 @@ import scala.collection.mutable.ListBuffer
 @ImplementedBy(classOf[Piece])
 trait PieceInterface {
   def sList: ListBuffer[String]
+  def sListBlack: ListBuffer[String]
   def state: String
   def row: Int
   def col: Int
