@@ -13,7 +13,7 @@ Preparation:
 - One does use only the red fields
 - Every player gets the first three rows on each side filled up with normal pieces on every red field
 
-![plot](Bild1.png)
+![plot](Bild1.png? size = 2)
 
 The moves:
 - A normal piece can just move forward
