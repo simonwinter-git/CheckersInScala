@@ -14,9 +14,9 @@ Preparation:
 - Every player gets the first three rows on each side filled up with normal pieces on every red field
 
 
-[![Alt text](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")
-![Alt text](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")
-![Screenshot]![Alt text](https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png?raw=true "Aufbau")
+<p align="center">
+  <img src="https://github.com/simonwinter-git/CheckersInScala/tree/movementFixes/src/main/Resources/Bild1.png" width="350" title="hover text">
+</p>
 
 The moves:
 - A normal piece can just move forward
