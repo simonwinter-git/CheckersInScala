@@ -71,11 +71,11 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
 
       case _ => {
 
-        if ((row != 0 && row != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
+        if ((row != 0 && row != 1) && (col != 0 && col != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col - 2).pos
         }
 
-        if ((row != 0 && row != 1) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
+        if ((row != 0 && row != 1) && (col != Last && col != (Last-1)) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col + 2).pos
         }
 

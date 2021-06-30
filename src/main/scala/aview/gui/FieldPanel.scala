@@ -108,7 +108,7 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
             val col = gui.fieldDest.charAt(0).toInt - 65
             var rem = false
             var which = ""
-            if (!controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.isBlank) rem = true; which = controller.movePossible(gui.fieldStart, gui.fieldDest).getRem
+            if (!controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.isBlank && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(gui.fieldStart.tail) - 1, gui.fieldStart.charAt(0).toInt - 65).get.getColor.charAt(0).toString) rem = true; which = controller.movePossible(gui.fieldStart, gui.fieldDest).getRem
             if (controller.movePossible(gui.fieldStart, gui.fieldDest).getQ && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(gui.fieldStart.tail) - 1, gui.fieldStart.charAt(0).toInt - 65).get.getColor.charAt(0).toString) {
               print(controller.getPiece(Integer.parseInt(gui.fieldStart.tail) - 1, gui.fieldStart.charAt(0).toInt - 65).get.getColor.charAt(0).toString)
               controller.move(gui.fieldStart, gui.fieldDest)

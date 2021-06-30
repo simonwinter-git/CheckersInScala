@@ -15,7 +15,7 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
 
   override var destTemp: String = ""
 
-  override var cap: ListBuffer[String] = ListBuffer()
+  override var cap: String = ""
 
   override def gameBoardSize: Int = 1
 

@@ -10,7 +10,7 @@ import scala.swing.Publisher
 trait ControllerInterface extends Publisher {
 
   def gameState: GameState
-  var cap: ListBuffer[String]
+  var cap: String
   var destTemp: String
   //def createEmptyGameBoard(size: Int): Unit
   def createNewGameBoard: Unit
