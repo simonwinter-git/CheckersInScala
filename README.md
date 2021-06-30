@@ -15,6 +15,7 @@ Preparation:
 
 <img src="Bild1.png" width = "275" height = "275"> <img src="Bild2.png" width = "275" height = "275"> <img src="Bild3.png" width = "275" height = "275">
 
+
 The moves:
 - A normal piece can just move forward
 - Is an enemys piece on the field right on the next diagonal field, and the next field afterwards is empty, you can capture the enemys piece by jumping over and removing it from the gameboard.
@@ -22,9 +23,11 @@ The moves:
 
 <img src="Bild4.png" width = "275" height = "275"> <img src="Bild5.png" width = "275" height = "275"> <img src="Bild6.png" width = "275" height = "275">
 
+
 - Is there an opportunity to capture a next piece in the same play move, you have to until there is no more possible move:
 
 <img src="Bild7.png" width = "275" height = "275"> <img src="Bild8.png" width = "275" height = "275"> <img src="Bild9.png" width = "275" height = "275">
+
 
 - A piece which is reaching the opposite side of the gameboard is turning into a queen
 - The Queen can move in every diagonal direction and as many field as you want as long as the fields are empty
