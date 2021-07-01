@@ -14,7 +14,7 @@ object Checkers {
   val tui = new Tui(controller)
   val gui = new Gui(controller)
   //controller.createNewGameBoard()
-  controller.createGameBoard(10)
+  controller.createGameBoard(8)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
