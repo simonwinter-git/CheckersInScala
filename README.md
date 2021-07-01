@@ -6,7 +6,7 @@ WELCOME TO CHECKERS
 -
 
 How to win:
-- The game ends if one player has less than 2 pieces or is unable to move with any of its pieces. 
+- The game ends if one player has less than 2 pieces or is unable to move with any of their pieces
 
 Preparation:
 - You are playing on a checkered board with the classic size 8 x 8 or the more common size 10 x 10
@@ -19,7 +19,7 @@ Preparation:
 
 The moves:
 - A normal piece can only move diagonally forward
-- If there is an opponent's piece on the field right next to yours (diagonally) and the field behind it is empty, you can capture the opponent's piece by jumping over and removing it from the gameboard.
+- If there is an opponent's piece on the field right next to yours (diagonally) and the field behind it is empty, you can capture the opponent's piece by jumping over and removing it from the gameboard
 - If you want to move a piece, but the piece is able to capture an opponent's piece, you have to capture it instead:
 
 <img src="/src/main/Resources/Bild4.png?raw=true" width = "275" height = "275"> <img src="/src/main/Resources/Bild5.png?raw=true" width = "275" height = "275"> <img src="/src/main/Resources/Bild6.png?raw=true" width = "275" height = "275">
