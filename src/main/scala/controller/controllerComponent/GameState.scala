@@ -12,8 +12,8 @@ object GameState extends Enumeration {
     WHITE_CAP -> "It's White's cap turn",
     BLACK_CAP -> "It's Black's cap turn",
     START -> "Start",
-    WHITE_WON -> "The game is over, white has won",
-    BLACK_WON -> "The game is over, black has won"
+    WHITE_WON -> "The game is over, White has won",
+    BLACK_WON -> "The game is over, Black has won"
   )
   def message(gameState: GameState) = {
     map(gameState)

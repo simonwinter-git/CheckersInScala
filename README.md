@@ -46,7 +46,6 @@ There are 2 ways to make your moves:
   - 'move XX YY' moves a piece from a field to a new field: Example: move B8 C7
   - If you are not sure about a move, use 'try XX YY' to check if a move is legal
   - There are a few more other commands you can find out with 'help'
-- Using your mouse to move your pieces:
+  - Using your mouse to move your pieces:
   - Click on the piece you want to move, the field is going to be marked
-  - Now click on the field you want to move your piece. If the move is illegal, the terminal will tell you! 
-  - TIP!: Sometimes it needs a few clicks to initialize the move
+  - Now click on the field you want to move your piece. If the move is illegal, the terminal will tell you!

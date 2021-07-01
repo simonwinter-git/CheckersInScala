@@ -77,102 +77,9 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new PrintTui)
   }
 
+
   def move(start: String, dest: String): Unit = {
-    if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {
-      //gameBoard.getField(start).getPiece.get.sList.clear
-      //gameBoard.getField(start).getPiece.get.sListBlack.clear
-      //this.movePossible(dest, dest)
-      //print(gameBoard.getField(dest).getPiece.get.sList)
-      if (this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_TURN
-      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
-      undoManager.doStep(new MoveCommand(start, dest, this))
-      //gameBoard.getField(dest).getPiece.get.sList.clear
-      //gameBoard.getField(dest).getPiece.get.sListBlack.clear
-      //this.movePossible(dest, dest)
-      if (!cap.isBlank) {
-        //cap = ""
-        //gameBoard.getField(start).getPiece.get.sList.clear
-        gameBoard.getField(dest).getPiece.get.sList.clear
-        print("\n"+cap+"\n")
-        this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
-        //print((2 + 65).toChar.toString + "= C!")
-        //print(gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap)).getField(cap).getPiece.get.getColor+"lololol\n")
-        this.movePossible(dest, dest)
-        //print("list: "+ gameBoard.getField(cap).getPiece.get.getColor + "\n")
-        cap = ""
-        if (gameBoard.getField(dest).getPiece.get.sList.nonEmpty) {
-          gameState = WHITE_CAP
-          destTemp = dest
-        } else gameState = BLACK_TURN
-      } else gameState = BLACK_TURN
-      cap = ""
-      //gameBoard = gameBoard.move(start, dest)
-      publish(new FieldChanged)
-      publish(new PrintTui)
-    }
 
-    else if (gameState == BLACK_TURN && gameBoard.getField(start).getPiece.get.getColor == "black") {
-      gameBoard.getField(start).getPiece.get.sList.clear
-      gameBoard.getField(start).getPiece.get.sListBlack.clear
-      this.movePossible(start, start)
-      if (this.movePossible(start, dest).getRem.isBlank) gameState = WHITE_TURN
-      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
-      undoManager.doStep(new MoveCommand(start, dest, this))
-      if (!cap.isBlank) {
-        cap = ""
-        gameBoard.getField(dest).getPiece.get.sListBlack.clear
-        this.movePossible(dest, dest)
-        if (gameBoard.getField(dest).getPiece.get.sListBlack.nonEmpty) {
-          gameState = BLACK_CAP
-          destTemp = dest
-        }
-        else gameState = WHITE_TURN
-      } else gameState = WHITE_TURN
-      cap = ""
-      //gameBoard = gameBoard.move(start, dest)
-      publish(new FieldChanged)
-      publish(new PrintTui)
-    }
-
-    else if (gameState == WHITE_CAP && start == destTemp) {
-      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem; print("test")
-      gameBoard.getField(start).getPiece.get.sList.clear
-      gameBoard.getField(start).getPiece.get.sListBlack.clear
-      this.movePossible(start, start)
-      if (gameBoard.getField(start).getPiece.get.sList.nonEmpty) {
-        if (!this.movePossible(start, dest).getRem.isBlank) {
-          undoManager.doStep(new MoveCommand(start, dest, this))
-          //gameBoard.getField(start).getPiece.get.sList.clear
-          gameBoard.getField(dest).getPiece.get.sList.clear
-          this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
-          this.movePossible(dest, dest)
-          if (gameBoard.getField(dest).getPiece.get.sList.isEmpty) gameState = BLACK_TURN
-          destTemp = dest
-          //gameBoard = gameBoard.move(start, dest)
-          publish(new FieldChanged)
-          publish(new PrintTui)
-          cap = ""
-        }
-      } else gameState = BLACK_TURN
-    }
-
-    else if (gameState == BLACK_CAP && start == destTemp) {
-      gameBoard.getField(start).getPiece.get.sList.clear
-      gameBoard.getField(start).getPiece.get.sListBlack.clear
-      this.movePossible(start, start)
-      if (gameBoard.getField(start).getPiece.get.sListBlack.nonEmpty) { //
-        if (!this.movePossible(start, dest).getRem.isBlank) {
-          undoManager.doStep(new MoveCommand(start, dest, this))
-          gameBoard.getField(dest).getPiece.get.sListBlack.clear
-          this.movePossible(dest, dest)
-          if (gameBoard.getField(dest).getPiece.get.sListBlack.isEmpty) gameState = WHITE_TURN
-          destTemp = dest
-          //gameBoard = gameBoard.move(start, dest)
-          publish(new FieldChanged)
-          publish(new PrintTui)
-        }
-      } else gameState = WHITE_TURN
-    }
     var white = 0
     var black = 0
     for {
@@ -185,12 +92,104 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
         black += 1
       }
     }
-    if (white <= 1) {
+    if (white < 2) {
       gameState = BLACK_WON
       publish(new PrintTui)
-    } else if (black <= 1) {
+    } else if (black < 2) {
       gameState = WHITE_WON
       publish(new PrintTui)
+    }
+
+    if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {
+      cap = ""
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
+      gameBoard.getField(start).getPiece.get.sList.clear
+      if (this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_TURN
+      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
+      undoManager.doStep(new MoveCommand(start, dest, this))
+      if (!cap.isBlank) {
+        gameBoard.getField(dest).getPiece.get.sList.clear
+        gameBoard.getField(dest).getPiece.get.sListBlack.clear
+        this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
+        this.movePossible(dest, dest)
+        cap = ""
+        if (gameBoard.getField(dest).getPiece.get.sList.nonEmpty) {
+          gameState = WHITE_CAP
+          destTemp = dest
+        } else gameState = BLACK_TURN
+      } else gameState = BLACK_TURN
+      cap = ""
+      publish(new FieldChanged)
+      publish(new PrintTui)
+      return
+    }
+
+    if (gameState == BLACK_TURN && gameBoard.getField(start).getPiece.get.getColor == "black") {
+      cap = ""
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
+      gameBoard.getField(start).getPiece.get.sList.clear
+      if (this.movePossible(start, dest).getRem.isBlank) gameState = WHITE_TURN
+      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
+      undoManager.doStep(new MoveCommand(start, dest, this))
+      if (!cap.isBlank) {
+        gameBoard.getField(dest).getPiece.get.sListBlack.clear
+        gameBoard.getField(dest).getPiece.get.sList.clear
+        this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
+        this.movePossible(dest, dest)
+        cap = ""
+        if (gameBoard.getField(dest).getPiece.get.sListBlack.nonEmpty) {
+          gameState = BLACK_CAP
+          destTemp = dest
+        } else gameState = WHITE_TURN
+      } else gameState = WHITE_TURN
+      cap = ""
+      publish(new FieldChanged)
+      publish(new PrintTui)
+      return
+    }
+
+    else if (gameState == WHITE_CAP && start == destTemp) {
+      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
+      gameBoard.getField(start).getPiece.get.sList.clear
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
+      this.movePossible(start, start)
+      if (gameBoard.getField(start).getPiece.get.sList.nonEmpty) {
+        if (!this.movePossible(start, dest).getRem.isBlank) {
+          undoManager.doStep(new MoveCommand(start, dest, this))
+          gameBoard.getField(dest).getPiece.get.sList.clear
+          gameBoard.getField(dest).getPiece.get.sListBlack.clear
+          this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
+          this.movePossible(dest, dest)
+          if (gameBoard.getField(dest).getPiece.get.sList.isEmpty) gameState = BLACK_TURN
+          destTemp = dest
+          publish(new FieldChanged)
+          publish(new PrintTui)
+          cap = ""
+        }
+      } else gameState = BLACK_TURN
+      return
+    }
+
+    else if (gameState == BLACK_CAP && start == destTemp) {
+      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
+      gameBoard.getField(start).getPiece.get.sList.clear
+      gameBoard.getField(start).getPiece.get.sListBlack.clear
+      this.movePossible(start, start)
+      if (gameBoard.getField(start).getPiece.get.sListBlack.nonEmpty) {
+        if (!this.movePossible(start, dest).getRem.isBlank) {
+          undoManager.doStep(new MoveCommand(start, dest, this))
+          gameBoard.getField(dest).getPiece.get.sList.clear
+          gameBoard.getField(dest).getPiece.get.sListBlack.clear
+          this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
+          this.movePossible(dest, dest)
+          if (gameBoard.getField(dest).getPiece.get.sListBlack.isEmpty) gameState = WHITE_TURN
+          destTemp = dest
+          publish(new FieldChanged)
+          publish(new PrintTui)
+          cap = ""
+        }
+      } else gameState = WHITE_TURN
+      return
     }
   }
 
