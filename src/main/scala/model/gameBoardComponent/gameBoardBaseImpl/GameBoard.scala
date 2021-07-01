@@ -19,9 +19,9 @@ case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterfac
 
   def field(row: Int, col: Int): Field = fields.field(row, col)
 
-  def colToInt(pos: String): Int = Integer.parseInt(pos.tail) - 1
+  def colToInt(pos: String): Int = pos.charAt(0).toInt - 65
 
-  def rowToInt(pos: String): Int = pos.charAt(0).toInt - 65
+  def rowToInt(pos: String): Int = Integer.parseInt(pos.tail) - 1
 
   def posToStr(row: Int, col: Int): String = (col + 65).toChar.toString + (row+1).toString
 

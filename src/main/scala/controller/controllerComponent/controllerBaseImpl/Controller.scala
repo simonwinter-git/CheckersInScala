@@ -79,25 +79,31 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def move(start: String, dest: String): Unit = {
     if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {
-      gameBoard.getField(start).getPiece.get.sList.clear
-      gameBoard.getField(start).getPiece.get.sListBlack.clear
-      this.movePossible(start, start)
+      //gameBoard.getField(start).getPiece.get.sList.clear
+      //gameBoard.getField(start).getPiece.get.sListBlack.clear
+      //this.movePossible(dest, dest)
+      //print(gameBoard.getField(dest).getPiece.get.sList)
       if (this.movePossible(start, dest).getRem.isBlank) gameState = BLACK_TURN
       if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem
       undoManager.doStep(new MoveCommand(start, dest, this))
+      //gameBoard.getField(dest).getPiece.get.sList.clear
+      //gameBoard.getField(dest).getPiece.get.sListBlack.clear
+      //this.movePossible(dest, dest)
       if (!cap.isBlank) {
         //cap = ""
+        //gameBoard.getField(start).getPiece.get.sList.clear
         gameBoard.getField(dest).getPiece.get.sList.clear
-        print(cap+"\n")
-        print(gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap)).getField(cap).getPiece.get.getColor+"lololol\n")
+        print("\n"+cap+"\n")
+        this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
+        //print((2 + 65).toChar.toString + "= C!")
+        //print(gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap)).getField(cap).getPiece.get.getColor+"lololol\n")
         this.movePossible(dest, dest)
-        print("list: "+ gameBoard.getField(cap).getPiece.get.getColor + "\n")
+        //print("list: "+ gameBoard.getField(cap).getPiece.get.getColor + "\n")
         cap = ""
         if (gameBoard.getField(dest).getPiece.get.sList.nonEmpty) {
           gameState = WHITE_CAP
           destTemp = dest
-        }
-        else gameState = BLACK_TURN
+        } else gameState = BLACK_TURN
       } else gameState = BLACK_TURN
       cap = ""
       //gameBoard = gameBoard.move(start, dest)
@@ -129,19 +135,23 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     }
 
     else if (gameState == WHITE_CAP && start == destTemp) {
+      if (!this.movePossible(start, dest).getRem.isBlank) cap = this.movePossible(start, dest).getRem; print("test")
       gameBoard.getField(start).getPiece.get.sList.clear
       gameBoard.getField(start).getPiece.get.sListBlack.clear
       this.movePossible(start, start)
-      if (gameBoard.getField(start).getPiece.get.sList.nonEmpty) { //
+      if (gameBoard.getField(start).getPiece.get.sList.nonEmpty) {
         if (!this.movePossible(start, dest).getRem.isBlank) {
           undoManager.doStep(new MoveCommand(start, dest, this))
+          //gameBoard.getField(start).getPiece.get.sList.clear
           gameBoard.getField(dest).getPiece.get.sList.clear
+          this.gameBoard = gameBoard.remove(gameBoard.rowToInt(cap), gameBoard.colToInt(cap))
           this.movePossible(dest, dest)
           if (gameBoard.getField(dest).getPiece.get.sList.isEmpty) gameState = BLACK_TURN
           destTemp = dest
           //gameBoard = gameBoard.move(start, dest)
           publish(new FieldChanged)
           publish(new PrintTui)
+          cap = ""
         }
       } else gameState = BLACK_TURN
     }
@@ -163,7 +173,25 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
         }
       } else gameState = WHITE_TURN
     }
-
+    var white = 0
+    var black = 0
+    for {
+      row <- 0 until gameBoard.size
+      col <- 0 until gameBoard.size
+    } {
+      if (field(row, col).isSet && field(row, col).getPiece.get.getColor == "white") {
+        white += 1
+      } else if (field(row, col).isSet && field(row, col).getPiece.get.getColor == "black") {
+        black += 1
+      }
+    }
+    if (white <= 1) {
+      gameState = BLACK_WON
+      publish(new PrintTui)
+    } else if (black <= 1) {
+      gameState = WHITE_WON
+      publish(new PrintTui)
+    }
   }
 
 
