@@ -9,6 +9,7 @@ import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterf
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.{Mover, UndoManager}
 
+import scala.Checkers.controller
 import scala.collection.mutable.ListBuffer
 import scala.swing.Publisher
 import scala.util.control.Breaks.break
@@ -94,10 +95,10 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     }
     if (white < 2) {
       gameState = BLACK_WON
-      publish(new PrintTui)
+      createGameBoard(gameBoard.size)
     } else if (black < 2) {
       gameState = WHITE_WON
-      publish(new PrintTui)
+      createGameBoard(gameBoard.size)
     }
 
     if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {

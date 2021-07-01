@@ -28,7 +28,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
         }
 
         if (sList.isEmpty) {
-          if (gameBoard.field(row - 1, col + 1).piece.isEmpty) {
+          if (row != 0 && gameBoard.field(row - 1, col + 1).piece.isEmpty) {
             if (to == gameBoard.posToStr(row - 1, col + 1)) {
               return new Mover(true, "", false)
             } else return new Mover(false, "", false)
@@ -50,7 +50,7 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
         }
 
         if (sList.isEmpty) {
-          if (gameBoard.field(row - 1, col - 1).piece.isEmpty) {
+          if (row != 0 && gameBoard.field(row - 1, col - 1).piece.isEmpty) {
             if (to == gameBoard.posToStr(row - 1, col - 1)) {
               if (Integer.parseInt(to.tail) - 1 == 0) {
                 return new Mover(true, "", true)
@@ -80,13 +80,13 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
         }
 
         if (sList.isEmpty) {
-          if (gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) {
+          if (row != 0 && gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) {
             if (Integer.parseInt(to.tail) - 1 == 0) {
               return new Mover(true, "", true)
             } else return new Mover(true, "", false)
           }
 
-          else if (gameBoard.field(row - 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col + 1)) {
+          else if (row != 0 && gameBoard.field(row - 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col + 1)) {
             if (Integer.parseInt(to.tail) - 1 == 0) {
               return new Mover(true, "", true)
             } else return new Mover(true, "", false)
@@ -94,17 +94,18 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
           new Mover(false, "", false)
         }
 
-        else if ((row != 0 && row != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col - 2)) {
+        else if ((row != 0 && row != 1 && col != 1 && col != 0) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col - 2)) {
           if (Integer.parseInt(to.tail) - 1 == 0) {
             new Mover(true, posToStr(row - 1, col - 1), true)
           } else new Mover(true, posToStr(row - 1, col - 1), false)
         }
 
-        else if ((row != 0 && row != 1) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col + 2)) {
+        else if ((row != 0 && row != 1 && col != Last-1 && col != Last) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row - 2, col + 2)) {
           if (Integer.parseInt(to.tail) - 1 == 0) {
             new Mover(true, posToStr(row - 1, col + 1), true)
           } else new Mover(true, posToStr(row - 1, col + 1), false)
         }
+
         else new Mover(false, "", false)
       }
     }
@@ -115,149 +116,92 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
     val Last: Int = gameBoard.size - 1
 
     col match {
-    case 0 => {
-
-      if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
-        sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col + 2).pos
-      }
-
-      if (sListBlack.isEmpty) {
-        if (gameBoard.field(row + 1, col + 1).piece.isEmpty) {
-          if (to == gameBoard.posToStr(row + 1, col + 1)) {
-            if (Integer.parseInt(to.tail) - 1 == Last) {
-              return new Mover(true, "", true)
-            }
-            return new Mover(true, "", false)
-          } else return new Mover(false, "", false)
-        } else return new Mover(false, "", false)
-      }
-
-      else if (gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white") {
-        if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && to == gameBoard.posToStr(row + 2, col + 2) && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
-          return new Mover(true, posToStr(row + 1, col + 1), false) //gameBoard.remove(row - 1, col + 1);
-        } else return new Mover(false, "", false)
-      } else new Mover(false, "", false)
-    }
-
-
-    case Last => {
-
-      if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
-        sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col - 2).pos
-      }
-
-      if (sListBlack.isEmpty) {
-        if (gameBoard.field(row + 1, col - 1).piece.isEmpty) {
-          if (to == gameBoard.posToStr(row + 1, col - 1)) {
-            return new Mover(true, "", false)
-          } else return new Mover(false, "", false)
-        } else return new Mover(false, "", false)
-      }
-
-      else if (gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white") {
-        if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && to == gameBoard.posToStr(row + 2, col - 2) && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
-          return new Mover(true, posToStr(row + 1, col - 1), false) // gameBoard.remove(row - 1, col - 1)
-        } else return new Mover(false, "", false)
-      } else new Mover(false, "", false)
-    }
-
-
-    case _ => {
-
-      if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
-        sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col - 2).pos
-      }
-
-      if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
-        sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col + 2).pos
-      }
-
-      if (sListBlack.isEmpty) {
-        if (gameBoard.field(row + 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row + 1, col - 1)) {
-          if (Integer.parseInt(to.tail) - 1 == 0) {
-            return new Mover(true, "", true)
-          } else return new Mover(true, "", false)
-        }
-
-        else if (gameBoard.field(row + 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row + 1, col + 1)) {
-          if (Integer.parseInt(to.tail) - 1 == 0) {
-            return new Mover(true, "", true)
-          } else return new Mover(true, "", false)
-        }
-        new Mover(false, "", false)
-      }
-
-      else if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row + 2, col - 2)) {
-        if (Integer.parseInt(to.tail) - 1 == 0) {
-          new Mover(true, posToStr(row + 1, col - 1), true)
-        } else new Mover(true, posToStr(row + 1, col - 1), false)
-      }
-
-      else if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row + 2, col + 2)) {
-        if (Integer.parseInt(to.tail) - 1 == 0) {
-          new Mover(true, posToStr(row + 1, col + 1), true)
-        } else new Mover(true, posToStr(row + 1, col + 1), false)
-      }
-      else new Mover(false, "", false)
-    }
-    /*col match {
-
       case 0 => {
-        if (gameBoard.field(row + 1, col + 1).piece.isEmpty) {
-          if (to == gameBoard.posToStr(row + 1, col + 1)) {
-            if (Integer.parseInt(to.tail) - 1 == Last) {
-              new Mover(true, "", true)
-            } else new Mover(true, "", false)
-          } else new Mover(false, "", false)
-        } else if (gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white") {
-          if ((row != Last + 1) && to == gameBoard.posToStr(row + 2, col + 2) && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
-            //gameBoard.remove(row + 1, col + 1)
-            new Mover(true, posToStr(row + 1, col + 1), false)
-          } else new Mover(false, "", false)
+
+        if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
+          sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col + 2).pos
+        }
+
+        if (sListBlack.isEmpty) {
+          if (row != Last && gameBoard.field(row + 1, col + 1).piece.isEmpty) {
+            if (to == gameBoard.posToStr(row + 1, col + 1)) {
+              if (Integer.parseInt(to.tail) - 1 == Last) {
+                return new Mover(true, "", true)
+              }
+              return new Mover(true, "", false)
+            } else return new Mover(false, "", false)
+          } else return new Mover(false, "", false)
+        }
+
+        else if (gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white") {
+          if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && to == gameBoard.posToStr(row + 2, col + 2) && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
+            return new Mover(true, posToStr(row + 1, col + 1), false) //gameBoard.remove(row - 1, col + 1);
+          } else return new Mover(false, "", false)
         } else new Mover(false, "", false)
       }
 
+
       case Last => {
-        if (gameBoard.field(row + 1, col - 1).piece.isEmpty) {
-          if (to == gameBoard.posToStr(row + 1, col - 1)) new Mover(true, "", false)
-          else new Mover(false, "", false)
-        } else if (gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white") {
-          if ((row != Last - 1) && to == gameBoard.posToStr(row + 2, col - 2) && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
-            //gameBoard.remove(row + 1, col - 1)
-            new Mover(true, posToStr(row + 1, col - 1), false)
-          } else new Mover(false, "", false)
+
+        if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
+          sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col - 2).pos
+        }
+
+        if (sListBlack.isEmpty) {
+          if (row != Last && gameBoard.field(row + 1, col - 1).piece.isEmpty) {
+            if (to == gameBoard.posToStr(row + 1, col - 1)) {
+              return new Mover(true, "", false)
+            } else return new Mover(false, "", false)
+          } else return new Mover(false, "", false)
+        }
+
+        else if (gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white") {
+          if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && to == gameBoard.posToStr(row + 2, col - 2) && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
+            return new Mover(true, posToStr(row + 1, col - 1), false) // gameBoard.remove(row - 1, col - 1)
+          } else return new Mover(false, "", false)
         } else new Mover(false, "", false)
       }
 
 
       case _ => {
 
-        if (gameBoard.field(row + 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row + 1, col - 1)) {
-          if (Integer.parseInt(to.tail) - 1 == Last) {
-            new Mover(true, "", true)
-          } else new Mover(true, "", false)
+        if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty) {
+          sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col - 2).pos
         }
 
-        else if (gameBoard.field(row + 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row + 1, col + 1)) {
-          if (Integer.parseInt(to.tail) - 1 == Last) {
-            new Mover(true, "", true)
-          } else new Mover(true, "", false)
+        if ((row != gameBoard.size - 1 && row != gameBoard.size - 2) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty) {
+          sListBlack += gameBoard.field(row, col).pos + " " + gameBoard.field(row + 2, col + 2).pos
         }
 
-        else if ((row != Last - 1) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row + 2, col - 2)) {
+        if (sListBlack.isEmpty) {
+          if (row != Last && gameBoard.field(row + 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row + 1, col - 1)) {
+            if (Integer.parseInt(to.tail) - 1 == Last) {
+              return new Mover(true, "", true)
+            } else return new Mover(true, "", false)
+          }
+
+          else if (row != Last && gameBoard.field(row + 1, col + 1).piece.isEmpty && to == gameBoard.posToStr(row + 1, col + 1)) {
+            if (Integer.parseInt(to.tail) - 1 == Last) {
+              return new Mover(true, "", true)
+            } else return new Mover(true, "", false)
+          }
+          new Mover(false, "", false)
+        }
+
+        else if ((row != Last && row != Last-1 && col != 0 && col != 1) && gameBoard.field(row + 1, col - 1).piece.isDefined && gameBoard.field(row + 1, col - 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col - 2).piece.isEmpty && to == gameBoard.posToStr(row + 2, col - 2)) {
           if (Integer.parseInt(to.tail) - 1 == Last) {
             new Mover(true, posToStr(row + 1, col - 1), true)
           } else new Mover(true, posToStr(row + 1, col - 1), false)
         }
 
-        else if ((row != Last - 1) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row + 2, col + 2)) {
+        else if ((row != Last && row != Last-1 && col != Last && col != Last-1) && gameBoard.field(row + 1, col + 1).piece.isDefined && gameBoard.field(row + 1, col + 1).piece.get.getColor == "white" && gameBoard.field(row + 2, col + 2).piece.isEmpty && to == gameBoard.posToStr(row + 2, col + 2)) {
           if (Integer.parseInt(to.tail) - 1 == Last) {
             new Mover(true, posToStr(row + 1, col + 1), true)
           } else new Mover(true, posToStr(row + 1, col + 1), false)
         }
 
         else new Mover(false, "", false)
-      }*/
+      }
     }
   }
 }

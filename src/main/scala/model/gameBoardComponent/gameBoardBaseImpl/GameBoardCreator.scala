@@ -15,14 +15,14 @@ class GameBoardCreator(size:Int) {
     for {index <- 1 to 3} {
       for {index2 <- 0 until size} {
         if ((index2 + index) % 2 == 0) {
-          gameBoard = gameBoard.set(size - index, index2, Some(Piece.apply("queen", size - index, index2, "white")))
+          gameBoard = gameBoard.set(size - index, index2, Some(Piece.apply("normal", size - index, index2, "white")))
         }
       }
     }
     for {index <- 0 to 2} {
       for {index2 <- 0 until size} {
         if ((index2 + index) % 2 == 0) {
-          gameBoard = gameBoard.set(index, index2, Some(Piece.apply("queen", index, index2, "black")))
+          gameBoard = gameBoard.set(index, index2, Some(Piece.apply("normal", index, index2, "black")))
         }
       }
     }
