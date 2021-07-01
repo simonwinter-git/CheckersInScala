@@ -12,8 +12,7 @@ Preparation:
 - You are playing on a checkered board with the classic size 8 x 8 or the more comon size 10 x 10 
 - One does use only the red fields
 - Every player gets the first three rows on each side filled up with normal pieces on every red field
-<img src="scr/main/Resources/Bild1.png?raw=true" width = "275" height = "275"> <img src="Bild2.png" width = "275" height = "275"> <img src="Bild3.png" width = "275" height = "275">
-![](main/Resources/Bild1.png)
+<img src="/scr/main/Resources/Bild1.png?raw=true" width = "275" height = "275"> <img src="Bild2.png" width = "275" height = "275"> <img src="Bild3.png" width = "275" height = "275">
 <br />
 
 The moves:
