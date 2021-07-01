@@ -41,11 +41,11 @@ CONTROLS:
 -
 
 There are 2 ways to make your moves:
-- When using your mouse to move the pieces:
+- Using your mouse to move the pieces:
   - Click on the piece you want to move and its field is going to be highlighted
   - Now click on the field you want to move your piece. If the move is illegal, the terminal will tell you!
 
-- Typing your move into the terminal:
+- Typing your moves into the terminal:
   - Inputs are case-insensitive, so every combination of capitalization will be registered the same way, e.g.: mOVe b8 C7 == move b8 c7
   - If you need help, simply typing 'help' is your way to go
   - 'new 8' or 'new 10' creates a new game board with the given size
