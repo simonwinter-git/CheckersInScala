@@ -47,7 +47,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
       case "HELP" =>
         print("\nThis is the help menu with information about possible TUI inputs.\nThe inputs are case-insensitive, so every combination of capitalization will be registered the same way.\n")
         print("\n\u001B[32mnew\u001B[0m: Creates a new Gameboard, filled with Pieces. \u001B[35mUsage\u001B[0m: \"\u001B[33mnew X\u001B[0m\", where X = either 8 or 10.\n")
-        print("\u001B[32msave\u001B[0m: Saves the current state of the game in a .json file. It can be loaded at a later point using \"\u001B[32msave\u001B[0m\".\n")
+        print("\u001B[32msave\u001B[0m: Saves the current state of the game in a .json file. It can be loaded at a later point using \"\u001B[32mload\u001B[0m\".\n")
         print("\u001B[32mload\u001B[0m: Loads a state of the game that was saved beforehand using \"\u001B[32msave\u001B[0m\".\n")
         print("\u001B[32mtry\u001B[0m: Returns a Boolean value of whether a certain move is possible or not. \u001B[35mUsage\u001B[0m: \"\u001B[33mtry XX YY\u001B[0m\", where XX and YY = field names, such as \"A1\" and \"B2\".\n")
         print("\u001B[32mmove\u001B[0m: Moves a piece from one field to another, capturing opponent's pieces in the process. \u001B[35mUsage\u001B[0m: \"\u001B[33mmove XX YY\u001B[0m\", where XX and YY = field names, such as \"A1\" and \"B2\".\n")

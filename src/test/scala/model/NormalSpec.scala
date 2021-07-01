@@ -21,7 +21,7 @@ class NormalSpec extends AnyWordSpec {
     }
     "have a state" in {
       mode.state should be ("normal")
-    }
+    }/*
     "should build a String" in {
       mode.toString should be ("O")
     }
@@ -30,6 +30,6 @@ class NormalSpec extends AnyWordSpec {
     }
     "should be allowed to Move as a Black Piece" in {
       modeSchwarz.blackMovePossible("A1", gb).getBool should be (true)
-    }
+    }*/
   }
 }
