@@ -7,8 +7,6 @@ import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterf
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, Piece}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 
 import scala.io.Source
 import play.api.libs.json._
@@ -29,9 +27,7 @@ class FileIO extends FileIOInterface{
       val row = (json \\ "row")(index).as[Int]
       val col = (json \\ "col")(index).as[Int]
       val field = (json \\ "field")(index).as[Field]
-      //val piece = (json \ "piece")(index)
       gameBoard = gameBoard.set(row, col, field.piece)
-
     }
     gameBoard
   }
@@ -105,6 +101,4 @@ class FileIO extends FileIOInterface{
       )
     )
   }
-
-
 }

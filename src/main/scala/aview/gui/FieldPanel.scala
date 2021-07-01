@@ -3,14 +3,10 @@ package aview.gui
 import java.awt.Color
 
 import scala.swing._
-import javax.swing.table._
-
 import scala.swing.event._
 import controller.controllerComponent.ControllerInterface
-import controller.controllerComponent.controllerBaseImpl.Controller
 import javax.swing.{BorderFactory, Icon, ImageIcon}
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
-import java.awt.GraphicsEnvironment
 import java.io.File
 
 import scala.Checkers.{gui, injector}
@@ -72,10 +68,8 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
         if (controller.gameBoardSize == 10) queenWhiteS
         else queenWhite
       }
-
       case _ => if (controller.gameBoardSize == 10) {
         labelX.icon = blankS} else labelX.icon = blank
-
     }
   }
 
@@ -87,21 +81,14 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
           if (myField.getPiece.isDefined) {
             gui.fieldStart = myField.getPos
             gui.flagTest = 1
-            //print(gui.fieldStart + " Start\n")
             gui.colorFlag = this
             field.background = new Color(150, 150, 150)
           }
         } else {
           gui.flagTest = 0
           gui.fieldDest = myField.getPos
-          //print(gui.fieldDest + " Dest\n")
           gui.colorFlag.background = new Color(118,0,0)
         }
-        /*if (controller.movePossible(gui.fieldStart, gui.fieldDest).getBool) {
-          print("move possible\n")
-          if (!controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.isBlank) controller.remove(controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.charAt(1).toInt - 49, controller.movePossible(gui.fieldStart, gui.fieldDest).getRem.charAt(0).toInt - 65)
-          controller.move(gui.fieldStart, gui.fieldDest)
-        } */
         if (!(gui.fieldDest == "") && gui.flagTest == 0) {
           if (controller.movePossible(gui.fieldStart, gui.fieldDest).getBool) {
             val row = Integer.parseInt(gui.fieldDest.tail)-1
@@ -114,16 +101,13 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
               controller.move(gui.fieldStart, gui.fieldDest)
               controller.set(row, col, Piece("queen", row, col, controller.getPiece(row, col).get.getColor))
               if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
-            } else controller.move(gui.fieldStart, gui.fieldDest)// if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
+            } else controller.move(gui.fieldStart, gui.fieldDest)
           } else print("Move not possible\n")
         }
-
     }
 
     pieceMatcher(label)
     contents += label
-    //label.text = fieldText()
-    //label.horizontalAlignment = Alignment.Right
 
     preferredSize = new Dimension(100, 100)
     background = backgroundColor
@@ -131,17 +115,13 @@ class FieldPanel(row: Int, col: Int, controller: ControllerInterface, background
     if (controller.gameBoardSize == 8) {
       border = BorderFactory.createEmptyBorder(0,9,13,0)
     } else border = BorderFactory.createEmptyBorder(-10,19,20,0)
-
     repaint
   }
-
 
   def redraw = {
     contents.clear
     pieceMatcher(label)
-    //label.text = fieldText()
     contents += field
     repaint
   }
-
 }

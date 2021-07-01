@@ -12,7 +12,6 @@ trait PieceInterface {
   def state: String
   def row: Int
   def col: Int
-  //def color: String
 
   def getColor: String
 

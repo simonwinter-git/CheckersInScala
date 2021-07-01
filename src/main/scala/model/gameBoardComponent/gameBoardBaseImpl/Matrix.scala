@@ -1,7 +1,5 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 
-//import com.google.inject.Inject
-
 case class Matrix[Field] (lines: Vector[Vector[Field]]) {
   def this(size: Int, filling:Field) = this(Vector.tabulate(size, size) { (row,col) => filling })
   val size: Int = lines.size

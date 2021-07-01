@@ -1,6 +1,4 @@
 package aview
-//import controller.controllerComponent.{ControllerInterface, GameState}
-//import controller.controllerComponent.controllerBaseImpl.{FieldChanged, GBSizeChanged}
 import java.awt.GraphicsEnvironment
 
 import controller.controllerComponent._
@@ -32,17 +30,18 @@ class Tui(controller: ControllerInterface) extends Reactor {
       case "REDO" => controller.redo
       case "FONTS" => val fonts: Array[String] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames(); for (i <- fonts) {print(i + "\n") }
       case "QUIT" => System.exit(0)
-      case "MOVE" => if (controller.movePossible(args(1), args(2)).getBool) {
+      case "MOVE" => if (controller.movePossible(args(1), args(2)).getBool) if (controller.movePossible(args(1), args(2)).getBool) {
         val row = Integer.parseInt(args(2).tail)-1
         val col = args(2).charAt(0).toInt - 65
         var rem = false
         var which = ""
-        if (!controller.movePossible(args(1), args(2)).getRem.isBlank) rem = true; which = controller.movePossible(args(1), args(2)).getRem
-        if (controller.movePossible(args(1), args(2)).getQ) {
+        if (!controller.movePossible(args(1), args(2)).getRem.isBlank && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(1).charAt(0).toInt - 65).get.getColor.charAt(0).toString) rem = true; which = controller.movePossible(args(1), args(2)).getRem
+        if (controller.movePossible(args(1), args(2)).getQ && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(0).charAt(1).toInt - 65).get.getColor.charAt(0).toString) {
+          print(controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(1).charAt(0).toInt - 65).get.getColor.charAt(0).toString)
           controller.move(args(1), args(2))
           controller.set(row, col, Piece("queen", row, col, controller.getPiece(row, col).get.getColor))
           if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
-        } else controller.move(args(1), args(2)); if (rem) controller.remove(Integer.parseInt(which.tail)-1, which.charAt(0).toInt - 65)
+        } else controller.move(args(1), args(2))
       } else print("Move not possible\n")
 
       case "HELP" =>
@@ -72,18 +71,4 @@ class Tui(controller: ControllerInterface) extends Reactor {
     println(controller.gameBoardToString)
     println(GameState.message(controller.gameState))
   }
-
-  //override def update: Unit = println(controller.gameBoardToString)
 }
-
-
-/*
-def tuiEntry(input: String): Unit = {
-  input match {
-  case "new8" => controller.createEmptyGameBoard(8)
-  case "new10" => controller.createEmptyGameBoard(10)
-  case "a6tob5" => controller.
-}
-}
-
- */

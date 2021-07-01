@@ -6,7 +6,6 @@ import controller.controllerComponent._
 import model.fileIoComponent._
 import model.gameBoardComponent.GameBoardInterface
 import model.gameBoardComponent.gameBoardAdvancedImpl.GameBoard
-//import model.gameBoardComponent.
 
 class CheckersModule extends AbstractModule with ScalaModule {
 

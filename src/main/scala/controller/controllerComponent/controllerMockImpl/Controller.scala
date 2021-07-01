@@ -7,8 +7,6 @@ import model.gameBoardComponent.gameBoardMockImpl.GameBoard
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import util.Mover
 
-import scala.collection.mutable.ListBuffer
-
 class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface {
 
   gameBoard = new GameBoard(1)
@@ -18,8 +16,6 @@ class Controller(var gameBoard: GameBoardInterface) extends ControllerInterface 
   override var cap: String = ""
 
   override def gameBoardSize: Int = 1
-
-  //override def createEmptyGameBoard(size: Int): Unit = {}
 
   override def createNewGameBoard: Unit = {}
 

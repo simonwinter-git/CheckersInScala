@@ -6,7 +6,6 @@ import model.fileIoComponent.FileIOInterface
 import model.gameBoardComponent.GameBoardInterface
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
-
 import scala.xml.{Elem, PrettyPrinter}
 
 class FileIO extends FileIOInterface {

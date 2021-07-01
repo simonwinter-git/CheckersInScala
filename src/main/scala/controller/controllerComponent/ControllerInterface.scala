@@ -3,16 +3,14 @@ import controller.controllerComponent.GameState.GameState
 import model.gameBoardComponent.{FieldInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.Piece
 import util.Mover
-
-import scala.collection.mutable.ListBuffer
 import scala.swing.Publisher
+import scala.swing.event.Event
 
 trait ControllerInterface extends Publisher {
 
   def gameState: GameState
   var cap: String
   var destTemp: String
-  //def createEmptyGameBoard(size: Int): Unit
   def createNewGameBoard: Unit
   def resize(newSize: Int): Unit
   def createGameBoard(size: Int): Unit
@@ -31,10 +29,7 @@ trait ControllerInterface extends Publisher {
   def field(row: Int, col: Int): FieldInterface
   def gameBoardSize: Int
   def statusText: String
-
 }
-
-import scala.swing.event.Event
 
 class FieldChanged extends Event
 case class GBSizeChanged(newSize: Int) extends Event

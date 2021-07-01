@@ -1,4 +1,5 @@
 package controller.controllerComponent.controllerBaseImpl
+
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions._
@@ -8,11 +9,8 @@ import model.fileIoComponent.FileIOInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.{Mover, UndoManager}
-
-import scala.Checkers.controller
-import scala.collection.mutable.ListBuffer
+import scala.Checkers.{controller, gui}
 import scala.swing.Publisher
-import scala.util.control.Breaks.break
 
 class Controller @Inject() (var gameBoard: GameBoardInterface) extends ControllerInterface with Publisher {
 
@@ -23,7 +21,6 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   var cap: String = ""
   var destTemp: String = ""
 
-  
   def createNewGameBoard(): Unit = {
     gameBoard.size match {
       case 8 => gameBoard = injector.instance[GameBoardInterface](Names.named("8")); gameState = WHITE_TURN
@@ -67,7 +64,6 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def set(row: Int, col: Int, piece: Piece): Unit = {
     undoManager.doStep(new SetCommand(row, col, Some(piece), this))
-    //gameBoard = gameBoard.set(row, col, piece)
     publish(new FieldChanged)
     publish(new PrintTui)
   }
@@ -78,28 +74,7 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     publish(new PrintTui)
   }
 
-
   def move(start: String, dest: String): Unit = {
-
-    var white = 0
-    var black = 0
-    for {
-      row <- 0 until gameBoard.size
-      col <- 0 until gameBoard.size
-    } {
-      if (field(row, col).isSet && field(row, col).getPiece.get.getColor == "white") {
-        white += 1
-      } else if (field(row, col).isSet && field(row, col).getPiece.get.getColor == "black") {
-        black += 1
-      }
-    }
-    if (white < 2) {
-      gameState = BLACK_WON
-      createGameBoard(gameBoard.size)
-    } else if (black < 2) {
-      gameState = WHITE_WON
-      createGameBoard(gameBoard.size)
-    }
 
     if (gameState == WHITE_TURN && gameBoard.getField(start).getPiece.get.getColor == "white") {
       cap = ""
@@ -197,6 +172,29 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
 
   def movePossible(start: String, dest: String): Mover = {
+
+    var white = 0
+    var black = 0
+    for {
+      row <- 0 until gameBoard.size
+      col <- 0 until gameBoard.size
+    } {
+      if (field(row, col).isSet && field(row, col).getPiece.get.getColor == "white") {
+        white += 1
+      } else if (field(row, col).isSet && field(row, col).getPiece.get.getColor == "black") {
+        black += 1
+      }
+    }
+    if (white < 2) {
+      gameState = BLACK_WON
+      createGameBoard(gameBoard.size)
+      gui.winField("Black")
+    } else if (black < 2) {
+      gameState = WHITE_WON
+      createGameBoard(gameBoard.size)
+      gui.winField("White")
+    }
+
     if (gameBoard.getField(start).piece.isDefined) {
       if (gameBoard.getField(start).piece.get.getColor == "black") gameBoard.blackMovePossible(start, dest)
       else gameBoard.whiteMovePossible(start, dest)
@@ -218,7 +216,6 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
 
   def undo: Unit = {
     undoManager.undoStep
-    //print(undoManager.undoStack)
     publish(new FieldChanged)
     publish(new PrintTui)
   }
@@ -236,10 +233,4 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
   def gameBoardSize: Int = gameBoard.size
 
   def statusText: String = GameState.message(gameState)
-  /*
-  def highlight(index: Int): Unit = {
-    gameBoard = gameBoard.highlight(index)
-    publish(new FieldChanged)
-  }
-  */
 }
