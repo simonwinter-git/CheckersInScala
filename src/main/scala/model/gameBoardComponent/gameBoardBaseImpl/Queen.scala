@@ -23,21 +23,25 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
     col match {
       case 0 => {
 
+
+
         x = 0
-        while (gameBoard.field(row - x, col + x).piece.isEmpty) {
+        while ((col + x < Last && row - x > 0) && gameBoard.field(row - x, col + x).piece.isEmpty || (x == 0)) {
           x += 1
         }
-        if ((row != 0 && row != 1) && gameBoard.field(row - x, col + x).piece.isDefined && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x + 1), col + (x + 1)).piece.isEmpty) {
+        if ((row != 0 && row-x != 0 && col != Last && col+x != Last) && gameBoard.field(row - x, col + x).piece.isDefined && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col + (x+1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - (x + 1), col + (x + 1)).pos
         }
 
         x = 0
-        while (gameBoard.field(row + x, col + x).piece.isEmpty) {
+        while ((col + x < Last && row + x < Last) && gameBoard.field(row + x, col + x).piece.isEmpty || (x == 0)) {
           x += 1
         }
-        if ((row != 0 && row != 1) && gameBoard.field(row + x, col + x).piece.isDefined && gameBoard.field(row + x, col + x).piece.get.getColor == "black" && gameBoard.field(row + (x + 1), col + (x + 1)).piece.isEmpty) {
+        if ((row != Last && row+x != Last && col != Last && col+x != Last) && gameBoard.field(row + x, col + x).piece.isDefined && gameBoard.field(row + x, col + x).piece.get.getColor == "black" && gameBoard.field(row + (x+1), col + (x+1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row + (x + 1), col + (x + 1)).pos
         }
+
+
 
         if (sList.isEmpty) {
         x = 0
@@ -59,8 +63,7 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
         while ((col + x <= Last && row - x >= 0) && gameBoard.field(row - x, col + x).piece.isEmpty || x == 0) {
           x += 1
         }
-        if (toCol == x+1 && row-toRow == x+1 && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col + (x+1)).piece.isEmpty && row - x > 0) return new Mover(true, posToStr(row - x, col + x), false) // schlagen linker rand nach rechts oben
-          //  dest = 6, 5+1 & 6 - 0 = 5+1 &&                  6-5 = 1, 0+5 = 5                                                      6-6 == 0, 0 + 6 = 6
+        if (toCol == x+1 && row-toRow == x+1 && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col + (x+1)).piece.isEmpty && row - x > 0) return new Mover(true, posToStr(row - x, col + x), false) // schlagen linker rand nach rechts oben         6-6 == 0, 0 + 6 = 6
         x = 0
         while ((col + x <= Last && row + x <= Last) && gameBoard.field(row + x, col + x).piece.isEmpty || x == 0) {
           x += 1
@@ -82,10 +85,10 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
         }
 
         x = 0
-        while (gameBoard.field(row + x, col - x).piece.isEmpty || x == 0) {
+        while ((row != Last && col != 0) && gameBoard.field(row + x, col - x).piece.isEmpty || x == 0) {
           x += 1
         }
-        if ((row != 0 && row != 1) && gameBoard.field(row + x, col - x).piece.isDefined && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x + 1), col - (x + 1)).piece.isEmpty) {
+        if ((row != Last && row+x != Last && col-x != 0 && col != 0) && gameBoard.field(row + x, col - x).piece.isDefined && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x + 1), col - (x + 1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row + (x + 1), col - (x + 1)).pos
         }
 
@@ -108,13 +111,13 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
         while ((col - x >= 0 && row - x >= 0) && gameBoard.field(row - x, col - x).piece.isEmpty || x == 0) {
           x += 1
         }
-        if (col - toCol == x+1 && row-toRow == x+1 && gameBoard.field(row - x, col - x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col - (x+1)).piece.isEmpty && row - x > 0) return new Mover(true, posToStr(row - x, col - x), false) // schlagen rechter rand nach links oben
+        if (col - toCol == x+1 && row-toRow == x+1 && gameBoard.field(row - x, col - x).piece.get.getColor == "black" && gameBoard.field(row - (x-1), col - (x-1)).piece.isEmpty && row - x > 0) return new Mover(true, posToStr(row - x, col - x), false) // schlagen rechter rand nach links oben
 
         x = 0
         while ((col - x >= 0 && row + x <= Last) && gameBoard.field(row + x, col - x).piece.isEmpty || x == 0) {
           x += 1
         }
-        if (col - toCol == x+1 && toRow-row == x+1 && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x+1), col - (x+1)).piece.isEmpty && row + x < Last) return new Mover(true, posToStr(row + x, col - x), false) // schlagen rechter rand nach links unten
+        if (col - toCol == x+1 && toRow-row == x+1 && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x-1), col - (x-1)).piece.isEmpty && row + x < Last) return new Mover(true, posToStr(row + x, col - x), false) // schlagen rechter rand nach links unten
 
         else new Mover(false, "", false)
       }
@@ -122,35 +125,34 @@ case class Queen(state: String = "queen", row: Int, col: Int, getColor: String) 
       case _ => {
 
         x = 0
-        while ((col + x <= Last && row - x >= 0) && gameBoard.field(row - x, col + x).piece.isEmpty || (x == 0)) {
+        while ((col + x < Last && row - x > 0) && gameBoard.field(row - x, col + x).piece.isEmpty || (x == 0)) {
           x += 1
         }
-        if ((row-x != 0 && row != 1 && col != Last-1 && col+x != Last) && gameBoard.field(row - (x-1), col + (x-1)).piece.isDefined && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col + (x+1)).piece.isEmpty) {
+        if ((row != 0 && row-x != 0 && col != Last && col+x != Last) && gameBoard.field(row - x, col + x).piece.isDefined && gameBoard.field(row - x, col + x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col + (x+1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - (x + 1), col + (x + 1)).pos
         }
 
         x = 0
-        while ((col + x <= Last && row + x <= Last) && gameBoard.field(row + x, col + x).piece.isEmpty || (x == 0)) {
+        while ((col + x < Last && row + x < Last) && gameBoard.field(row + x, col + x).piece.isEmpty || (x == 0)) {
           x += 1
         }
-        if ((row != Last-1 && row+x != Last && col != Last-1 && col+x != Last) && gameBoard.field(row + (x-1), col + (x-1)).piece.isDefined && gameBoard.field(row + x, col + x).piece.get.getColor == "black" && gameBoard.field(row + (x+1), col + (x+1)).piece.isEmpty) {
+        if ((row != Last && row+x != Last && col != Last && col+x != Last) && gameBoard.field(row + x, col + x).piece.isDefined && gameBoard.field(row + x, col + x).piece.get.getColor == "black" && gameBoard.field(row + (x+1), col + (x+1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row + (x + 1), col + (x + 1)).pos
         }
 
         x = 0
-        while ((col - x >= 0 && row - x >= 0) && gameBoard.field(row - x, col - x).piece.isEmpty || (x == 0)) {
+        while ((col - x > 0 && row - x > 0) && gameBoard.field(row - x, col - x).piece.isEmpty || (x == 0)) {
           x += 1
         }
-        if ((row-x != 0 && row != 1 && col-x != 0 && col != 1) && gameBoard.field(row - x, col - x).piece.isDefined && gameBoard.field(row - x, col - x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col - (x+1)).piece.isEmpty) {
+        if ((row != 0 && row-x != 0 && col != 0 && col-x != 0) && gameBoard.field(row - x, col - x).piece.isDefined && gameBoard.field(row - x, col - x).piece.get.getColor == "black" && gameBoard.field(row - (x+1), col - (x+1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - (x + 1), col - (x + 1)).pos
         }
 
         x = 0
-        while ((col - x >= 0 && row + x <= Last) && gameBoard.field(row + x, col - x).piece.isEmpty || (x == 0)) {
+        while ((col - x > 0 && row + x < Last) && gameBoard.field(row + x, col - x).piece.isEmpty || (x == 0)) {
           x += 1
         }
-        print(x)
-        if ((row != Last-1 && row+x != Last && col-x != 0 && col != 1) && gameBoard.field(row + (x-1), col - (x-1)).piece.isDefined && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x+1) , col - (x+1)).piece.isEmpty) {
+        if ((row != Last && row+x != Last && col != 0 && col-x != 0) && gameBoard.field(row + x, col - x).piece.isDefined && gameBoard.field(row + x, col - x).piece.get.getColor == "black" && gameBoard.field(row + (x+1) , col - (x+1)).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row + (x + 1), col - (x + 1)).pos
         }
 
