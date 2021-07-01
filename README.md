@@ -14,7 +14,7 @@ Preparation:
 - Only the non black fields are used
 - Every player gets pieces on the first 3 rows on every other field
 
-<img src="/src/main/Resources/Bild1.png?raw=true" width = "275" height = "275"> <img src="/src/main/Resources/Bild2.png?raw=true" width = "275" height = "275"> <img src="/src/main/Resources/Bild3.png?raw=true" width = "275" height = "275">
+<img src="/src/main/Resources/Bild.png?raw=true" width = "275" height = "275"> <img src="/src/main/Resources/Bild2.png?raw=true" width = "275" height = "275"> <img src="/src/main/Resources/Bild3.png?raw=true" width = "275" height = "275">
 <br />
 
 The moves:
