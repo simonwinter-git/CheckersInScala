@@ -1,4 +1,5 @@
 package model
+import model.playerComponent.Player
 import org.scalatest._
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
@@ -9,7 +10,7 @@ class PlayerSpec extends AnyWordSpec {
       player.name should be ("Simon")
     }
     "have a Checker" in {
-      player.checker should be (2)
+      player.timer should be (2)
     }
     "have a color" in {
       player.color should be ("white")

@@ -11,7 +11,8 @@
             <option value="$PROJECT_DIR$/project" />
           </set>
         </option>
-        <option name="sbtVersion" value="1.4.7" />
+        <option name="resolveSbtClassifiers" value="true" />
+        <option name="sbtVersion" value="1.5.3" />
       </SbtProjectSettings>
     </option>
   </component>
