@@ -1,13 +1,12 @@
 package model.gameBoardComponent.gameBoardBaseImpl
 import com.google.inject.Inject
 import model.gameBoardComponent.GameBoardInterface
-import util.{Mode, Mover}
+import util.Mover
 case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterface {
 
   def this(size: Int) = this(new Matrix[Field](size, Field("", None)))
 
   val size: Int = fields.size
-  var mode: Mode = Classic()
 
   def getField(pos: String): Field = {
     field(Integer.parseInt(pos.tail)-1, pos.charAt(0).toInt - 65)
@@ -25,10 +24,6 @@ case class GameBoard @Inject() (fields: Matrix[Field]) extends GameBoardInterfac
 
   def posToStr(row: Int, col: Int): String = (col + 65).toChar.toString + (row+1).toString
 
-  def setMode(mode: Mode): Unit = {
-    println("Mode set")
-    this.mode = mode
-  }
 
   override def toString: String = {
     val lineSeparator = ("+-" + ("--" * (size+1))) + "+\n"

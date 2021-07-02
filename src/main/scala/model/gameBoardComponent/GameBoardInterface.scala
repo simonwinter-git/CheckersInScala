@@ -1,10 +1,9 @@
 package model.gameBoardComponent
 import model.gameBoardComponent.gameBoardBaseImpl._
-import util.{Mode, Mover}
+import util.Mover
 
 trait GameBoardInterface {
   def size: Int
-  def mode: Mode
   def getField(pos: String): FieldInterface
   def remove(row: Int, col: Int): GameBoardInterface
   def set(row: Int, col: Int, piece: Option[Piece]): GameBoardInterface
@@ -12,7 +11,6 @@ trait GameBoardInterface {
   def colToInt(pos: String): Int
   def rowToInt(pos: String): Int
   def posToStr(row: Int, col: Int): String
-  def setMode(mode: Mode): Unit
   def toString: String
   def getPiece(row: Int, col: Int): Option[PieceInterface]
   def move(start: String, dest: String): GameBoardInterface

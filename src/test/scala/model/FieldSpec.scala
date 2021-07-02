@@ -9,11 +9,15 @@ class FieldSpec extends AnyWordSpec {
     val field = Field("A2", None)
     val field2 = Field("B3", Some(piece))
     "have a state" in {
-      field.pos should be ("A2")
-      field2.pos should be ("B3")
+      field.getPos should be ("A2")
+      field2.getPos should be ("B3")
     }
     "be a Piece" in {
-      field2.piece should be (Some(piece))
+      field2.getPiece should be (Some(piece))
+    }
+    "have a toString representation" in {
+      field.toString should be (" ")
+      field2.toString should be ("\u001B[30mO\u001B[0m")
     }
   }
 }
