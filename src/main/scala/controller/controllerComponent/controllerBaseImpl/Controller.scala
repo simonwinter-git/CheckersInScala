@@ -9,7 +9,7 @@ import model.fileIoComponent.FileIOInterface
 import model.gameBoardComponent.{FieldInterface, GameBoardInterface, PieceInterface}
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, GameBoardCreator, Piece}
 import util.{Mover, UndoManager}
-import scala.Checkers.{controller, gui}
+import scala.Checkers.{controller}
 import scala.swing.Publisher
 
 class Controller @Inject() (var gameBoard: GameBoardInterface) extends ControllerInterface with Publisher {
@@ -188,11 +188,11 @@ class Controller @Inject() (var gameBoard: GameBoardInterface) extends Controlle
     if (white < 2) {
       gameState = BLACK_WON
       createGameBoard(gameBoard.size)
-      gui.winField("Black")
+      //gui.winField("Black")
     } else if (black < 2) {
       gameState = WHITE_WON
       createGameBoard(gameBoard.size)
-      gui.winField("White")
+      //gui.winField("White")
     }
 
     if (gameBoard.getField(start).piece.isDefined) {
