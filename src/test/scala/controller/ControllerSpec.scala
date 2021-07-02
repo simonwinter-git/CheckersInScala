@@ -3,24 +3,26 @@ import model.gameBoardComponent.gameBoardBaseImpl
 import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, Piece}
 import org.scalatest._
 import controller.controllerComponent.GameState
-import controller.controllerComponent.GameState.{BLACK_TURN, WHITE_TURN}
+import controller.controllerComponent.GameState.{BLACK_TURN, WHITE_TURN, WHITE_WON, BLACK_WON}
 import controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
-import util.Observer
+import util.{Mover, Observer}
 class ControllerSpec extends AnyWordSpec {
   "A Controller" should {
-    val gb = new GameBoard(3)
+    val gb = new GameBoard(8)
     val controller = new Controller(gb)
     "use undo/redo correctly" in {
       controller.gameBoard.field(0,0).isSet should be (false)
       controller.set(0,0, Piece.apply("normal", 0, 0, "white"))
-      controller.set(1,1, Piece.apply("queen", 1, 1, "white"))
+      controller.set(4,4, Piece.apply("normal", 4, 4, "white"))
+      controller.set(5,5, Piece.apply("normal", 5, 5, "white"))
+      controller.set(1,1, Piece.apply("normal", 1, 1, "black"))
       controller.gameBoard.field(0,0).isSet should be (true)
       controller.isSet(0,0) should be (true)
       controller.undo
       controller.undo
-      controller.gameBoard.field(0,0).isSet should be (false)
+      controller.gameBoard.field(0,0).isSet should be (true)
       controller.redo
       controller.redo
       controller.gameBoard.field(0,0).isSet should be (true)
@@ -33,7 +35,7 @@ class ControllerSpec extends AnyWordSpec {
       controller.gameBoard.getField("B2").toString should be ("Q")
     } */
     "have the right size" in {
-      controller.gameBoardSize should be (3)
+      controller.gameBoardSize should be (8)
     }
     "deliver the right message about the next turn" in {
       controller.statusText should be ("It's White's turn")
@@ -57,6 +59,38 @@ class ControllerSpec extends AnyWordSpec {
     "be able to resize the Gameboard" in {
       controller.resize(8)
       controller.gameBoardSize should be (8)
+    }
+    "be able to move" in {
+      val gb2 = new GameBoard(8)
+      val controller = new Controller(gb2)
+      controller.set(0,0, Piece.apply("normal", 0, 0, "white"))
+      controller.set(4,4, Piece.apply("normal", 4, 4, "white"))
+      controller.set(5,5, Piece.apply("normal", 5, 5, "white"))
+      controller.set(1,1, Piece.apply("normal", 1, 1, "black"))
+      controller.set(7,7, Piece.apply("normal", 7, 7, "black"))
+      controller.set(6,7, Piece.apply("normal", 6, 7, "black"))
+      controller.gameState should be (WHITE_TURN)
+      controller.move("A1", "C3")
+      controller.gameState should be (BLACK_TURN)
+      controller.move("B2", "C4")
+      controller.gameState should be (WHITE_TURN)
+    }
+    "be able to check if a move is possible" in {
+      controller.createNewGameBoard()
+      controller.set(0,0, Piece.apply("normal", 0, 0, "black"))
+      controller.set(4,4, Piece.apply("normal", 4, 4, "black"))
+      controller.set(5,5, Piece.apply("normal", 5, 5, "black"))
+      controller.set(1,1, Piece.apply("normal", 1, 1, "white"))
+      controller.remove(2, 2)
+      controller.gameState = BLACK_TURN
+      val mov: Mover = controller.movePossible("A1", "C3")
+      controller.move("A1", "C3")
+      controller.getPiece(2,2).get.getColor should be ("black")
+      mov.getBool should be (false)
+      mov.getRem should be ("")
+      mov.getQ should be (false)
+      controller.movePossible("C3", "C3")
+      controller.gameState should be (WHITE_TURN)
     }
   }
 }
