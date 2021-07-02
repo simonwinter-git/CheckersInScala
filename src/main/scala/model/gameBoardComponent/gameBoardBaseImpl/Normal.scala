@@ -72,7 +72,6 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
         if ((row != 0 && row != 1) && (col != Last && col != (Last-1)) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col + 2).pos
         }
-        print(sList)
         if (sList.isEmpty) {
           if (row != 0 && gameBoard.field(row - 1, col - 1).piece.isEmpty && to == gameBoard.posToStr(row - 1, col - 1)) {
             if (Integer.parseInt(to.tail) - 1 == 0) {
