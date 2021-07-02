@@ -35,7 +35,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
         val col = args(2).charAt(0).toInt - 65
         var rem = false
         var which = ""
-        if (!controller.movePossible(args(1), args(2)).getRem.isBlank && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(1).charAt(0).toInt - 65).get.getColor.charAt(0).toString) rem = true; which = controller.movePossible(args(1), args(2)).getRem
+        if (!controller.movePossible(args(1), args(2)).getRem.isEmpty && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(1).charAt(0).toInt - 65).get.getColor.charAt(0).toString) rem = true; which = controller.movePossible(args(1), args(2)).getRem
         if (controller.movePossible(args(1), args(2)).getQ && controller.gameState.toString.charAt(0).toString.toLowerCase == controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(0).charAt(1).toInt - 65).get.getColor.charAt(0).toString) {
           print(controller.getPiece(Integer.parseInt(args(1).tail) - 1, args(1).charAt(0).toInt - 65).get.getColor.charAt(0).toString)
           controller.move(args(1), args(2))
