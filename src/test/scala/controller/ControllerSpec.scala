@@ -1,13 +1,14 @@
 package controller
-import model.gameBoardComponent.gameBoardBaseImpl
-import model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, Piece}
+
+import checkers.controller.controllerComponent.GameState
+import checkers.controller.controllerComponent.controllerBaseImpl.Controller
+import checkers.model.gameBoardComponent.gameBoardBaseImpl
+import checkers.model.gameBoardComponent.gameBoardBaseImpl.{Field, GameBoard, Piece}
 import org.scalatest._
-import controller.controllerComponent.GameState
-import controller.controllerComponent.GameState.{BLACK_TURN, WHITE_TURN, WHITE_WON, BLACK_WON}
-import controller.controllerComponent.controllerBaseImpl.Controller
+import GameState.{BLACK_TURN, WHITE_TURN, WHITE_WON, BLACK_WON}
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.wordspec._
-import util.{Mover, Observer}
+import checkers.util.{Mover, Observer}
 class ControllerSpec extends AnyWordSpec {
   "A Controller" should {
     val gb = new GameBoard(8)
