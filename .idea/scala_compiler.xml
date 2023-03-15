@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="sbt 1" modules="CheckersInScala,checkersinscala" />
+    <profile name="sbt 1" modules="checkersinscala" />
+    <profile name="sbt 2" modules="CheckersInScala">
+      <parameters>
+        <parameter value="-P:semanticdb:synthetics:on" />
+        <parameter value="-Yrangepos" />
+        <parameter value="-P:semanticdb:targetroot:C:\Users\petri\IdeaProjects\CheckersInScala\target\scala-2.13\meta" />
+      </parameters>
+      <plugins>
+        <plugin path="C:\Users\petri\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scalameta\semanticdb-scalac_2.13.6\4.4.31\semanticdb-scalac_2.13.6-4.4.31.jar" />
+      </plugins>
+    </profile>
   </component>
 </project>
