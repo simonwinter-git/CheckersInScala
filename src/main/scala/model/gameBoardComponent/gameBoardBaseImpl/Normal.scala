@@ -14,13 +14,71 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
     (col + 65).toChar.toString + (row + 49).toChar.toString
   }
 
+
+/*
+
+// case 0 = piece_can_capture(curr_piece_location, pieceIsDefined, gamhasColor, canJumpto)
+// helper function: ichhabkeinname(pieceIsDefined, pieceHasColor, fieldIsDefined, fieldIsEmpty)
+// canJumpTo() -> case ich bin links, case ich bin rechts, ich bin mitte
+// checkSchlagliste((row1, row2), (col1, col2), gameboard.piece.isDefined, gameboard.field.isDefined, getColor, isempty)
+//
+// checkoutofboundsField()
+// capturable -> checkt piece defined, farbe richtig, feld leer -- glaube LR nicht wichtig
+// SINN: checkNEWSchlagliste(  checkOOB(row,col), capturable()) -> schönere funktion, lesbarer
+//      SINN: checkNEWSchlagliste(row,col)
+
+
+if ((row != 0 && row != 1) && (col != 0 && col != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
+  sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col - 2).pos
+}
+// rechts schlagen
+if ((row != 0 && row != 1) && (col != Last && col != (Last-1)) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
+  sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col + 2).pos
+}
+
+
+*/
+
+  def checkOOB(row: Int, col: Int, gameBoard: GameBoard): Boolean = {
+    val Last: Int = gameBoard.size - 1
+    val SndLast: Int = Last - 1
+    getColor match {
+      case "white" =>
+        col match {
+          case 0 | 1 | SndLast | Last =>
+            if (row == 0 || row == 1) return true
+          case _ =>
+            return false
+        }
+      case "black" =>
+        col match {
+          case 0 | 1 | SndLast | Last =>
+            if (Last == 0 || SndLast == 1) return true
+          case _ =>
+            return false
+        }
+    }
+    false
+
+  }
+
+
+
+
+
+
+
   override def whiteMovePossible(to: String, gameBoard: GameBoard): Mover = {
     val Last: Int = gameBoard.size - 1
 
     col match {
 
       case 0 =>
-
+        // case 0 = piece_can_capture(curr_piece_location, pieceIsDefined, gamhasColor, canJumpto)
+        // helper function: ichhabkeinname(pieceIsDefined, pieceHasColor, fieldIsDefined, fieldIsEmpty)
+        // canJumpTo() -> case ich bin links, case ich bin rechts, ich bin mitte
+        // checkSchlagliste((row1, row2), piece.isDefined)
+        //
         if ((row != 0 && row != 1) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col + 2).pos
         }
@@ -64,11 +122,21 @@ case class Normal(state: String = "normal", row: Int, col: Int, getColor: String
 
 
       case _ =>
+        // case 0 = piece_can_capture(curr_piece_location, pieceIsDefined, gamhasColor, canJumpto)
+        // helper function: ichhabkeinname(pieceIsDefined, pieceHasColor, fieldIsDefined, fieldIsEmpty)
+        // canJumpTo() -> case ich bin links, case ich bin rechts, ich bin mitte
+        // checkSchlagliste((row1, row2), (col1, col2), gameboard.piece.isDefined, gameboard.field.isDefined, getColor, isempty)
+        //
+        // checkoutofboundsField()
+        // capturable -> checkt piece defined, farbe richtig, feld leer -- glaube LR nicht wichtig
+        // SINN: checkNEWSchlagliste(  checkOOB(row,col), capturable()) -> schönere funktion, lesbarer
+        //      SINN: checkNEWSchlagliste(row,col)
+
 
         if ((row != 0 && row != 1) && (col != 0 && col != 1) && gameBoard.field(row - 1, col - 1).piece.isDefined && gameBoard.field(row - 1, col - 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col - 2).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col - 2).pos
         }
-
+        // rechts schlagen
         if ((row != 0 && row != 1) && (col != Last && col != (Last-1)) && gameBoard.field(row - 1, col + 1).piece.isDefined && gameBoard.field(row - 1, col + 1).piece.get.getColor == "black" && gameBoard.field(row - 2, col + 2).piece.isEmpty) {
           sList += gameBoard.field(row, col).pos + " " + gameBoard.field(row - 2, col + 2).pos
         }
